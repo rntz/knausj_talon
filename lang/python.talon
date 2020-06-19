@@ -19,6 +19,7 @@ state for: "for "
 state switch:
 	insert("switch ()")
 	edit.left()
+state return: "return "
 state case:
 	insert("case \nbreak;")
 	edit.up()

@@ -13,12 +13,12 @@ run make: "make\n"
 run make (durr | dear): "mkdir "
 (jay son | jason ): "json"
 (http | htp): "http"
-tls: "tls"
+#tls: "tls"
 M D five: "md5"
 (regex | rejex): "regex"
-args: 
-	insert("()")
-	key(left)
+#args: 
+#	insert("()")
+#	key(left)
 [inside] (index | array): 
 	insert("[]") 
 	key(left)
@@ -30,16 +30,16 @@ comment see: "// "
 word queue: "queue"
 word eye: "eye"
 word iter: "iter"
-word no: "NULL"
-word cmd: "cmd"
-word dup: "dup"
+#word no: "NULL"
+#word cmd: "cmd"
+#word dup: "dup"
 word streak: 
 	insert("streq()") 
 	key(left)
 word printf: "printf"
 word shell: "shell"
 dunder in it: "__init__"
-self taught: "self."
+#self taught: "self."
 (dickt in it | inside bracket | in bracket): 
 	insert("{}") 
 	key(left)
@@ -54,8 +54,8 @@ string U T F eight:
 state past: "pass"
 zoom [in]: edit.zoom_in()
 zoom out: edit.zoom_out()
-(page | scroll) up: key(pgup)
-(page | scroll) [down]: key(pgdown)
+scroll up: key(pgup)
+scroll [down]: key(pgdown)
 copy that: edit.copy()
 cut that: edit.cut()
 paste that: edit.paste()

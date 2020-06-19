@@ -34,3 +34,7 @@ user:
 comment: 
 	edit.line_start()
 	insert("#")
+
+pronounce <user.key>: insert(key)
+pronounce <user.special>: insert(special)
+pronounce <user.arrows>: insert(arrows)

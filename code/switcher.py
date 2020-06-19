@@ -7,8 +7,8 @@ import platform
 
 app_cache = {}
 overrides = {
-    'grip': 'DataGrip', 
-    'term': 'iTerm2'
+#    'grip': 'DataGrip', 
+#    'term': 'iTerm2'
 }
 
 mod = Module()
@@ -45,7 +45,7 @@ def get_words(name):
 @mod.action_class
 class Actions:
     def switcher_focus(name: str):
-        """Focus a new application by  name"""
+        """Focus a new application by name"""
         for app in ui.apps():
             #print("app.name:" + app.name)
             #print("app.bundler: " + app.bundle)

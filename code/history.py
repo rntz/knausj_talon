@@ -37,7 +37,7 @@ class Actions:
         """Enables the history"""
         global is_showing
         gui.show()
-        gui.freeze()
+        #gui.freeze()
         is_showing = True
 
     def history_disable():

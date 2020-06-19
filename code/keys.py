@@ -65,10 +65,12 @@ def key(m) -> str:
 
 ctx = Context()
 ctx.lists['self.modifier'] = {
-    'command': 'cmd',
-    'control': 'ctrl',   #'troll':   'ctrl',
-    'shift':   'shift',  #'sky':     'shift',
-    'alt':     'alt',    'option':  'alt',
+    #'command': 'cmd',
+    'troll':   'ctrl',     #'control': 'ctrl',
+    'kid':     'ctrl',  'kit':  'ctrl',
+    'sky':     'shift', #'ship':   'shift',
+    # 'alt':     'alt',    'option':  'alt',
+    'alter':    'alt', # 'meta':  'alt',
     'super':   'super',
 }
 
@@ -79,27 +81,28 @@ ctx.lists['self.symbol'] = {
     'dot': '.', 'period': '.',
     'semi': ';', 'semicolon': ';',
     'quote': "'",
-    'L square': '[', 'left square': '[', 'square': '[',
-    'R square': ']', 'right square': ']',
     'forward slash': '/', 'slash': '/',
     'backslash': '\\',
     'minus': '-', 'dash': '-',
     'equals': '=',
     'plus': '+',
-    'question mark': '?',
+    'questo': '?', 'question mark': '?',
     'tilde': '~',
     'bang': '!', 'exclamation point': '!', 
     'dollar': '$', 'dollar sign': '$',
     'down score': '_', 'under score': '_',
     'colon': ':',
-    'paren': '(', 'L paren': '(', 'left paren': '(',
-    'R paren': ')', 'right paren': ')',
-    'brace': '{', 'left brace': '{',
-    'R brace': '}', 'right brace': '}',
-    'angle': '<', 'left angle': '<', 'less than': '<',
-    'rangle': '>', 'R angle': '>', 'right angle': '>', 'greater than': '>',
+    'paren': '(', 'open paren': '(', 'close paren': ')',
+#    'L paren': '(', 'R paren': ')', 'right paren': ')',
+    'square': '[', 'open square': ']', 'close square': ']',
+#    'L square': '[', 'left square': '[', 'R square': ']', 'right square': ']',
+    'curly': '{', 'open curly': '{', 'close curly': '}',
+#    'left curly': '{', 'R curly': '}', 'right curly': '}',
+    'angle': '<', 'open angle': '<', 'close angle': '>',
+#    'left angle': '<', 'rangle': '>', 'R angle': '>', 'right angle': '>',
+    'less than': '<', 'greater than': '>',
     'star': '*', 'asterisk': '*',
-    'pound': '#', 'hash': '#', 'hash sign': '#', 'number sign': '#',
+    'octo': '#', 'hash': '#',
     'percent': '%', 'percent sign': '%',
     'caret': '^',
     'at sign': '@',
@@ -118,17 +121,20 @@ ctx.lists['self.arrow'] = {
 
 simple_keys = [
     'tab', 'escape', 'enter', 'space',
-    'home', 'pageup', 'pagedown', 'end',
-    'insert',
+    'pageup', 'pagedown',
+    #'super',
+    # 'home', 'end', 'insert',
 ]
 
 alternate_keys = {
-    'delete': 'backspace', 
-    #'junk': 'backspace',
-    'forward delete': 'delete',
+    #'delete': 'backspace',
+    'junk': 'backspace',
+    'delete': 'delete', 'forward junk': 'delete',
+    'homer': 'home', 'end line': 'end', 'tap insert': 'insert',
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
+keys.update({'tap ' + x: x for x in ctx.lists['self.modifier']})
 ctx.lists['self.special'] = keys
 ctx.lists['self.function'] = {f"F {default_f_digits[i]}": f"f{i + 1}" for i in range(12)}
 

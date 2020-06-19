@@ -32,11 +32,11 @@ action(app.window_hide_others):
 	
 #requires easy window switcher or equivalent (built into most Linux)
 action(app.window_next): 
-	key(alt-`)
+	key(alt-tab)
 
 action(app.window_open):
 	key(ctrl-n)
 
 #requires easy window switcher or equivalent (built into most Linux)
 action(app.window_previous): 
-	key(alt-shift-`)
+	key(alt-shift-tab)

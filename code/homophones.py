@@ -113,7 +113,7 @@ def raise_homophones(word, forced=False, selection=False):
 
     show_help = False
     gui.show()
-    gui.freeze()
+    #gui.freeze()
     
 @imgui.open(y=0,x=main_screen.width/2.6)
 def gui(gui: imgui.GUI):
@@ -202,4 +202,3 @@ def homophones_formatted_selection(m):
 
 ctx.lists['self.homophones_canonicals'] = canonical_list
 ctx.lists['self.homophones_selections'] = []
- 
