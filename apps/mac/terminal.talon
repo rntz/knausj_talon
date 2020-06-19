@@ -3,6 +3,8 @@ app: Terminal
 app: iTerm2
 app: com.apple.Terminal
 -
+tag(): terminal
+tag(): file_manager
 action(user.file_manager_open_parent):
     insert("cd ..")
     key(enter)
@@ -23,8 +25,6 @@ rerun search:
 run last:
   key(up)
   key(enter)
-kill all:
-  key(ctrl-c)
 action(edit.page_down):
   key(command-pagedown)
 action(edit.page_up):

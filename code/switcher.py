@@ -3,13 +3,23 @@ from talon.voice import Capture
 import re
 import time
 import os
-import platform
+# Construct at startup a list of overides for application names (similar to how homophone list is managed)
+# ie for a given talon recognition word set  `one note`, recognized this in these switcher functions as `ONENOTE`
+# the list is a comma seperated `<Recognized Words>, <Overide>`
+#TODO: Consider put list csv's (homophones.csv, app_name_overrides.csv) files together in a seperate directory,`knausj_talon/lists`
+cwd = os.path.dirname(os.path.realpath(__file__))
+overrides_file = os.path.join(cwd, "app_name_overrides.csv")
+overrides ={}
+with open(overrides_file, "r") as f:
+    for line in f:
+        line = line.rstrip()
+        line = line.split(",")
+        overrides[line[0].lower()] = line[1].strip()
+
+print(f'knausj_talon.switcher------------ app name overrides:{overrides}')
 
 app_cache = {}
-overrides = {
-#    'grip': 'DataGrip', 
-#    'term': 'iTerm2'
-}
+
 
 mod = Module()
 mod.list('running', desc='all running applications')
@@ -47,9 +57,8 @@ class Actions:
     def switcher_focus(name: str):
         """Focus a new application by name"""
         for app in ui.apps():
-            #print("app.name:" + app.name)
-            #print("app.bundler: " + app.bundle)
-            if app.name == name and not app.background:
+            # print(f"--------- app.name:{app.name}  app.bundler:{app.bundle}")
+            if name in app.name and not app.background:
                 app.focus()
                 break
 
@@ -65,7 +74,7 @@ class Actions:
         """Hides list of running applications"""
         gui.hide()
 
-@imgui.open()
+@imgui.open(software=False)
 def gui(gui: imgui.GUI):
     gui.text("Names of running applications")
     gui.line()
@@ -73,40 +82,45 @@ def gui(gui: imgui.GUI):
         gui.text(line)
 
 def update_lists():
-    new = {}
+    running = {}
+    launch = {}
+
     for cur_app in ui.apps(background=False):
         name = cur_app.name
         if name.endswith('.exe'):
             name = name.rsplit('.', 1)[0]
         words = get_words(name)
         for word in words:
-            if word and not word in new:
-                new[word.lower()] = cur_app.name
-        new[name.lower()] = cur_app.name
+            if word and not word in running:
+                running[word.lower()] = cur_app.name
+        running[name.lower()] = cur_app.name
     for override in overrides:
-        new[override] = overrides[override] 
-    ctx.lists['self.running'] = new
-    
-    #print(str(new))
-    new = {}
+        running[override] = overrides[override] 
     
     if app.platform == "mac":
         for base in '/Applications', '/Applications/Utilities':
             for name in os.listdir(base):
                 path = os.path.join(base, name)
                 name = name.rsplit('.', 1)[0].lower()
-                new[name] = path
+                launch[name] = path
                 words = name.split(' ')
                 for word in words:
-                    if word and word not in new:
+                    if word and word not in launch:
                         if len(name) > 6 and len(word) < 3:
                             continue
-                        new[word] = path
+                        launch[word] = path
     
-        ctx.lists['self.launch'] = new
+    lists = {
+        'self.running': running,
+        'self.launch': launch,
+    }
+
+    #batch update lists 
+    ctx.lists.update(lists)
 
 def ui_event(event, arg):
     if event in ('app_activate', 'app_launch', 'app_close', 'win_open', 'win_close'):
+        # print(f'------------------ event:{event}  arg:{arg}')
         update_lists()
 
 ui.register('', ui_event)
