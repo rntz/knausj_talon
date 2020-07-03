@@ -1,6 +1,6 @@
 from talon import imgui, Module, speech_system, actions
 
-hist_len = 15
+hist_len = 50
 hist_short_len = 4
 hist_more = False
 history = []
@@ -40,7 +40,7 @@ mod = Module()
 class Actions:           
     def history_enable():
         """Enables the history"""
-        gui.freeze()
+        gui.show()
 
     def history_disable():
         """Disables the history"""

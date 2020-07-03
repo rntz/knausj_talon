@@ -68,9 +68,10 @@ ctx.lists['self.modifier'] = {
     #'command': 'cmd',
     'troll':   'ctrl',     #'control': 'ctrl',
     'kid':     'ctrl',  'kit':  'ctrl',
-    'sky':     'shift', #'ship':   'shift',
+    'sky':     'shift', #'ship':   'shift', "shin": "shift",
     # 'alt':     'alt',    'option':  'alt',
-    'alter':    'alt', # 'meta':  'alt',
+    'alter':    'alt',  #'meta':  'alt',
+    'alt': 'alt',
     'super':   'super',
 }
 
@@ -78,10 +79,10 @@ ctx.lists['self.letter'] = dict(zip(default_alphabet, letters_string))
 ctx.lists['self.symbol'] = {
     'back tick': '`', '`':'`',
     'comma': ',', ',': ',',
-    'dot': '.', 'period': '.',
+    'dot': '.', 'period': '.', 'point': '.',
     'semi': ';', 'semicolon': ';',
-    'quote': "'",
-    'forward slash': '/', 'slash': '/',
+    #'quote': "'",
+    'slash': '/',
     'backslash': '\\',
     'minus': '-', 'dash': '-',
     'equals': '=',
@@ -91,46 +92,48 @@ ctx.lists['self.symbol'] = {
     'bang': '!', 'exclamation point': '!', 
     'dollar': '$', 'dollar sign': '$',
     'down score': '_', 'under score': '_',
-    'colon': ':',
-    'paren': '(', 'open paren': '(', 'close paren': ')',
-#    'L paren': '(', 'R paren': ')', 'right paren': ')',
-    'square': '[', 'open square': ']', 'close square': ']',
-#    'L square': '[', 'left square': '[', 'R square': ']', 'right square': ']',
-    'curly': '{', 'open curly': '{', 'close curly': '}',
-#    'left curly': '{', 'R curly': '}', 'right curly': '}',
-    'angle': '<', 'open angle': '<', 'close angle': '>',
-#    'left angle': '<', 'rangle': '>', 'R angle': '>', 'right angle': '>',
+    'colon': ':', 'deckle': ':',
+    'round': '(', 'close round': ')',
+    'square': '[', 'close square': ']',
+    'curly': '{', 'close curly': '}',
+    'langle': '<', 'rangle': '>',
     'less than': '<', 'greater than': '>',
     'star': '*', 'asterisk': '*',
     'octo': '#', 'hash': '#',
     'percent': '%', 'percent sign': '%',
-    'caret': '^',
+    'carrot': '^',
     'at sign': '@',
-    'and sign': '&', 'ampersand': '&', 'amper': '&',
+    'amper': '&',
     'pipe': '|',
-    'dubquote': '"', 'double quote': '"',
+#    'double quote': '"',
+    'ticky': "'", 'ditto': '"',
+    'open fancy': '“', 'close fancy': '”',
 }
 
 ctx.lists['self.number'] = dict(zip(default_digits, numbers))
 ctx.lists['self.arrow'] = {
-    'left':  'left',
-    'right': 'right',
-    'up':    'up',
-    'down':  'down',
+    'left': 'left', 'right': 'right',
+#    'west': 'left', 'east': 'right',
+    'north': 'up', 'south': 'down',
+#    "float": "up", "sink": "down",
+#    'sup': 'up', 'down': 'down',
 }
 
 simple_keys = [
-    'tab', 'escape', 'enter', 'space',
+    'tab', 'escape', 'enter', #'space',
     'pageup', 'pagedown',
     #'super',
     # 'home', 'end', 'insert',
 ]
 
 alternate_keys = {
-    #'delete': 'backspace',
-    'junk': 'backspace',
-    'delete': 'delete', 'forward junk': 'delete',
-    'homer': 'home', 'end line': 'end', 'tap insert': 'insert',
+    'junk': 'backspace', 'deli': 'delete',
+    'homer': 'home', 'pliny': 'end',
+    'tap insert': 'insert',
+    "gap": "space",
+#    'swim': 'space',
+#    "void": "space",
+#    'ace': 'space',
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)

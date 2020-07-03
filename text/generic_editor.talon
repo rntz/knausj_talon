@@ -1,4 +1,4 @@
-find it:
+search:
     edit.find()
 
 next one:
@@ -10,17 +10,17 @@ go word left:
 go word right:
     edit.word_right()
 
-go left:
-    edit.left()
+# go left:
+#     edit.left()
 
-go right:
-    edit.right()
+# go right:
+#     edit.right()
 
-go up:
-    edit.up()
+# go up:
+#     edit.up()
 
-go down:
-    edit.down()
+# go down:
+#     edit.down()
 
 go line start:
     edit.line_start()
@@ -35,10 +35,10 @@ go way left:
 go way right:
     edit.line_end()
 
-go way down:
+go to bottom:
     edit.file_end()
 
-go way up:
+go to top:
     edit.file_start()
 
 go page down:
@@ -80,10 +80,10 @@ select way left:
 select way right:
     edit.extend_line_end()
 
-select way up:
+select to top:
     edit.extend_file_start()
 
-select way down:
+select to bottom:
     edit.extend_file_end()
 
 # editing
@@ -127,10 +127,10 @@ clear way right:
     edit.extend_line_end()
     edit.delete()
 
-clear way up:
+clear to top:
     edit.extend_file_start()
     edit.delete()
 
-clear way down:
+clear to bottom:
     edit.extend_file_end()
     edit.delete()

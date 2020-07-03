@@ -47,7 +47,7 @@ mod.setting('mouse_hide_mouse_gui', type=int, default=0,desc="When enabled, the 
 ctx = Context()
 ctx.lists['self.mouse_button'] = {
      #right click
-     'righty':  '1',
+#     'righty':  '1',
      'rickle': '1',
      
      #left click

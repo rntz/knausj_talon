@@ -26,14 +26,15 @@ key:
 action:
 	insert("action():")
 	edit.left()
+    edit.left()
 os win:
 	insert("os: windows")
 os mac:
 	insert("os: mac")
 os lunix:
 	insert("os: linux")
-app:
-	insert("app: ")
+#app:
+#	insert("app: ")
 settings:
 	insert("settings():\n")
 tag set:

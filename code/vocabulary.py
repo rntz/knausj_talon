@@ -8,6 +8,12 @@ simple_vocabulary = [
     "VPN",
     "DNS",
     "minecraft",
+    "emacs",
+    "tuple",
+    "diff",
+    "timezone",
+    "grep",
+    "ack",
 ]
 
 mapping_vocabulary = {
@@ -16,6 +22,7 @@ mapping_vocabulary = {
     "i've": "I've",
     "i'll": "I'll",
     "i'd": "I'd",
+    "shemax": "emacs",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
@@ -25,12 +32,16 @@ mod = Module()
 def remove_dragon_junk(word):
     return str(word).lstrip("\\").split("\\")[0]
 
-@mod.capture(rule='({user.vocabulary} | <word>)')
+@mod.capture(rule='({user.vocabulary})')
+def vocabulary(m) -> str:
+    return m.vocabulary
+
+@mod.capture(rule='(<user.vocabulary> | <word>)')
 def word(m) -> str:
     try: return m.vocabulary
     except AttributeError: return remove_dragon_junk(m.word)
 
-@mod.capture(rule='(<user.word> | <phrase>)+')
+@mod.capture(rule='(<user.vocabulary> | <phrase>)+')
 def text(m) -> str:
     #todo: use actions.dicate.parse_words for better dragon support once supported
     words = str(m).split(' ')

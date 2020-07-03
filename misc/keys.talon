@@ -1,4 +1,4 @@
-go <user.arrows>: key(arrows)
+<user.arrows>: key(arrows)
 <user.number>: key(number)
 <user.letter>: key(letter)
 uppercase <user.letters> [lowercase]: 
