@@ -1,9 +1,8 @@
-os: windows
-app: Firefox
-app: firefox.exe
+os: mac
+app: Microsoft Edge
 -
 tag(): browser
-	
+tag(): tabs
 #action(browser.address):
 
 action(browser.bookmark):
@@ -13,10 +12,10 @@ action(browser.bookmark_tabs):
 	key(ctrl-shift-d)
 	
 action(browser.bookmarks):
-	key(ctrl-shift-b)
+	key(ctrl-shift-o)
   
-#action(browser.bookmarks_bar):
-#	key(ctrl-shift-b)
+action(browser.bookmarks_bar):
+	key(ctrl-shift-b)
 
 action(browser.focus_address): 
 	key(ctrl-l)
@@ -50,18 +49,17 @@ action(browser.reload):
 	key(ctrl-r)
 
 action(browser.reload_hard):
-	key(ctrl-shift-r)
+	key(shift-f5)
 
 #action(browser.reload_hardest):
 	
 action(browser.show_clear_cache):
-	key(ctrl-shift-del)
+	key(ctrl-shift-delete)
   
 action(browser.show_downloads):
 	key(ctrl-j)
 
-action(browser.show_extensions):
-	key(ctrl-shift-a)
+#action(browser.show_extensions)
 
 action(browser.show_history):
 	key(ctrl-h)

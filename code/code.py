@@ -24,7 +24,9 @@ extension_lang_map = {
     "gdb": "gdb",
     "md": "markdown",
     "sh": "bash",
-    "go": "go"
+    "go": "go",
+    "js": "javascript",
+    "ts": "typescript"
 }
 
 #flag indicates whether or not the title tracking is enabled
@@ -224,6 +226,9 @@ class Actions:
 
     def code_state_while():
         """Inserts while statement"""
+
+    def code_state_return():
+        """Inserts return statement"""
     
     def code_try_catch():
         """Inserts try/catch. If selection is true, does so around the selecion"""

@@ -1,8 +1,9 @@
 os: mac
-app: Google Chrome
+app: Firefox
 -
 tag(): browser
-	
+tag(): tabs
+
 #action(browser.address):
 
 action(browser.bookmark):
@@ -14,8 +15,8 @@ action(browser.bookmark_tabs):
 action(browser.bookmarks):
 	key(cmd-alt-b)
   
-action(browser.bookmarks_bar):
-	key(cmd-shift-b)
+#action(browser.bookmarks_bar):
+#	key(ctrl-shift-b)
 
 action(browser.focus_address): 
 	key(cmd-l)
@@ -34,16 +35,16 @@ action(browser.go_blank):
 	key(cmd-n)
 	
 action(browser.go_back):
-	key(cmd-[)
+	key(cmd-left)
 
 action(browser.go_forward):
-	key(cmd-])
+	key(cmd-right)
 	
 action(browser.go_home):
 	key(cmd-shift-h)
 
 action(browser.open_private_window):
-	key(cmd-shift-n)
+	key(ctrl-shift-n)
 
 action(browser.reload):
 	key(cmd-r)
@@ -59,7 +60,8 @@ action(browser.show_clear_cache):
 action(browser.show_downloads):
 	key(cmd-shift-j)
 
-#action(browser.show_extensions)
+action(browser.show_extensions):
+	key(ctrl-shift-a)
 
 action(browser.show_history):
 	key(cmd-y)
