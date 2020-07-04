@@ -120,7 +120,7 @@ ctx.lists['self.arrow'] = {
 }
 
 simple_keys = [
-    'tab', 'escape', 'enter', #'space',
+    'tab', 'escape', 'enter', 'space',
     'pageup', 'pagedown',
     #'super',
     # 'home', 'end', 'insert',
