@@ -68,8 +68,11 @@ class user_actions:
     def snippet_insert(text: str):
         """Inserts a snippet"""
         actions.user.ide_command_palette()
+        actions.sleep("200ms")
         actions.insert("Insert Snippet")
+        actions.sleep("50ms")
         actions.key("enter")
+        actions.sleep("50ms")
         actions.insert(text)
         actions.key("enter")
 

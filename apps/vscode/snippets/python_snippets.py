@@ -20,13 +20,14 @@ def update_list(watch_list):
 
 
 # there's probably a way to do this without
-if app.platform == "windows":
-    watcher = snippet_watcher(
-        {
-            os.path.expandvars(r"%AppData%\Code\User\snippets"): ["python.json"],
-            os.path.expandvars(
-                r"%USERPROFILE%\.vscode\extensions\ms-python.python-2020.7.96456\snippets"
-            ): ["python.json"],
-        },
-        update_list,
-    )
+# if app.platform == "windows":
+watcher = snippet_watcher(
+    {
+        os.path.expandvars(r"%AppData%\Code\User\snippets"): ["python.json"],
+        os.path.expandvars(
+            r"%USERPROFILE%\.vscode\extensions\ms-python.python-2020.7.96456\snippets"
+        ): ["python.json"],
+    },
+    update_list,
+)
+

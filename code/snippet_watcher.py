@@ -1,8 +1,12 @@
 from talon import app, fs
-import os, json, csv, re
+import os, csv, re
 from os.path import isfile, join
 from itertools import islice
 from pathlib import Path
+from jsoncomment import JsonComment
+import json
+
+parser = JsonComment(json)
 
 pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
 
@@ -15,9 +19,19 @@ class snippet_watcher:
     directories = {}
     snippet_dictionary = {}
     callback_function = None
+    file_snippet_cache = {}
+
+    def __notify(self):
+        # print("NOTIFY")
+        self.snippet_dictionary = {}
+        for key, val in self.file_snippet_cache.items():
+            self.snippet_dictionary.update(val)
+
+        print(str(self.snippet_dictionary))
+        if self.callback_function:
+            self.callback_function(self.snippet_dictionary)
 
     def __update_all_snippets(self):
-        self.snippet_dictionary = {}
         for directory, file_list in self.directories.items():
             if os.path.isdir(directory):
                 for f in file_list:
@@ -25,15 +39,14 @@ class snippet_watcher:
                     self.__process_file(path)
 
         # print(str(self.snippet_dictionary))
-
-        if self.callback_function:
-            self.callback_function(self.snippet_dictionary)
+        self.__notify()
 
     def __process_file(self, name):
         path_obj = Path(name)
         directory = os.path.normpath(path_obj.parents[0])
         file_name = path_obj.name
         file_type = path_obj.suffix
+        self.file_snippet_cache[str(path_obj)] = {}
 
         # print("{}, {}, {}, {}".format(name, directory, file_name, file_type))
         if directory in self.directories and file_name in self.directories[directory]:
@@ -42,27 +55,20 @@ class snippet_watcher:
 
                 if os.path.isfile(name):
                     with open(name, "r") as f:
-                        jsonDict = json.loads(
-                            "\n".join(
-                                [
-                                    row
-                                    for row in f.readlines()
-                                    if len(row.split("//")) == 1
-                                ]
-                            )
-                        )
+                        jsonDict = parser.load(f)
                 # else:
                 #     print("snippet_watcher.py: File {}  does not exist".format(directory))
 
                 for key, data in jsonDict.items():
-                    self.snippet_dictionary[create_spoken_form(key)] = data["prefix"]
+                    self.file_snippet_cache[str(path_obj)][
+                        create_spoken_form(key)
+                    ] = data["prefix"]
 
     def __on_fs_change(self, name, flags):
         self.__process_file(name)
 
-        print(str(self.snippet_dictionary))
-        if self.callback_function:
-            self.callback_function(self.snippet_dictionary)
+        # print(str(self.snippet_dictionary))
+        self.__notify()
 
     def __init__(self, dirs, callback):
         self.directories = dirs
