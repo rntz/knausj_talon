@@ -170,6 +170,7 @@ ctx.lists["self.symbol"] = {
     "down score": "_",
     "under score": "_",
     "colon": ":",
+    "deckle": ":",
     "round": "(", #"paren": "(",
     #"L paren": "(",
     #"left paren": "(",
