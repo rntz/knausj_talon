@@ -2,7 +2,7 @@ from typing import Set
 
 from talon import Module, Context, actions
 import sys
-    
+
 default_alphabet = 'air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip'.split(' ')
 letters_string = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -69,15 +69,15 @@ ctx.lists['self.modifier'] = {
     'troll':   'ctrl',     #'control': 'ctrl',
     'kid':     'ctrl',  'kit':  'ctrl',
     'sky':     'shift', #'ship':   'shift', "shin": "shift",
-    # 'alt':     'alt',    'option':  'alt',
-    'alter':    'alt',  #'meta':  'alt',
-    'alt': 'alt',
+    'alt':     'alt',#    'option':  'alt',
+    # 'alter':    'alt', 'meta':  'alt',
+    'fly': 'alt',
     'super':   'super',
 }
 
 ctx.lists['self.letter'] = dict(zip(default_alphabet, letters_string))
 ctx.lists['self.symbol'] = {
-    'back tick': '`', '`':'`',
+    'back tick': '`', '`':'`', 'quasi': '`',
     'comma': ',', ',': ',',
     'dot': '.', 'period': '.', 'point': '.',
     'semi': ';', 'semicolon': ';',
@@ -106,7 +106,7 @@ ctx.lists['self.symbol'] = {
     'amper': '&',
     'pipe': '|',
 #    'double quote': '"',
-    'ticky': "'", 'ditto': '"',
+    'ticky': "'", 'ditto': '"', #'sing': "'",
     'open fancy': '“', 'close fancy': '”',
 }
 
@@ -126,14 +126,15 @@ simple_keys = [
     # 'home', 'end', 'insert',
 ]
 
+# try using ace for space if the new models ever get fast enough.
 alternate_keys = {
     'junk': 'backspace', 'deli': 'delete',
+    'wipe': 'backspace',
     'homer': 'home', 'pliny': 'end',
     'tap insert': 'insert',
-    "gap": "space",
-#    'swim': 'space',
-#    "void": "space",
-#    'ace': 'space',
+    'swim': 'space',
+    "void": "space",
+    "shock": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)

@@ -1,7 +1,8 @@
-<user.arrows>: key(arrows)
+#<user.arrows>: key(arrows)
+<user.arrow>: key(arrow)
 <user.number>: key(number)
 <user.letter>: key(letter)
-uppercase <user.letters> [lowercase]: 
+capital <user.letters> [over|lower]:
     user.keys_uppercase_letters(letters)
 <user.symbol>: key(symbol)
 <user.function>: key(function)

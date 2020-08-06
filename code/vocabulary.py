@@ -14,7 +14,23 @@ simple_vocabulary = [
     "timezone",
     "grep",
     "ack",
+    "foo",
+    "firefox",
+    "git",
+    "memoize", "memoizes",
+    "Zulip",
+    "recurs", "recurse", "recurses",
+    "Datalog",
+    "lag", "laggy",
+    "pluralizable",
 ]
+
+# only include pluralizable nouns here
+proper_nouns = [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+]
+simple_vocabulary.extend(proper_nouns + [x+"s" for x in proper_nouns])
 
 mapping_vocabulary = {
     "i": "I",
@@ -22,7 +38,12 @@ mapping_vocabulary = {
     "i've": "I've",
     "i'll": "I'll",
     "i'd": "I'd",
-    "shemax": "emacs",
+    "shemacs": "emacs", "shemax": "emacs",
+    "recurse center": "Recurse Center", "recur center": "Recurse Center",
+    "to morrow": "tomorrow",
+    "underdocumented": "under-documented",
+    "cel": "cell",
+    "roten": "rotten",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
