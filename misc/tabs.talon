@@ -1,7 +1,9 @@
 tag: tabs
 -
-(open | new) tab: app.tab_open()
-last tab: app.tab_previous()
-(next|fore) tab: app.tab_next()
-close tab: app.tab_close()
-reopen tab: app.tab_reopen()
+tab (open | new): app.tab_open()
+tab last: app.tab_previous()
+tab next: app.tab_next()
+tab close: app.tab_close()
+tab reopen: app.tab_reopen()
+go tab <number>: user.tab_jump(number)
+go tab final: user.tab_final()
