@@ -41,11 +41,11 @@ go to bottom:
 go to top:
     edit.file_start()
 
-go page down:
-    edit.page_down()
+# go page down:
+#     edit.page_down()
 
-go page up:
-    edit.page_up()
+# go page up:
+#     edit.page_up()
 
 # selecting
 select line:

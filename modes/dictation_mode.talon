@@ -7,7 +7,7 @@ period: user.dictate(".")
 comma: user.dictate(",")
 question [mark]: user.dictate("?")
 (bang | exclamation [mark]): user.dictate("!")
-dash: user.dictate("-")
+hyphen: user.dictate("-")
 colon: user.dictate(":")
 semicolon: user.dictate(";")
 cap <user.text>: 

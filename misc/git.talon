@@ -3,7 +3,7 @@ tag: terminal
 # Standard commands
 git add patch: "git add . -p "
 git add: "git add "
-git add everything: "git add -u "
+git add everything | git [add] update: "git add -u "
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "

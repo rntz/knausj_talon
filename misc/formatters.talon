@@ -1,9 +1,17 @@
 #provide both anchored and unachored commands via 'over'
-(say | speak | phrase) <user.text>$: 
+(say | phrase) <user.text>$:
   result = user.formatted_text(text, "NOOP")
   insert(result)
-(say | speak | phrase) <user.text> over: 
+(say | phrase) <user.text> over:
   result = user.formatted_text(text, "NOOP")
+  insert(result)
+continue <user.text>$:
+  temp = " " + text
+  result = user.formatted_text(temp, "NOOP")
+  insert(result)
+continue <user.text> over:
+  temp = " " + text
+  result = user.formatted_text(temp, "NOOP")
   insert(result)
 <user.format_text>$: insert(format_text)
 <user.format_text> over: insert(format_text)

@@ -2,7 +2,7 @@
 <user.arrow>: key(arrow)
 <user.number>: key(number)
 <user.letter>: key(letter)
-capital <user.letters> [over|lower]:
+upper case <user.letters> [over|lower]:
     user.keys_uppercase_letters(letters)
 <user.symbol>: key(symbol)
 <user.function>: key(function)

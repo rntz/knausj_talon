@@ -29,7 +29,7 @@ simple_vocabulary = [
 # only include pluralizable nouns here
 proper_nouns = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+    "January", "February", "April", "June", "July", "August", "September", "October", "November", "December",
 ]
 simple_vocabulary.extend(proper_nouns + [x+"s" for x in proper_nouns])
 
@@ -40,11 +40,12 @@ mapping_vocabulary = {
     "i'll": "I'll",
     "i'd": "I'd",
     "shemacs": "emacs", "shemax": "emacs",
-    "recurse center": "Recurse Center", "recur center": "Recurse Center",
+    "recurse center": "Recurse Center", "recur center": "Recurse Center", "r c": "RC",
     "to morrow": "tomorrow",
     "underdocumented": "under-documented",
     "cel": "cell",
     "roten": "rotten",
+    "r s i": "RSI", "rs si": "RSI",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
