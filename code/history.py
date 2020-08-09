@@ -1,7 +1,8 @@
 from talon import imgui, Module, speech_system, actions
 
+# We keep hist_len lines of history, but by default display only hist_short_len of them.
 hist_len = 50
-hist_short_len = 4
+hist_short_len = 10
 hist_more = False
 history = []
 
