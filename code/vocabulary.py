@@ -24,6 +24,8 @@ simple_vocabulary = [
     "Datalog",
     "lag", "laggy",
     "pluralizable",
+    "dev",
+    "misc",
 ]
 
 # only include pluralizable nouns here
