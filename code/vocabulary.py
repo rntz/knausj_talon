@@ -21,11 +21,16 @@ simple_vocabulary = [
     "memoize", "memoizes",
     "Zulip",
     "recurs", "recurse", "recurses",
-    "Datalog",
+    "Datalog", "Datafun",
     "lag", "laggy",
     "pluralizable",
     "dev",
     "misc",
+    "seminaive",
+    "anime",
+    "comonad", "modal", "coeffect", "ringoid", "ringoids",
+    "poset",
+    "arg", "args",
 ]
 
 # only include pluralizable nouns here
@@ -43,11 +48,12 @@ mapping_vocabulary = {
     "i'd": "I'd",
     "shemacs": "emacs", "shemax": "emacs",
     "recurse center": "Recurse Center", "recur center": "Recurse Center", "r c": "RC",
-    "to morrow": "tomorrow",
+    "to morrow": "tomorrow", "to day": "today",
     "underdocumented": "under-documented",
     "cel": "cell",
     "roten": "rotten",
     "r s i": "RSI", "rs si": "RSI",
+    "lambda": "lambda", "lamba": "lambda", "lamda": "lambda",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))

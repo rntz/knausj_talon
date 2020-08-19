@@ -35,10 +35,10 @@ go way left:
 go way right:
     edit.line_end()
 
-go to bottom:
+go [to] bottom:
     edit.file_end()
 
-go to top:
+go [to] top:
     edit.file_start()
 
 # go page down:
