@@ -90,52 +90,8 @@ ctx.lists["self.modifier"] = {
     "fly": "alt",
     "kid": "ctrl", "kit": "ctrl",
 }
-
-# ctx.lists['self.letter'] = dict(zip(default_alphabet, letters_string))
-# ctx.lists['self.symbol'] = {
-#     'back tick': '`', '`':'`', 'quasi': '`',
-#     'comma': ',', ',': ',',
-#     'dot': '.', 'period': '.', 'point': '.',
-#     'semi': ';', 'semicolon': ';',
-#     #'quote': "'",
-#     'slash': '/',
-#     'backslash': '\\',
-#     'minus': '-', 'dash': '-',
-#     'equals': '=',
-#     'plus': '+',
-#     'questo': '?', 'question mark': '?',
-#     'tilde': '~',
-#     'bang': '!', 'exclamation point': '!', 
-#     'dollar': '$', 'dollar sign': '$',
-#     'down score': '_', 'under score': '_',
-#     'colon': ':', 'deckle': ':',
-#     'round': '(', 'close round': ')',
-#     'square': '[', 'close square': ']',
-#     'curly': '{', 'close curly': '}',
-#     'langle': '<', 'rangle': '>',
-#     'less than': '<', 'greater than': '>',
-#     'star': '*', 'asterisk': '*',
-#     'octo': '#', 'hash': '#',
-#     'percent': '%', 'percent sign': '%',
-#     'carrot': '^',
-#     'at sign': '@',
-#     'amper': '&',
-#     'pipe': '|',
-# #    'double quote': '"',
-#     'ticky': "'", 'ditto': '"', #'sing': "'",
-#     'open fancy': '“', 'close fancy': '”',
-# }
-
-# ctx.lists['self.number'] = dict(zip(default_digits, numbers))
-# ctx.lists['self.arrow'] = {
-#     'left': 'left', 'right': 'right',
-# #    'west': 'left', 'east': 'right',
-#     'north': 'up', 'south': 'down',
-# #    "float": "up", "sink": "down",
-# #    'sup': 'up', 'down': 'down',
-# }
-
-ctx.lists["self.letter"] = dict(zip(default_alphabet, letters_string))
+alphabet = dict(zip(default_alphabet, letters_string))
+ctx.lists["self.letter"] = alphabet
 ctx.lists["self.symbol"] = {
     "back tick": "`",
     "`": "`",
@@ -209,6 +165,7 @@ ctx.lists["self.symbol"] = {
     "double quote": '"',
     'open fancy': '“', 'close fancy': '”',
 }
+
 
 ctx.lists["self.number"] = dict(zip(default_digits, numbers))
 ctx.lists["self.arrow"] = {
@@ -316,7 +273,7 @@ class Actions:
         """Inserts uppercase letters from list"""
         actions.insert("".join(m).upper())
 
-    def get_alphabet():
+    def get_alphabet() -> dict:
         """Provides the alphabet dictionary"""
-        return ctx.lists["user.letter"]
+        return alphabet
 
