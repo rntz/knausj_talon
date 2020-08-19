@@ -39,6 +39,7 @@ def gui(gui: imgui.GUI):
 
 
 speech_system.register("phrase", on_phrase)
+gui.show()
 
 mod = Module()
 
