@@ -195,7 +195,7 @@ alternate_keys = {
     'deli': 'delete',
     #'homer': 'home',
     'pliny': 'end',
-    "lend": "end", 'send': 'end',
+    'send': 'end',
     'tap insert': 'insert',
     'swim': 'space',
     'void': 'space',

@@ -1,5 +1,5 @@
 from talon import Context
 
 ctx = Context()
-ctx.settings['imgui.scale'] = 2.53
+ctx.settings['imgui.scale'] = 2.57
 

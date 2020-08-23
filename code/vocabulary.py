@@ -31,6 +31,8 @@ simple_vocabulary = [
     "comonad", "modal", "coeffect", "ringoid", "ringoids",
     "poset",
     "arg", "args",
+    "org", "orgs",
+    "misrecognition", "misrecognitions",
 ]
 
 # only include pluralizable nouns here
@@ -54,6 +56,8 @@ mapping_vocabulary = {
     "roten": "rotten",
     "r s i": "RSI", "rs si": "RSI",
     "lambda": "lambda", "lamba": "lambda", "lamda": "lambda",
+    "my nick": "rntz",
+    "miss recognition": "misrecognition", "miss recognitions": "misrecognitions",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
