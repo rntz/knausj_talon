@@ -1,3 +1,4 @@
+talon history: user.history_toggle()
 talon history show: user.history_enable()
 talon history hide: user.history_disable()
 talon history clear: user.history_clear()
