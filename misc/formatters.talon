@@ -11,7 +11,7 @@ speak <user.text>$:
   insert(result)
 speak <user.text> over:
   temp = text + " "
-  result = user.formatted_text(temp, "NOP")
+  result = user.formatted_text(temp, "NOOP")
   insert(result)
 continue <user.text>$:
   temp = " " + text
