@@ -1,8 +1,6 @@
-os: linux
-app: /termite/
-not win.title: /VIM/
+app: termite
 -
-tag(): terminal
+tag(): user.terminal
 
 # Selection mode
 shell yank: key("y")

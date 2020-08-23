@@ -1,4 +1,4 @@
-tag: find_and_replace
+tag: user.find_and_replace
 -
 hunt this: user.find("")
 hunt this <user.text>: user.find(text)
@@ -14,5 +14,7 @@ replace all: user.replace_everywhere("")
 replace <user.text> all: user.replace_everywhere(text)
 replace confirm that: user.replace_confirm()
 replace confirm all: user.replace_confirm_all()
+
+
 
 
