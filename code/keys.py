@@ -30,6 +30,11 @@ def modifiers(m) -> str:
 
 
 @mod.capture
+def modifiers_optional(m) -> str:
+    "Zero or more modifier keys"
+
+
+@mod.capture
 def arrow(m) -> str:
     "One directional arrow key"
 
@@ -70,8 +75,8 @@ def special(m) -> str:
 
 
 @mod.capture
-def any(m) -> str:
-    "Any one key"
+def unmodified_key(m) -> str:
+    "A single key with no modifiers"
 
 
 @mod.capture
@@ -213,6 +218,11 @@ def modifiers(m):
     return "-".join(m.modifier_list)
 
 
+@ctx.capture(rule="{self.modifier}*")
+def modifiers_optional(m):
+    return "-".join(m.modifier_list)
+
+
 @ctx.capture(rule="{self.arrow}")
 def arrow(m) -> str:
     return m.arrow
@@ -251,14 +261,14 @@ def function(m):
 @ctx.capture(
     rule="(<self.arrow> | <self.number> | <self.letter> | <self.symbol> | <self.function> | <self.special>)"
 )
-def any(m) -> str:
+def unmodified_key(m) -> str:
     return str(m)
 
 
-@ctx.capture(rule="<self.modifiers> <self.any>")
+@ctx.capture(rule="<self.modifiers_optional> <self.unmodified_key>")
 def key(m) -> str:
-    mods = m.modifiers
-    return "-".join([mods] + [m.any])
+    mods = m.modifiers_optional
+    return "-".join([mods] + [m.unmodified_key])
 
 
 @ctx.capture(rule="{self.letter}+")

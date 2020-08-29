@@ -39,7 +39,6 @@ tag set:
 #commands for dictating key combos
 key <user.key> over: "{key}"
 key <user.modifiers> over: "{modifiers}"
-key <user.any> over: "{any}"
 #funk commands, consistent with other languages
 toggle funk: user.code_toggle_functions()
 funk <user.code_functions>: 
