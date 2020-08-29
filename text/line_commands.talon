@@ -7,34 +7,37 @@ go <number>: edit.jump_line(number)
 go <number> end: 
     edit.jump_line(number)
     edit.line_end()
-comment <number>:
+comment line <number>:
     user.select_range(number, number)
     code.toggle_comment()
 comment <number> until <number>: 
     user.select_range(number_1, number_2)
     code.toggle_comment()
-clear <number>:
+clear line <number>:
     edit.jump_line(number)
     user.select_range(number, number)
     edit.delete()
 clear <number> until <number>: 
     user.select_range(number_1, number_2)
     edit.delete()
-copy <number>: 
+copy line <number>: 
     user.select_range(number, number)
 copy <number> until <number>: 
     user.select_range(number_1, number_2)
     edit.copy()
-cut <number>: 
+cut line <number>: 
     user.select_range(number, number)
     edit.cut()
 cut <number> until <number>: 
     user.select_range(number_1, number_2)
     edit.cut()
+paste <number> until <number>:
+  user.select_range(number_1, number_2)
+  edit.paste()
 replace <number> until <number>: 
     user.select_range(number_1, number_2)
     edit.paste()
-select <number>: user.select_range(number, number)
+select line <number>: user.select_range(number, number)
 select <number> until <number>: user.select_range(number_1, number_2)
 indent <number>:
     edit.jump_line(number)
@@ -42,7 +45,7 @@ indent <number>:
 indent <number> until <number>:
     user.select_range(number_1, number_2)
     edit.indent_more()
-unindent <number>:
+unindent line <number>:
     user.select_range(number, number)
     edit.indent_less()
 unindent <number> until <number>:

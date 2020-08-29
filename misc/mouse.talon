@@ -10,7 +10,8 @@ zoom mouse: user.mouse_toggle_zoom_mouse()
 camera overlay: eye_mouse.camera_overlay.toggle()
 run calibration: user.mouse_calibrate()	
 touch: mouse_click(0)
-rickle: mouse_click(1)
+right click: mouse_click(1)
+(mid|middle) click: mouse_click(2)
 
 #see keys.py for modifiers.
 #defaults
