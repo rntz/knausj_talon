@@ -84,6 +84,11 @@ def key(m) -> str:
     "A single key with optional modifiers"
 
 
+@mod.capture
+def keys(m) -> str:
+    "A sequence of one or more keys with optional modifiers"
+
+
 ctx = Context()
 ctx.lists["self.modifier"] = {
     #"alt": "alt",
@@ -269,6 +274,11 @@ def unmodified_key(m) -> str:
 def key(m) -> str:
     mods = m.modifiers_optional
     return "-".join([mods] + [m.unmodified_key])
+
+
+@ctx.capture(rule="<self.key>+")
+def keys(m) -> str:
+    return " ".join(m.key_list)
 
 
 @ctx.capture(rule="{self.letter}+")
