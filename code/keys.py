@@ -176,10 +176,10 @@ ctx.lists["self.arrow"] = {
 }
 
 simple_keys = [
-    #"end",
+    "end",
     "enter",
     "escape",
-    "home",
+    #"home",
     #"insert",
     "pagedown",
     "pageup",
@@ -189,13 +189,13 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
+    "head": "home", "tail": "end", "foot": "end",
+#    'send': 'end',
     "delete": "backspace",
     "forward delete": "delete",
     'junk': 'backspace',
     'deli': 'delete',
-    #'homer': 'home',
     'pliny': 'end',
-    'send': 'end',
     'tap insert': 'insert',
     'swim': 'space',
     'void': 'space',

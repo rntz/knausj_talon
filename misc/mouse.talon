@@ -10,7 +10,7 @@ zoom mouse: user.mouse_toggle_zoom_mouse()
 camera overlay: eye_mouse.camera_overlay.toggle()
 run calibration: user.mouse_calibrate()	
 touch: mouse_click(0)
-righty: mouse_click(1)
+rickle: mouse_click(1)
 
 #see keys.py for modifiers.
 #defaults
@@ -23,11 +23,11 @@ righty: mouse_click(1)
 	key("{modifiers}:down")
 	mouse_click(0)
 	key("{modifiers}:up")
-<user.modifiers> righty: 
+<user.modifiers> rickle:
 	key("{modifiers}:down")
 	mouse_click(1)
 	key("{modifiers}:up")
-(dubclick | duke): 
+(dubclick):
 	mouse_click()
 	mouse_click()
 (tripclick | triplick): 

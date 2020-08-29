@@ -24,6 +24,9 @@ continue <user.text> over:
 <user.format_text>$: insert(format_text)
 <user.format_text> over: insert(format_text)
 word <user.word>: insert(user.word)
+upper word <user.word>:
+  result = user.formatted_text(word, "CAPITALIZE_FIRST_WORD")
+  insert(result)
 run <user.word>: insert('{word} ')
 format help: user.formatters_help_toggle()
 format recent: user.formatters_recent_toggle()

@@ -33,6 +33,7 @@ simple_vocabulary = [
     "arg", "args",
     "org", "orgs",
     "misrecognition", "misrecognitions",
+    "lambda",
 ]
 
 # only include pluralizable nouns here
@@ -50,14 +51,12 @@ mapping_vocabulary = {
     "i'd": "I'd",
     "shemacs": "emacs", "shemax": "emacs",
     "recurse center": "Recurse Center", "recur center": "Recurse Center", "r c": "RC",
-    "to morrow": "tomorrow", "to day": "today",
+#    "to morrow": "tomorrow", "to day": "today",
     "underdocumented": "under-documented",
-    "cel": "cell",
-    "roten": "rotten",
+#    "roten": "rotten",
     "r s i": "RSI", "rs si": "RSI",
-    "lambda": "lambda", "lamba": "lambda", "lamda": "lambda",
     "my nick": "rntz",
-    "miss recognition": "misrecognition", "miss recognitions": "misrecognitions",
+#    "miss recognition": "misrecognition", "miss recognitions": "misrecognitions",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
