@@ -9,7 +9,7 @@ go <number> end:
     edit.line_end()
 comment <number>:
     user.select_range(number, number)
-    edit.toggle_comment()
+    code.toggle_comment()
 comment <number> until <number>: 
     user.select_range(number_1, number_2)
     code.toggle_comment()

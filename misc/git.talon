@@ -1,4 +1,4 @@
-tag: terminal
+tag: user.terminal
 -
 # Standard commands
 git add patch: "git add . -p "
