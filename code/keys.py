@@ -20,8 +20,8 @@ mod.list("symbol", desc="All symbols from the keyboard")
 mod.list("arrow", desc="All arrow keys")
 mod.list("number", desc="All number keys")
 mod.list("modifier", desc="All modifier keys")
-mod.list("function", desc="All function keys")
-mod.list("special", desc="All special keys")
+mod.list("function_key", desc="All function keys")
+mod.list("special_key", desc="All special keys")
 
 
 @mod.capture
@@ -65,12 +65,12 @@ def symbol(m) -> str:
 
 
 @mod.capture
-def function(m) -> str:
+def function_key(m) -> str:
     "One function key"
 
 
 @mod.capture
-def special(m) -> str:
+def special_key(m) -> str:
     "One special key"
 
 
@@ -213,8 +213,8 @@ alternate_keys = {
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
 keys.update({'tap ' + x: x for x in ctx.lists['self.modifier']})
-ctx.lists['self.special'] = keys
-ctx.lists["self.function"] = {
+ctx.lists['self.special_key'] = keys
+ctx.lists["self.function_key"] = {
     f"F {default_f_digits[i]}": f"f{i + 1}" for i in range(12)
 }
 
@@ -251,9 +251,9 @@ def letter(m):
     return m.letter
 
 
-@ctx.capture(rule="{self.special}")
-def special(m):
-    return m.special
+@ctx.capture(rule="{self.special_key}")
+def special_key(m):
+    return m.special_key
 
 
 @ctx.capture(rule="{self.symbol}")
@@ -261,13 +261,13 @@ def symbol(m):
     return m.symbol
 
 
-@ctx.capture(rule="{self.function}")
-def function(m):
-    return m.function
+@ctx.capture(rule="{self.function_key}")
+def function_key(m):
+    return m.function_key
 
 
 @ctx.capture(
-    rule="(<self.arrow> | <self.number> | <self.letter> | <self.symbol> | <self.function> | <self.special>)"
+    rule="(<self.arrow> | <self.number> | <self.letter> | <self.symbol> | <self.function_key> | <self.special_key>)"
 )
 def unmodified_key(m) -> str:
     return str(m)
