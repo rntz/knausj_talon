@@ -34,6 +34,7 @@ simple_vocabulary = [
     "org", "orgs",
     "misrecognition", "misrecognitions",
     "lambda",
+    "repl",
 ]
 
 # only include pluralizable nouns here
