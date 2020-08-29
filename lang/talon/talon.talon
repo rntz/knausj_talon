@@ -63,5 +63,4 @@ funk wrap <number>:
 	clip.set_text(old_clip)
 	
 pronounce <user.key>: insert(key)
-pronounce <user.special>: insert(special)
 pronounce <user.arrows>: insert(arrows)

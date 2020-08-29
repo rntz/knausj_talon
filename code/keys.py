@@ -30,8 +30,8 @@ def modifiers(m) -> str:
 
 
 @mod.capture
-def modifiers_optional(m) -> str:
-    "Zero or more modifier keys"
+def modifier_list(m) -> str:
+    "A list of zero or more modifier keys"
 
 
 @mod.capture
@@ -224,8 +224,11 @@ def modifiers(m):
 
 
 @ctx.capture(rule="{self.modifier}*")
-def modifiers_optional(m):
-    return "-".join(m.modifier_list)
+def modifier_list(m):
+    try:
+        return m.modifier_list
+    except:
+        return []
 
 
 @ctx.capture(rule="{self.arrow}")
@@ -270,10 +273,9 @@ def unmodified_key(m) -> str:
     return str(m)
 
 
-@ctx.capture(rule="<self.modifiers_optional> <self.unmodified_key>")
+@ctx.capture(rule="<self.modifier_list> <self.unmodified_key>")
 def key(m) -> str:
-    mods = m.modifiers_optional
-    return "-".join([mods] + [m.unmodified_key])
+    return "-".join(m.modifier_list + [m.unmodified_key])
 
 
 @ctx.capture(rule="<self.key>+")
