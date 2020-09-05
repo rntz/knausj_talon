@@ -29,7 +29,7 @@ def surround(by):
     return func
 
 
-def format_phrase(m: Union[str, Phrase], fmtrs: str):
+def format_phrase(m: Union[str, Phrase], fmtrs: str) -> str:
     global last_phrase
     last_phrase = m
     words = []
