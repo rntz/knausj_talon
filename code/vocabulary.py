@@ -87,7 +87,11 @@ def word(m) -> str:
     try:
         return m.vocabulary
     except AttributeError:
-        return actions.dictate.parse_words(m.word)[-1]
+        word = actions.dictate.parse_words(m.word)[-1]
+        # if the word is both a regular word AND user.vocabulary, then it may
+        # parse as <word>; pass it through mapping_vocabulary to make sure it's
+        # translated.
+        return mapping_vocabulary.get(word, word)
 
 
 punctuation = set(".,-!?;:")
