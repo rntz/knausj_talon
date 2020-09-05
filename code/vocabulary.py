@@ -1,6 +1,50 @@
 from talon import Context, Module, actions, grammar
 
+# Add words here if Talon recognizes them, but their spelling needs to be
+# adjusted. Only works for single words.
+word_map = {
+    # "posset": "poset",
+}
 
+# Add words here that Talon recognizes, but that need to have their
+# capitalization adjusted.
+capitalize = [
+    "I",
+    "I'm",
+    "I've",
+    "I'll",
+    "I'd",
+    "Monday",
+    "Mondays",
+    "Tuesday",
+    "Tuesdays",
+    "Wednesday",
+    "Wednesdays",
+    "Thursday",
+    "Thursdays",
+    "Friday",
+    "Fridays",
+    "Saturday",
+    "Saturdays",
+    "Sunday",
+    "Sundays",
+    "January",
+    "February",
+    # March omitted because it's a regular word too
+    "April",
+    # May omitted because it's a regular word too
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
+word_map.update({x.lower(): x for x in capitalize})
+
+# Add words (or phrases you want treated as words) here if Talon doesn't
+# recognize them at all.
 simple_vocabulary = [
     "nmap",
     "admin",
@@ -18,66 +62,73 @@ simple_vocabulary = [
     "foo",
     "firefox",
     "git",
-    "memoize", "memoizes",
+    "memoize",
+    "memoizes",
     "Zulip",
-    "recurs", "recurse", "recurses",
-    "Datalog", "Datafun",
-    "lag", "laggy",
+    "recurs",
+    "recurse",
+    "recurses",
+    "Datalog",
+    "Datafun",
+    "lag",
+    "laggy",
     "pluralizable",
     "dev",
     "misc",
     "seminaive",
     "anime",
-    "comonad", "modal", "coeffect", "ringoid", "ringoids",
+    "comonad",
+    "modal",
+    "coeffect",
+    "ringoid",
+    "ringoids",
     "poset",
-    "arg", "args",
-    "org", "orgs",
-    "misrecognition", "misrecognitions",
+    "arg",
+    "args",
+    "org",
+    "orgs",
+    "misrecognition",
+    "misrecognitions",
     "lambda",
     "repl",
     "erroring",
-    "metavariable", "metavariables",
+    "metavariable",
+    "metavariables",
     "repo",
     "hey",
-    "Neel", "Krishnaswami", "Dan Ghica",
+    "Neel",
+    "Krishnaswami",
     "quotiented",
     "monoidal",
     "subsumptive",
 ]
 
-# only include pluralizable nouns here
-proper_nouns = [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-    "January", "February", "April", "June", "July", "August", "September", "October", "November", "December",
-]
-simple_vocabulary.extend(proper_nouns + [x+"s" for x in proper_nouns])
-
+# Add vocabulary words (or phrases you want treated as words) here that aren't
+# recognized by Talon and are written differently than they're pronounced.
 mapping_vocabulary = {
-    "i": "I",
-    "i'm": "I'm",
-    "i've": "I've",
-    "i'll": "I'll",
-    "i'd": "I'd",
-#    "shemacs": "emacs", "shemax": "emacs",
-    "recurse center": "Recurse Center", "recur center": "Recurse Center", "r c": "RC",
-#    "to morrow": "tomorrow", "to day": "today",
-    "underdocumented": "under-documented",
-#    "roten": "rotten",
-    "r s i": "RSI", "rs si": "RSI",
-    "my nick": "rntz", "runtsy": "rntz",
-#    "miss recognition": "misrecognition", "miss recognitions": "misrecognitions",
-    "dan geeka": "Dan Ghica", "geeka": "Ghica",
-    "omega scipio": "ω-cpo", "omega sepia": "ω-cpo",
-    "se po": "cpo", "see pee oh": "cpo", "omega cpo": "ω-cpo",
-    "posset": "poset", "poe set": "poset",
+    "under documented": "under-documented",
+    "recurse center": "Recurse Center",
+    "recur center": "Recurse Center",
+    "r c": "RC",
+    "r s i": "RSI",
+    "rs si": "RSI",
+    "my nick": "rntz",
+    "runtsy": "rntz",
+    "dan geeka": "Dan Ghica",
+    "geeka": "Ghica",
+    "omega scipio": "ω-cpo",
+    "omega sepia": "ω-cpo",
+    "se po": "cpo",
+    "see pee oh": "cpo",
+    "omega cpo": "ω-cpo",
 }
-
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
+
 
 mod = Module()
 
 
-@mod.capture(rule="({user.vocabulary})")
+@mod.capture(rule="{user.vocabulary}")
 def vocabulary(m) -> str:
     return m.vocabulary
 
@@ -87,11 +138,13 @@ def word(m) -> str:
     try:
         return m.vocabulary
     except AttributeError:
-        word = actions.dictate.parse_words(m.word)[-1]
-        # if the word is both a regular word AND user.vocabulary, then it may
-        # parse as <word>; pass it through mapping_vocabulary to make sure it's
-        # translated.
-        return mapping_vocabulary.get(word, word)
+        # TODO: if the word is both a regular word AND user.vocabulary, then in
+        # principle it may parse as <word> instead; we ought to pass it through
+        # mapping_vocabulary to be sure. But we should be doing that in
+        # user.text, below, too.
+        words = actions.dictate.replace_words(actions.dictate.parse_words(m.word))
+        assert len(words) == 1
+        return words[0]
 
 
 punctuation = set(".,-!?;:")
@@ -100,20 +153,18 @@ punctuation = set(".,-!?;:")
 @mod.capture(rule="(<user.vocabulary> | <phrase>)+")
 def text(m) -> str:
     words = []
-    result = ""
     for item in m:
-        # print(m)
         if isinstance(item, grammar.vm.Phrase):
-            words = words + actions.dictate.replace_words(
-                actions.dictate.parse_words(item)
+            words.extend(
+                actions.dictate.replace_words(actions.dictate.parse_words(item))
             )
         else:
-            words = words + item.split(" ")
+            words.extend(item.split(" "))
 
+    result = ""
     for i, word in enumerate(words):
         if i > 0 and word not in punctuation and words[i - 1][-1] not in ("/-("):
             result += " "
-
         result += word
     return result
 
@@ -122,6 +173,12 @@ mod.list("vocabulary", desc="user vocabulary")
 
 ctx = Context()
 
-# setup the word map too
-ctx.settings["dictate.word_map"] = mapping_vocabulary
+# dictate.word_map is used by actions.dictate.replace_words to rewrite words
+# Talon recognized. Entries in word_map don't change the priority with which
+# Talon recognizes some words over others.
+ctx.settings["dictate.word_map"] = word_map
+
+# user.vocabulary is used to explicitly add words/phrases that Talon doesn't
+# recognize. Words in user.vocabulary (or other lists and captures) are
+# "command-like" and their recognition is prioritized over ordinary words.
 ctx.lists["user.vocabulary"] = mapping_vocabulary
