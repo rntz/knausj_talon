@@ -130,6 +130,7 @@ formatters_dict = {
     "SPACE_SURROUNDED_STRING": (SEP, surround(" ")),
     "DOT_SEPARATED": words_with_joiner("."),
     "SLASH_SEPARATED": words_with_joiner("/"),
+    "PIPE_SEPARATED": words_with_joiner("|"),
     "CAPITALIZE_FIRST_WORD": (SEP, first_vs_rest(lambda w: w.capitalize())),
     "CAPITALIZE_ALL_WORDS": (
         SEP,
@@ -157,6 +158,7 @@ formatters_words = {
     # "say": formatters_dict["NOOP"],
     "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
     "slashing": formatters_dict["SLASH_SEPARATED"],
+    "piping": formatters_dict["PIPE_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     # "speak": formatters_dict["NOOP"],

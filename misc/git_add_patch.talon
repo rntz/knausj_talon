@@ -10,7 +10,7 @@ air: key(a enter)
 drum: key(d enter)
 each: key(e enter)
 question [mark]: key(? enter)
-# The below are only useful in -i/--interactive mode.
+# The below are useful in -i/--interactive mode.
 sun: key(s enter)
 urge: key(u enter)
 red: key(r enter)

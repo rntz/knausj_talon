@@ -97,8 +97,8 @@ ctx.lists["self.modifier"] = {
     #"option": "alt",
     "shift": "shift",  'shin': 'shift',
     "super": "super",
-    "fly": "alt",
-    "kid": "ctrl", "kit": "ctrl",
+    "fly": "alt", "kiss": "ctrl", #"kid": "ctrl", "kit": "ctrl",
+    #"fly": "ctrl", "kiss": "alt", #"kid": "alt", "kit": "alt",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
@@ -113,7 +113,7 @@ ctx.lists["self.symbol"] = {
     "period": ".",
     "semi": ";",
     "semicolon": ";",
-    "ticky": "'", #"quote": "'",
+    "tick": "'", "ticky": "'", #"quote": "'",
     #"L square": "[",
     #"left square": "[",
     "square": "[",
@@ -149,12 +149,10 @@ ctx.lists["self.symbol"] = {
     "close curly": "}", #"right brace": "}",
     #"angle": "<",
     #"left angle": "<",
-    "less than": "<",
-    "langle": "<",
-    "rangle": ">",
+    "less than": "<", "lesser": "<",
     #"R angle": ">",
     #"right angle": ">",
-    "greater than": ">",
+    "greater than": ">", "greater": ">",
     "star": "*",
     "asterisk": "*",
     "pound": "#",
@@ -162,7 +160,8 @@ ctx.lists["self.symbol"] = {
     "hash sign": "#",
     "number sign": "#",
     "octo": "#",
-    "percent": "%",
+    #"percent": "%",
+    "percy": "%",
     "percent sign": "%",
     "carrot": "^",
     "at sign": "@",
@@ -171,8 +170,15 @@ ctx.lists["self.symbol"] = {
     "amper": "&",
     "pipe": "|",
     "ditto": '"', #"dubquote": '"',
+    "chalk": '"',
     "double quote": '"',
-    'open fancy': '“', 'close fancy': '”',
+    "open single": "‘", "close single": "’",
+    'open double': '“', 'close double': '”',
+    "short dash": "–", "long dash": "—",
+    "lack": "[", "rack": "]",
+    "lace": "{", "race": "}",
+    "leper": "(", "repper": ")",
+    "langle": "<", "rangle": ">",
 }
 
 
@@ -185,7 +191,7 @@ ctx.lists["self.arrow"] = {
 }
 
 simple_keys = [
-    "end",
+    #"end",
     "enter",
     "escape",
     #"home",
@@ -198,7 +204,7 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
-    "head": "home", "tail": "end", "foot": "end",
+    "head": "home", "tail": "end", #"foot": "end",
 #    'send': 'end',
     "delete": "backspace",
     "forward delete": "delete",
@@ -208,7 +214,7 @@ alternate_keys = {
     'tap insert': 'insert',
     'swim': 'space',
     'void': 'space',
-    "shock": "enter",
+    "slap": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)

@@ -35,6 +35,14 @@ simple_vocabulary = [
     "misrecognition", "misrecognitions",
     "lambda",
     "repl",
+    "erroring",
+    "metavariable", "metavariables",
+    "repo",
+    "hey",
+    "Neel", "Krishnaswami", "Dan Ghica",
+    "quotiented",
+    "monoidal",
+    "subsumptive",
 ]
 
 # only include pluralizable nouns here
@@ -50,14 +58,18 @@ mapping_vocabulary = {
     "i've": "I've",
     "i'll": "I'll",
     "i'd": "I'd",
-    "shemacs": "emacs", "shemax": "emacs",
+#    "shemacs": "emacs", "shemax": "emacs",
     "recurse center": "Recurse Center", "recur center": "Recurse Center", "r c": "RC",
 #    "to morrow": "tomorrow", "to day": "today",
     "underdocumented": "under-documented",
 #    "roten": "rotten",
     "r s i": "RSI", "rs si": "RSI",
-    "my nick": "rntz",
+    "my nick": "rntz", "runtsy": "rntz",
 #    "miss recognition": "misrecognition", "miss recognitions": "misrecognitions",
+    "dan geeka": "Dan Ghica", "geeka": "Ghica",
+    "omega scipio": "ω-cpo", "omega sepia": "ω-cpo",
+    "se po": "cpo", "see pee oh": "cpo", "omega cpo": "ω-cpo",
+    "posset": "poset", "poe set": "poset",
 }
 
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))

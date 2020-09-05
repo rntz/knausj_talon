@@ -24,6 +24,6 @@ file save: edit.save()
 padding:
 	insert("  ") 
 	key(left)
-slap:
+disabled command but use tail slap to do the same thing:
 	edit.line_end()
 	key(enter)
