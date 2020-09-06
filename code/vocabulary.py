@@ -1,12 +1,6 @@
 from talon import Context, Module, actions, grammar
 
-# Add words here if Talon recognizes them, but their spelling needs to be
-# adjusted. Only works for single words.
-word_map = {
-    # "posset": "poset",
-}
-
-# Add words here that Talon recognizes, but that need to have their
+# Add single words here if Talon recognizes them, but they need to have their
 # capitalization adjusted.
 capitalize = [
     "I",
@@ -41,6 +35,13 @@ capitalize = [
     "November",
     "December",
 ]
+
+# Add single words here if Talon recognizes, but they need to have their
+# spelling adjusted.
+word_map = {
+    # For example:
+    # "color": "colour",
+}
 word_map.update({x.lower(): x for x in capitalize})
 
 # Add words (or phrases you want treated as words) here if Talon doesn't
