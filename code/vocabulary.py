@@ -54,8 +54,8 @@ simple_vocabulary = [
     "VPN",
     "DNS",
     "minecraft",
-    "emacs",
-    "tuple",
+    "emacs", # necessary?
+    "tuple", # necessary?
     "diff",
     "timezone",
     "grep",
