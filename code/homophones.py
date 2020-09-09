@@ -113,7 +113,7 @@ def raise_homophones(word, forced=False, selection=False):
 
     actions.mode.enable("user.homophones")
     show_help = False
-    gui.freeze()
+    gui.show()
 
 
 @imgui.open(y=0, x=main_screen.width / 2.6, software=False)
@@ -133,7 +133,7 @@ def gui(gui: imgui.GUI):
 def show_help_gui():
     global show_help
     show_help = True
-    gui.freeze()
+    gui.show()
 
 
 @mod.capture
