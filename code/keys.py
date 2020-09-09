@@ -3,7 +3,7 @@ from typing import Set
 from talon import Module, Context, actions
 import sys
 
-default_alphabet = "air bat cap drum each fine gust harp ivy jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zig".split(
+default_alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(
     " "
 )
 letters_string = "abcdefghijklmnopqrstuvwxyz"
@@ -116,9 +116,9 @@ ctx.lists["self.symbol"] = {
     "tick": "'", "ticky": "'", #"quote": "'",
     #"L square": "[",
     #"left square": "[",
-    "square": "[",
+    #"square": "[",
     #"R square": "]",
-    "close square": "]", #"right square": "]",
+    #"close square": "]", #"right square": "]",
     "forward slash": "/",
     "slash": "/",
     "backslash": "\\",
@@ -138,15 +138,16 @@ ctx.lists["self.symbol"] = {
     "under score": "_",
     "colon": ":",
     "deckle": ":",
-    "round": "(",
+    "clap": ":",
+    #"round": "(",
     #"L paren": "(",
     #"left paren": "(",
     #"R paren": ")",
-    "close round": ")", #"right paren": ")",
-    "curly": "{", #"brace": "{",
+    #"close round": ")", #"right paren": ")",
+    #"curly": "{", #"brace": "{",
     #"left brace": "{",
     #"R brace": "}",
-    "close curly": "}", #"right brace": "}",
+    #"close curly": "}", #"right brace": "}",
     #"angle": "<",
     #"left angle": "<",
     "less than": "<", "lesser": "<",
@@ -172,7 +173,7 @@ ctx.lists["self.symbol"] = {
     "ditto": '"', #"dubquote": '"',
     "chalk": '"',
     "double quote": '"',
-    "open single": "‘", "close single": "’",
+    "open single": "‘", "close single": "’", "apostrophe": "’",
     'open double': '“', 'close double': '”',
     "short dash": "–", "long dash": "—",
     "lack": "[", "rack": "]",
@@ -205,16 +206,14 @@ simple_keys = [
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
     "head": "home", "tail": "end", #"foot": "end",
-#    'send': 'end',
+#    'send': 'end', 'pliny': 'end',
     "delete": "backspace",
     "forward delete": "delete",
     'junk': 'backspace',
     'deli': 'delete',
-    'pliny': 'end',
     'tap insert': 'insert',
     'swim': 'space',
     'void': 'space',
-    "sip": "space",
     "slap": "enter",
 }
 keys = {k: k for k in simple_keys}

@@ -41,6 +41,8 @@ capitalize = [
 word_map = {
     # For example:
     # "color": "colour",
+    "hay": "hey",
+    "ya": "yeah",
 }
 word_map.update({x.lower(): x for x in capitalize})
 
@@ -96,12 +98,13 @@ simple_vocabulary = [
     "metavariable",
     "metavariables",
     "repo",
-    "hey",
+    #"hey",
     "Neel",
     "Krishnaswami",
     "quotiented",
     "monoidal",
     "subsumptive",
+    "cond var", "cond vars",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
@@ -122,6 +125,10 @@ mapping_vocabulary = {
     "se po": "cpo",
     "see pee oh": "cpo",
     "omega cpo": "ω-cpo",
+    "haitch top": "htop", "age top": "htop",
+    "haitch": "aitch",
+    "de message": "dmesg",
+    "p l": "PL", "pee ell": "PL",
 }
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 
