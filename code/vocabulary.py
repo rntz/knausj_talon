@@ -36,7 +36,7 @@ capitalize = [
     "December",
 ]
 
-# Add single words here if Talon recognizes, but they need to have their
+# Add single words here if Talon recognizes them, but they need to have their
 # spelling adjusted.
 word_map = {
     # For example:
@@ -111,6 +111,8 @@ simple_vocabulary = [
 # Add vocabulary words (or phrases you want treated as words) here that aren't
 # recognized by Talon and are written differently than they're pronounced.
 mapping_vocabulary = {
+    # For example:
+    # "enn map": "nmap",
     "under documented": "under-documented",
     "recurse center": "Recurse Center",
     "recur center": "Recurse Center",
