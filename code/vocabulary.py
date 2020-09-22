@@ -159,6 +159,12 @@ def word(m) -> str:
         return words[0]
 
 
+@mod.capture(rule="[<user.word>]")
+def optional_word(m) -> str:
+    try: return m.word
+    except AttributeError: return ""
+
+
 punctuation = set(".,-!?;:")
 
 
@@ -179,6 +185,13 @@ def text(m) -> str:
             result += " "
         result += word
     return result
+
+@mod.capture(rule="[<user.text>]")
+def optional_text(m) -> str:
+    try:
+        return m.text
+    except AttributeError:
+        return ""
 
 
 mod.list("vocabulary", desc="user vocabulary")
