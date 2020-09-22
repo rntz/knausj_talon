@@ -95,7 +95,7 @@ ctx.lists["self.modifier"] = {
     #"command": "cmd",
     "control": "ctrl",  'troll':   'ctrl',
     #"option": "alt",
-    "shift": "shift",  'shin': 'shift',
+    "shift": "shift",  'ship': 'shift',
     "super": "super",
     "fly": "alt", "kiss": "ctrl", #"kid": "ctrl", "kit": "ctrl",
     #"fly": "ctrl", "kiss": "alt", #"kid": "alt", "kit": "alt",
@@ -138,7 +138,6 @@ ctx.lists["self.symbol"] = {
     "under score": "_",
     "colon": ":",
     "deckle": ":",
-    "clap": ":",
     #"round": "(",
     #"L paren": "(",
     #"left paren": "(",
@@ -175,10 +174,11 @@ ctx.lists["self.symbol"] = {
     "double quote": '"',
     "open single": "‘", "close single": "’", "apostrophe": "’",
     'open double': '“', 'close double': '”',
-    "short dash": "–", "long dash": "—",
     "lack": "[", "rack": "]",
     "lace": "{", "race": "}",
     "leper": "(", "repper": ")",
+    # lap/wrap for left/right parentheses
+    "lub": "(", "rub": ")",
     "langle": "<", "rangle": ">",
 }
 

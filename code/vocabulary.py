@@ -43,12 +43,15 @@ word_map = {
     # "color": "colour",
     "hay": "hey",
     "ya": "yeah",
+    "disk": "disc",
+    "centre": "center",
 }
 word_map.update({x.lower(): x for x in capitalize})
 
 # Add words (or phrases you want treated as words) here if Talon doesn't
 # recognize them at all.
 simple_vocabulary = [
+    "Ubuntu",
     "nmap",
     "admin",
     "Cisco",
@@ -61,7 +64,6 @@ simple_vocabulary = [
     "diff",
     "timezone",
     "grep",
-    "ack",
     "foo",
     "firefox",
     "git",
@@ -80,12 +82,8 @@ simple_vocabulary = [
     "misc",
     "seminaive",
     "anime",
-    "comonad",
-    "modal",
-    "coeffect",
-    "ringoid",
-    "ringoids",
-    "poset",
+    "comonad", "modal", "coeffect",
+    "ringoid", "ringoids", "poset",
     "arg",
     "args",
     "org",
@@ -105,6 +103,9 @@ simple_vocabulary = [
     "monoidal",
     "subsumptive",
     "cond var", "cond vars",
+    "UK",
+    "pandoc",
+    "debuggable",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
@@ -129,6 +130,9 @@ mapping_vocabulary = {
     "haitch": "aitch",
     "de message": "dmesg",
     "p l": "PL", "pee ell": "PL",
+    "data log": "Datalog", "data logs": "Datalog's",
+    "semi ring": "semiring",
+    "talon script": "TalonScript",
 }
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 
