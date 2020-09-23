@@ -213,7 +213,7 @@ alternate_keys = {
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
-keys.update({'tap ' + x: x for x in ctx.lists['self.modifier']})
+keys.update({'tap ' + x: x for x in ctx.lists['self.modifier_key']})
 ctx.lists['self.special_key'] = keys
 ctx.lists["self.function_key"] = {
     f"F {default_f_digits[i]}": f"f{i + 1}" for i in range(12)
