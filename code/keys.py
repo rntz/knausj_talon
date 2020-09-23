@@ -171,10 +171,10 @@ ctx.lists["self.symbol"] = {
     'open double': '“', 'close double': '”',
     "lack": "[", "rack": "]",
     "lace": "{", "race": "}",
-    "leper": "(", "repper": ")",
-    # lap/wrap for left/right parentheses
+    # "leper": "(", "repper": ")",
     "lub": "(", "rub": ")",
-    "langle": "<", "rangle": ">",
+    "langle": "<", "wrangle": ">",
+    "lang": "<", "rang": ">",
 }
 
 

@@ -1,7 +1,8 @@
 #extensions
 dot pie: ".py"
-dot talon: ".talon"
+dot (talon|town): ".talon"
 dot mark down: ".md"
+dot text: ".txt"
 dot shell: ".sh"
 dot vim: ".vim"
 #dot see: ".c"
