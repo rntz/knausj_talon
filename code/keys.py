@@ -30,11 +30,6 @@ def modifiers(m) -> str:
 
 
 @mod.capture
-def modifier_list(m) -> str:
-    "A list of zero or more modifier keys"
-
-
-@mod.capture
 def arrow(m) -> str:
     "One directional arrow key"
 
@@ -229,14 +224,6 @@ def modifiers(m):
     return "-".join(m.modifier_list)
 
 
-@ctx.capture(rule="{self.modifier}*")
-def modifier_list(m):
-    try:
-        return m.modifier_list
-    except:
-        return []
-
-
 @ctx.capture(rule="{self.arrow}")
 def arrow(m) -> str:
     return m.arrow
@@ -279,9 +266,13 @@ def unmodified_key(m) -> str:
     return str(m)
 
 
-@ctx.capture(rule="<self.modifier_list> <self.unmodified_key>")
+@ctx.capture(rule="{self.modifier}* <self.unmodified_key>")
 def key(m) -> str:
-    return "-".join(m.modifier_list + [m.unmodified_key])
+    try:
+        mods = m.modifier_list
+    except AttributeError:
+        mods = []
+    return "-".join(mods + [m.unmodified_key])
 
 
 @ctx.capture(rule="<self.key>+")
