@@ -268,10 +268,10 @@ def unmodified_key(m) -> str:
     return str(m)
 
 
-@ctx.capture(rule="{self.modifier}* <self.unmodified_key>")
+@ctx.capture(rule="{self.modifier_key}* <self.unmodified_key>")
 def key(m) -> str:
     try:
-        mods = m.modifier_list
+        mods = m.modifier_key_list
     except AttributeError:
         mods = []
     return "-".join(mods + [m.unmodified_key])
