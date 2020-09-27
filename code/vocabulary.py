@@ -90,8 +90,7 @@ simple_vocabulary = [
     "args",
     "org",
     "orgs",
-    "misrecognition",
-    "misrecognitions",
+    "misrecognition", "misrecognitions",
     "lambda",
     "repl",
     "erroring",
@@ -108,6 +107,7 @@ simple_vocabulary = [
     "UK",
     "pandoc",
     "debuggable",
+    "formatter", "formatters",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
