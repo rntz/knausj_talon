@@ -45,6 +45,8 @@ word_map = {
     "ya": "yeah",
     "disk": "disc",
     "centre": "center",
+    "hanuka": "hanukkah", "hanukka": "hanukkah",
+    "draught": "draft",
 }
 word_map.update({x.lower(): x for x in capitalize})
 
@@ -130,6 +132,7 @@ mapping_vocabulary = {
     "no op": "no-op",
     "dock string": "doc string", "dock strings": "doc strings",
     "gee edit": "gedit", "geedit": "gedit",
+    "p r": "PR",
 }
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 

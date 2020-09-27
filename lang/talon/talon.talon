@@ -61,6 +61,3 @@ funk wrap <number>:
     sleep(100ms)
     user.code_select_function(number - 1, clip.text())
 	clip.set_text(old_clip)
-	
-pronounce <user.key>: insert(key)
-pronounce <user.arrows>: insert(arrows)

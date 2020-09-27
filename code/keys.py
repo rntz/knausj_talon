@@ -174,7 +174,6 @@ ctx.lists["self.symbol_key"] = {
     # "leper": "(", "repper": ")",
     "lub": "(", "rub": ")",
     "langle": "<", "wrangle": ">",
-    "lang": "<", "rang": ">",
 }
 
 
