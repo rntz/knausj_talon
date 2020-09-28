@@ -108,6 +108,7 @@ simple_vocabulary = [
     "pandoc",
     "debuggable",
     "formatter", "formatters",
+    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
@@ -115,9 +116,9 @@ simple_vocabulary = [
 mapping_vocabulary = {
     # For example:
     # "enn map": "nmap",
+    #"p r": "PR", "p l": "PL", "pee ell": "PL", "r s i": "RSI", "rs si": "RSI", "r c": "RC",
     "under documented": "under-documented",
-    "r c": "RC", "recurse center": "Recurse Center", "recur center": "Recurse Center",
-    "r s i": "RSI", "rs si": "RSI",
+    "recurse center": "Recurse Center", "recur center": "Recurse Center",
     "my nick": "rntz", "runtsy": "rntz",
     "dan geeka": "Dan Ghica", "geeka": "Ghica",
     "omega scipio": "ω-cpo", "omega sepia": "ω-cpo", "omega cpo": "ω-cpo",
@@ -125,15 +126,12 @@ mapping_vocabulary = {
     "haitch top": "htop", "age top": "htop",
     "haitch": "aitch",
     "de message": "dmesg",
-    "p l": "PL", #"pee ell": "PL",
     "data log": "Datalog", "data logs": "Datalog's",
     "semi ring": "semiring",
     "talon script": "TalonScript",
     "no op": "no-op",
     "dock string": "doc string", "dock strings": "doc strings",
     "gee edit": "gedit", "geedit": "gedit",
-    "p r": "PR",
-    "fa cu": "FAQ",
     "wave to letter": "wav2letter",
     "format matters": "formatters",
 }

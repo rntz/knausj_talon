@@ -17,6 +17,11 @@ continue <user.text> over:
   temp = " " + text
   result = user.formatted_text(temp, "NOOP")
   insert(result)
+continue <user.text> break:
+  temp = " " + text
+  temp = temp + " "
+  result = user.formatted_text(temp, "NOOP")
+  insert(result)
 <user.format_text>$: insert(format_text)
 <user.format_text> over: insert(format_text)
 word <user.word>: insert(user.word)
