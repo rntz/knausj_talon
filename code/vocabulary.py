@@ -133,6 +133,9 @@ mapping_vocabulary = {
     "dock string": "doc string", "dock strings": "doc strings",
     "gee edit": "gedit", "geedit": "gedit",
     "p r": "PR",
+    "fa cu": "FAQ",
+    "wave to letter": "wav2letter",
+    "format matters": "formatters",
 }
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 
