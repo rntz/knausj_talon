@@ -88,12 +88,11 @@ ctx = Context()
 ctx.lists["self.modifier_key"] = {
     #"alt": "alt",
     #"command": "cmd",
-    "control": "ctrl",  'troll':   'ctrl',
+    "control": "ctrl",  #'troll':   'ctrl',
     #"option": "alt",
-    "shift": "shift",  'ship': 'shift',
+    "shift": "shift",  'ship': 'shift',  #'sky': 'shift',
     "super": "super",
-    "fly": "alt", "kiss": "ctrl", #"kid": "ctrl", "kit": "ctrl",
-    #"fly": "ctrl", "kiss": "alt", #"kid": "alt", "kit": "alt",
+    "fly": "alt", "kiss": "ctrl",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
@@ -212,8 +211,7 @@ alternate_keys = {
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
-keys.update({'tap ' + x: x for x in ctx.lists['self.modifier_key']})
-ctx.lists['self.special_key'] = keys
+ctx.lists["self.special_key"] = keys
 ctx.lists["self.function_key"] = {
     f"F {default_f_digits[i]}": f"f{i + 1}" for i in range(12)
 }
