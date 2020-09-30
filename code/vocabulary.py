@@ -108,7 +108,7 @@ simple_vocabulary = [
     "pandoc",
     "debuggable",
     "formatter", "formatters",
-    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC",
+    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "csv",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
