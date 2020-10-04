@@ -128,7 +128,7 @@ ctx.lists["self.symbol_key"] = {
     "exclamation point": "!",
     "dollar": "$",
     "dollar sign": "$",
-    "down score": "_",
+    "down score": "_", "downs score": "_",
     "under score": "_",
     "colon": ":",
     "deckle": ":",
