@@ -164,7 +164,6 @@ ctx.lists["self.symbol_key"] = {
     "amper": "&",
     "pipe": "|",
     "ditto": '"', #"dubquote": '"',
-    "chalk": '"',
     "double quote": '"',
     "open single": "‘", "close single": "’", "apostrophe": "’",
     'open double': '“', 'close double': '”',
@@ -208,6 +207,7 @@ alternate_keys = {
     'swim': 'space',
     'void': 'space',
     "slap": "enter",
+    "shock": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
