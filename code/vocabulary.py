@@ -115,7 +115,8 @@ mapping_vocabulary = {
     "format matters": "formatters",
     "asink": "async", #"acingk": "async",
     "mark down": "markdown",
-    "emmax": "emacs", "emacx": "emacs",
+#    "emmax": "emacs", "emacx": "emacs",
+    "meta theory": "metatheory", "higher order": "higher-order",
 }
 mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 
