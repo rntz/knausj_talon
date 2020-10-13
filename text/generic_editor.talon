@@ -127,11 +127,11 @@ clear (way right | head):
     edit.extend_line_end()
     edit.delete()
 
-clear to top:
+clear [to] top:
     edit.extend_file_start()
     edit.delete()
 
-clear to bottom:
+clear [to] bottom:
     edit.extend_file_end()
     edit.delete()
 

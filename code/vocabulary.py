@@ -53,8 +53,10 @@ word_map.update({x.lower(): x for x in capitalize})
 # Add words (or phrases you want treated as words) here if Talon doesn't
 # recognize them at all.
 simple_vocabulary = [
-    "timezone",
-    "Ubuntu", "Cisco", "Citrix",
+    "talon", # Talon does recognize this but doesn't recognize it often enough.
+    "nano", "antlion", "timezone",
+    "Ubuntu", "Cisco", "Citrix", "Sennheiser", "Huawei",
+    "tex",
     "admin",
     "minecraft",
     "tuple", # necessary?
@@ -63,31 +65,22 @@ simple_vocabulary = [
     "Zulip",
     "recurs", "recurse", "recurses",
     "Datalog", "Datalog's", "Datafun",
-    "lag", "laggy",
-    "pluralizable",
-    "dev",
-    "misc",
-    "seminaive",
-    "anime",
+    "lag", "laggy", "pluralizable", "dev", "misc", "seminaive", "anime",
     "comonad", "modal", "coeffect",
     "ringoid", "ringoids", "poset", "monoidal",
     "arg", "args", "org", "orgs",
     "misrecognition", "misrecognitions",
-    "lambda",
-    "repl",
-    "erroring",
+    "lambda", "repl", "erroring",
     "metavariable", "metavariables",
     "repo",
-    #"hey",
     "Neel", "Krishnaswami",
-    "quotiented",
-    "subsumptive",
+    "quotiented", "subsumptive",
     "cond var", "cond vars",
-    "UK",
-    "debuggable",
+    "debuggable", "async",
     "formatter", "formatters",
-    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "csv", "VPN", "DNS",
-    "async",
+    "UK", "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "VPN", "DNS", "CV",
+    "usb", "csv",
+    "PhD",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't

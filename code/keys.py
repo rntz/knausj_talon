@@ -116,6 +116,7 @@ ctx.lists["self.symbol_key"] = {
     "forward slash": "/",
     "slash": "/",
     "backslash": "\\",
+    "backer": "\\",
     "minus": "-",
     "dash": "-",
     "equals": "=",

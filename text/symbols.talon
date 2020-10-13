@@ -14,35 +14,35 @@ dub arrow: "=>"
 new line: "\\n"
 carriage return: "\\r"
 line feed: "\\r\\n"
-empty dubstring:
-    '""'
-    key(left)
-empty escaped (dubstring|dub quotes):
-    '\\"\\"'
-    key(left)
-    key(left)
-empty string:
-    "''"
-    key(left)
-empty escaped string:
-    "\\'\\'"
-    key(left)
-    key(left)
-(inside parens | args):
-	insert("()")
-	key(left)
-inside (squares | list): 
-	insert("[]") 
-	key(left)
-inside (bracket | braces): 
-	insert("{}") 
-	key(left)
-inside percent: 
-	insert("%%") 
-	key(left)
-inside quotes:
-	insert('""')
-	key(left)
+# empty dubstring:
+#     '""'
+#     key(left)
+# empty escaped (dubstring|dub quotes):
+#     '\\"\\"'
+#     key(left)
+#     key(left)
+# empty string:
+#     "''"
+#     key(left)
+# empty escaped string:
+#     "\\'\\'"
+#     key(left)
+#     key(left)
+# (inside parens | args):
+# 	insert("()")
+# 	key(left)
+# inside (squares | list): 
+# 	insert("[]") 
+# 	key(left)
+# inside (bracket | braces): 
+# 	insert("{}") 
+# 	key(left)
+# inside percent: 
+# 	insert("%%") 
+# 	key(left)
+# inside quotes:
+# 	insert('""')
+# 	key(left)
 angle this: 
     text = edit.selected_text()
     user.paste("<{text}>")
