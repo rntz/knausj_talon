@@ -1,8 +1,9 @@
 from talon import Context, Module, actions, grammar
+from .user_settings import bind_list_to_csv, bind_word_map_to_csv
 
-# Add single words here if Talon recognizes them, but they need to have their
-# capitalization adjusted.
-capitalize = [
+
+# Default words that will need to be capitalized (particularly under w2l).
+_capitalize_defaults = [
     "I",
     "I'm",
     "I've",
@@ -36,84 +37,21 @@ capitalize = [
     "December",
 ]
 
-# Add single words here if Talon recognizes them, but they need to have their
-# spelling adjusted.
-word_map = {
-    # For example:
-    # "color": "colour",
-    "hay": "hey", "ya": "yeah",
-    "disk": "disc",
-    "centre": "center", "adviser": "advisor",
-    "hanuka": "hanukkah", "hanukka": "hanukkah",
-    "draught": "draft",
+# Default words that need to be remapped.
+_word_map_defaults = {
+    # E.g:
+    # "cash": "cache",
 }
-word_map.update({x.lower(): x for x in capitalize})
 
-# Add words (or phrases you want treated as words) here if Talon doesn't
-# recognize them at all.
-simple_vocabulary = [
-    "incrementalize", "incrementalizing",
-    "talon", # Talon does recognize this but doesn't recognize it often enough.
-    "nano", "antlion", "timezone",
-    "Ubuntu", "Cisco", "Citrix", "Sennheiser", "Huawei",
-    "tex",
-    "admin",
-    "minecraft",
-    "tuple", # necessary?
-    "diff", "emacs", "pandoc", "grep", "foo", "firefox", "git",
-    "memoize", "memoizes",
-    "Zulip",
-    "recurs", "recurse", "recurses",
-    "Datalog", "Datalog's", "Datafun",
-    "lag", "laggy", "pluralizable", "dev", "misc", "seminaive", "anime",
-    "comonad", "modal", "coeffect",
-    "ringoid", "ringoids", "poset", "monoidal",
-    "arg", "args", "org", "orgs",
-    "misrecognition", "misrecognitions",
-    "lambda", "repl", "erroring",
-    "metavariable", "metavariables",
-    "repo",
-    "Neel", "Krishnaswami",
-    "quotiented", "subsumptive",
-    "cond var", "cond vars",
-    "debuggable", "async",
-    "formatter", "formatters",
-    "UK", "UK's",
-    "PhD",
-    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "VPN", "DNS", "CV",
-    "usb", "csv", "pdf",
-]
+# Default words that should be added to Talon's vocabulary.
+_simple_vocab_default = ["nmap", "admin", "Cisco", "Citrix", "VPN", "DNS", "Minecraft"]
 
-# Add vocabulary words (or phrases you want treated as words) here that aren't
-# recognized by Talon and are written differently than they're pronounced.
-mapping_vocabulary = {
-    # For example:
-    # "enn map": "nmap",
-    #"p r": "PR", "p l": "PL", "pee ell": "PL", "r s i": "RSI", "rs si": "RSI", "r c": "RC",
-    "t a": "TA", "t a's": "TAs", #"t a'ing": "TAing",
+# Defaults for different pronounciations of words that need to be added to
+# Talon's vocabulary.
+_mapping_vocab_default = {
+    "N map": "nmap",
     "under documented": "under-documented",
-    "recurse center": "Recurse Center", "recur center": "Recurse Center",
-    "my nick": "rntz", "runtsy": "rntz",
-    "dan geeka": "Dan Ghica", "geeka": "Ghica",
-    "omega scipio": "ω-cpo", "omega sepia": "ω-cpo", "omega cpo": "ω-cpo",
-    "se po": "cpo", "see pee oh": "cpo",
-    "haitch top": "htop", "age top": "htop",
-    "haitch": "aitch",
-    "de message": "dmesg",
-    "data log": "Datalog", "data logs": "Datalog's",
-    "semi ring": "semiring",
-    "talon script": "TalonScript",
-    "no op": "no-op",
-    "dock string": "doc string", "dock strings": "doc strings",
-    "gee edit": "gedit", "geedit": "gedit",
-    "wave to letter": "wav2letter",
-    "format matters": "formatters",
-    "asink": "async", #"acingk": "async",
-    "mark down": "markdown",
-#    "emmax": "emacs", "emacx": "emacs",
-    "meta theory": "metatheory", "higher order": "higher-order",
 }
-mapping_vocabulary.update(dict(zip(simple_vocabulary, simple_vocabulary)))
 
 
 mod = Module()
@@ -177,12 +115,28 @@ mod.list("vocabulary", desc="user vocabulary")
 
 ctx = Context()
 
-# dictate.word_map is used by actions.dictate.replace_words to rewrite words
+
+_default_word_map = {}
+_default_word_map.update(_word_map_defaults)
+_default_word_map.update({word.lower(): word for word in _capitalize_defaults})
+# "dictate.word_map" is used by `actions.dictate.replace_words` to rewrite words
 # Talon recognized. Entries in word_map don't change the priority with which
 # Talon recognizes some words over others.
-ctx.settings["dictate.word_map"] = word_map
+bind_word_map_to_csv(
+    "words_to_replace.csv",
+    csv_headers=("Replacement", "Original"),
+    default_values=_default_word_map,
+)
 
-# user.vocabulary is used to explicitly add words/phrases that Talon doesn't
+_default_vocabulary = {}
+_default_vocabulary.update({word: word for word in _simple_vocab_default})
+_default_vocabulary.update(_mapping_vocab_default)
+# "user.vocabulary" is used to explicitly add words/phrases that Talon doesn't
 # recognize. Words in user.vocabulary (or other lists and captures) are
 # "command-like" and their recognition is prioritized over ordinary words.
-ctx.lists["user.vocabulary"] = mapping_vocabulary
+bind_list_to_csv(
+    "user.vocabulary",
+    "additional_words.csv",
+    csv_headers=("Word(s)", "Spoken Form (If Different)"),
+    default_values=_default_vocabulary,
+)
