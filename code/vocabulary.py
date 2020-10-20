@@ -41,10 +41,9 @@ capitalize = [
 word_map = {
     # For example:
     # "color": "colour",
-    "hay": "hey",
-    "ya": "yeah",
+    "hay": "hey", "ya": "yeah",
     "disk": "disc",
-    "centre": "center",
+    "centre": "center", "adviser": "advisor",
     "hanuka": "hanukkah", "hanukka": "hanukkah",
     "draught": "draft",
 }
@@ -53,6 +52,7 @@ word_map.update({x.lower(): x for x in capitalize})
 # Add words (or phrases you want treated as words) here if Talon doesn't
 # recognize them at all.
 simple_vocabulary = [
+    "incrementalize", "incrementalizing",
     "talon", # Talon does recognize this but doesn't recognize it often enough.
     "nano", "antlion", "timezone",
     "Ubuntu", "Cisco", "Citrix", "Sennheiser", "Huawei",
@@ -78,9 +78,10 @@ simple_vocabulary = [
     "cond var", "cond vars",
     "debuggable", "async",
     "formatter", "formatters",
-    "UK", "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "VPN", "DNS", "CV",
-    "usb", "csv",
+    "UK", "UK's",
     "PhD",
+    "NFA", "DFA", "FAQ", "PL", "PR", "RSI", "RC", "VPN", "DNS", "CV",
+    "usb", "csv", "pdf",
 ]
 
 # Add vocabulary words (or phrases you want treated as words) here that aren't
@@ -89,6 +90,7 @@ mapping_vocabulary = {
     # For example:
     # "enn map": "nmap",
     #"p r": "PR", "p l": "PL", "pee ell": "PL", "r s i": "RSI", "rs si": "RSI", "r c": "RC",
+    "t a": "TA", "t a's": "TAs", #"t a'ing": "TAing",
     "under documented": "under-documented",
     "recurse center": "Recurse Center", "recur center": "Recurse Center",
     "my nick": "rntz", "runtsy": "rntz",

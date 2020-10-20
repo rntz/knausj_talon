@@ -36,9 +36,12 @@ tag require:
 	insert("tag: ")
 tag set:
 	insert("tag(): ")
-#commands for dictating key combos
-key <user.keys> over: "{keys}"
+
+# commands for dictating key combo
 key <user.modifiers> over: "{modifiers}"
+# TODO: this single line makes DFA compile times about 100ms longer for me -rntz :(
+key <user.keys> over: "{keys}"
+
 #funk commands, consistent with other languages
 toggle funk: user.code_toggle_functions()
 funk <user.code_functions>: 
