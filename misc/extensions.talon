@@ -1,6 +1,6 @@
 #extensions
 dot pie: ".py"
-dot (talon|town): ".talon"
+dot (talon|town|talent): ".talon"
 dot mark down: ".md"
 dot text: ".txt"
 dot shell: ".sh"
