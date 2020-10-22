@@ -72,3 +72,14 @@ ctx.lists["self.ordinals"] = ordinal_numbers.keys()
 def ordinals(m) -> int:
     """Returns a single ordinal as a digit"""
     return int(ordinal_numbers[m[0]])
+
+# # I had a conjecture that this would compile to a DFA ever-so-slightly faster.
+# # However testing seems to indicate no difference.
+# @mod.capture(
+#     rule="[twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety] (first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)"
+#     "| tenth|twentieth|thirtieth|fortieth|fiftieth|sixtieth|seventieth|eightieth|ninetieth"
+#     "| eleventh|twelfth|thirteenth|fourteenth|fifteenth|sixteenth|seventeenth|eighteenth|nineteenth"
+# )
+# def ordinals(m) -> int:
+#     """Returns a single ordinal as a digit"""
+#     int(ordinal_numbers[int(m)])
