@@ -1,3 +1,3 @@
-macro record: user.macro_record()
-macro stop: user.macro_stop()
-macro play: user.macro_play()
+talon record: user.macro_record()
+talon stop: user.macro_stop()
+talon play: user.macro_play()

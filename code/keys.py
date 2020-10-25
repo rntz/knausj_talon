@@ -170,8 +170,8 @@ ctx.lists["self.symbol_key"] = {
     'open double': '“', 'close double': '”',
     "lack": "[", "rack": "]",
     "lace": "{", "race": "}",
-    # "leper": "(", "repper": ")",
-    "lub": "(", "rub": ")",
+    "leper": "(", "repper": ")",
+    #"lub": "(", "rub": ")",
     "langle": "<", "wrangle": ">",
 }
 
@@ -185,10 +185,10 @@ ctx.lists["self.arrow_key"] = {
 }
 
 simple_keys = [
-    #"end",
+    "end",
     "enter",
     "escape",
-    #"home",
+    "home",
     #"insert",
     "pagedown",
     "pageup",
@@ -198,14 +198,13 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
-    "head": "home", "tail": "end", #"foot": "end",
-#    'send': 'end', 'pliny': 'end',
-    "delete": "backspace",
-    "forward delete": "delete",
+    #"head": "home", "tail": "end", #"foot": "end",
+#    "delete": "backspace",
+#    "forward delete": "delete",
     'junk': 'backspace',
     'deli': 'delete',
-    'tap insert': 'insert',
-    'swim': 'space',
+    'overwrite': 'insert',
+    #'swim': 'space',
     'void': 'space',
     "slap": "enter",
     "shock": "enter",

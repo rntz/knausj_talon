@@ -179,6 +179,7 @@ ctx.lists["user.abbreviation"] = {
     "revision": "rev",
     "ruby": "rb",
     "saskatchewan": "sk",
+    "separate": "sep",
     "service pack": "sp",
     "session id": "sid",
     "shell": "sh",

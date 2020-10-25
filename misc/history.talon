@@ -1,4 +1,4 @@
-talon history: user.history_toggle()
-talon history clear: user.history_clear()
-talon history less: user.history_less()
-talon history more: user.history_more()
+toggle history: user.history_toggle()
+clear history: user.history_clear()
+less history: user.history_less()
+more history: user.history_more()
