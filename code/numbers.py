@@ -40,13 +40,13 @@ scales = [
     "million",
     "billion",
     "trillion",
-    "quadrillion",
-    "quintillion",
-    "sextillion",
-    "septillion",
-    "octillion",
-    "nonillion",
-    "decillion",
+    # "quadrillion",
+    # "quintillion",
+    # "sextillion",
+    # "septillion",
+    # "octillion",
+    # "nonillion",
+    # "decillion",
 ]
 
 digits_map = {n: i for i, n in enumerate(digits)}
@@ -166,21 +166,54 @@ def number_small(m):
             result += teens_map[word]
     return result
 
-
 @ctx.capture(
     "self.number_scaled",
-    rule=f"<number_small> [{alt_scales} ([and] (<number_small> | {alt_scales} | <number_small> {alt_scales}))*]",
+    #rule=f"<number_small> [{alt_scales} ([and] (<number_small> | {alt_scales} | <number_small> {alt_scales}))*]",
+    #rule=f"<number_small> [{alt_scales} ({alt_scales} | [and] <number_small>)*]",
+
+    ## these ones take a long time to compile
+    #rule=f"(<number_small> {alt_scales}+ [and])* <number_small> {alt_scales}*",
+    #rule=f"<number_small> ({alt_scales}+ [and] <number_small>)* {alt_scales}*",
+
+    # compromise
+    rule=f"<number_small> [{alt_scales}+ ([and] <number_small> {alt_scales}*)*]",
+
+    ## these are very quick, but overly permissive
+    #rule=f"([and] <number_small> {alt_scales}*)+",
+    #rule=f"(<number_small> | {alt_scales}+ [and])+",
 )
 def number_scaled(m):
+    print("!!!!!!!!! " + str(list(m)))
     return fuse_num(fuse_scale(fuse_num(fuse_scale(list(m), 1000))))[0]
 
+
+## TODO
+# def fuse(l):
+#     assert l, "cannot fuse an empty list"
+#     total = 0
+#     multiplier = None
+#     last = None
+#     for item in l:
+#         if isinstance(item, int):
+#             if last is None: last = item
+#             else:
+#                 # fuse adjacent numbers together, eg. 23,44 -> 2344
+#                 last = int(f"{last}{item}")
+#         elif item == "and":
+#            
+#         else:
+#             n = last if last is not None else 1
+#             last = None
 
 # This rule offers more colloquial number speaking when combined with a command
 # like: "go to line <number>"
 # Example: " one one five            " == 115
 #          " one fifteen             " == 115
 #          " one hundred and fifteen " == 115
-@ctx.capture("number", rule=f"(<digits> | [<digits>] <user.number_scaled>)")
+@ctx.capture("number",
+#             rule=f"(<digits> | [<digits>] <user.number_scaled>)",
+             rule=f"<user.number_scaled> | <digits> [<user.number_scaled>]",
+)
 def number(m):
     return int("".join(str(i) for i in list(m)))
 
