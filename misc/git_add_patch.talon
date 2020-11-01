@@ -1,6 +1,5 @@
-app: /.*terminal/
-app: /.*term/
-app: Cmd.exe
+tag: terminal 
+and tag: user.git
 title: /git +(add|commit)\b.*(-p|-i|--patch|--interactive)\b/
 -
 yank: key(y enter)
