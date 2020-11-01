@@ -198,8 +198,8 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
-    #"head": "home", "foot": "end", #"tail": "end",
-    "homer": "home", "pliny": "end",
+    "head": "home", "tail": "end", #"foot": "end",
+#    "homer": "home", "pliny": "end",
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
