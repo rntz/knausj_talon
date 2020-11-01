@@ -121,8 +121,9 @@ ctx.lists["self.symbol_key"] = {
     "dash": "-",
     "equals": "=",
     "plus": "+",
+    "question": "?",
     "question mark": "?",
-    "questo": "?",
+    #"questo": "?",
     #"query": "?",
     "tilde": "~",
     "bang": "!",
@@ -159,7 +160,7 @@ ctx.lists["self.symbol_key"] = {
     "percy": "%",
     "percent sign": "%",
     "carrot": "^",
-    "at sign": "@",
+    "at sign": "@", "atty": "@", "addie": "@",
     "and sign": "&",
     "ampersand": "&",
     "amper": "&",
@@ -168,10 +169,9 @@ ctx.lists["self.symbol_key"] = {
     "double quote": '"',
     "open single": "‘", "close single": "’", "apostrophe": "’",
     'open double': '“', 'close double': '”',
-    "lack": "[", "rack": "]",
     "lace": "{", "race": "}",
-    "leper": "(", "repper": ")",
-    #"lub": "(", "rub": ")",
+    "lack": "[", "rack": "]",
+    "leper": "(", "repper": ")", #"lub": "(", "rub": ")",
     "langle": "<", "wrangle": ">",
 }
 
@@ -198,16 +198,18 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
-    #"head": "home", "tail": "end", #"foot": "end",
-#    "delete": "backspace",
-#    "forward delete": "delete",
+    #"head": "home", "foot": "end", #"tail": "end",
+    "homer": "home", "pliny": "end",
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
-    #'swim': 'space',
-    'void': 'space',
-    "slap": "enter",
+    "pace": "space",
+    "bar": "space",
+    "break": "space",
+    #'void': 'space',
+#    "slap": "enter",
     "shock": "enter",
+    "return": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)

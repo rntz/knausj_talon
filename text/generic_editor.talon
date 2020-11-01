@@ -119,11 +119,11 @@ clear word right:
     edit.extend_word_right()
     edit.delete()
 
-clear (way left | tail):
+clear (to start | way left):
     edit.extend_line_start()
     edit.delete()
 
-clear (way right | head):
+clear (to end | way right):
     edit.extend_line_end()
     edit.delete()
 
