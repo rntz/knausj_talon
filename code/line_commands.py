@@ -28,6 +28,7 @@ class Actions:
         for i in range(0, number_of_lines):
             actions.edit.extend_line_down()
         actions.edit.extend_line_end()
+        actions.edit.extend_right()
 
     def extend_camel_left():
         """Extends the selection by camel/subword to the left"""
