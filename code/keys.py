@@ -134,6 +134,7 @@ ctx.lists["self.symbol_key"] = {
     #"close square": "]", #"right square": "]",
     "forward slash": "/",
     "slash": "/",
+    "stroke": "/", # seems to get recognized better at high speeds
     "backslash": "\\",
     "backer": "\\",
     "minus": "-",
