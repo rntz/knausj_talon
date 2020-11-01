@@ -24,6 +24,9 @@ continue <user.text> break:
   insert(result)
 <user.format_text>+$: user.insert_many(format_text_list)
 <user.format_text>+ over: user.insert_many(format_text_list)
+<user.format_text>+ break:
+  user.insert_many(format_text_list)
+  insert(" ")
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
 word <user.word>: insert(user.word)
 upper word <user.word>:
