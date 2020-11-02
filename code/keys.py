@@ -112,6 +112,7 @@ ctx.lists["self.modifier_key"] = {
     "shift": "shift",  'ship': 'shift',  #'sky': 'shift',
     "super": "super",
     "fly": "alt", "kiss": "ctrl",
+    "alley": "alt",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
@@ -180,7 +181,7 @@ ctx.lists["self.symbol_key"] = {
     "percy": "%",
     "percent sign": "%",
     "carrot": "^",
-    "at sign": "@", "atty": "@", "addie": "@",
+    "at sign": "@", "atter": "@", #"atty": "@", "addie": "@",
     "and sign": "&",
     "ampersand": "&",
     "amper": "&",
