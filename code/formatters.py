@@ -38,6 +38,7 @@ def format_phrase(m: Union[str, Phrase], fmtrs: str) -> str:
     if isinstance(m, str):
         words = m.split(" ")
     else:
+        # TODO: is this still necessary, and if so why?
         if m.words[-1] == "over":
             m.words = m.words[:-1]
 
