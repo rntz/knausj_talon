@@ -1,4 +1,4 @@
-#provide both anchored and unachored commands via 'over'
+#provide both anchored and unachored commands via 'over' and 'break'
 phrase <user.text>$:
   result = user.formatted_text(text, "NOOP")
   insert(result)

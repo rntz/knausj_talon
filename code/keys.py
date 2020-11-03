@@ -230,7 +230,6 @@ alternate_keys = {
     #'void': 'space',
     "slap": "enter",
     "shock": "enter",
-    "return": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
