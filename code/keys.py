@@ -181,7 +181,7 @@ ctx.lists["self.symbol_key"] = {
     "percy": "%",
     "percent sign": "%",
     "carrot": "^",
-    "at sign": "@", "atter": "@", #"atty": "@", "addie": "@",
+    "at sign": "@", #"atty": "@", "addie": "@",
     "and sign": "&",
     "ampersand": "&",
     "amper": "&",
@@ -219,15 +219,16 @@ simple_keys = [
 
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
-    "head": "home", "tail": "end", #"foot": "end",
+    #"head": "home", "tail": "end", #"foot": "end",
 #    "homer": "home", "pliny": "end",
+    "start line": "home", "end line": "end",
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
     "bar": "space",
     "break": "space",
     #'void': 'space',
-#    "slap": "enter",
+    "slap": "enter",
     "shock": "enter",
     "return": "enter",
 }
