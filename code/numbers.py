@@ -61,6 +61,7 @@ alt_digits = "(" + ("|".join(digits_map.keys())) + ")"
 alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
+alt_number_word = f"({alt_digits}|{alt_tens}|{alt_teens}|{alt_scales})"
 
 # fuse scales (hundred, thousand) leftward onto numbers (one, twelve, twenty, etc)
 def fuse_scale(words, limit=None):
@@ -111,8 +112,9 @@ def fuse_num(words):
             else:
                 ret.append(acc)
                 acc = w
-                sig = 0
+                sig = 10 ** len(str(w))
         else:
+            # reached a non number, dump the accumulator into the return list
             if acc is not None:
                 ret.append(acc)
                 acc = None
@@ -168,42 +170,28 @@ def number_small(m):
 
 @ctx.capture(
     "self.number_scaled",
-    #rule=f"<number_small> [{alt_scales} ([and] (<number_small> | {alt_scales} | <number_small> {alt_scales}))*]",
+    rule=f"<number_small> [{alt_scales} ([and] (<number_small> | {alt_scales} | <number_small> {alt_scales}))*]",
     #rule=f"<number_small> [{alt_scales} ({alt_scales} | [and] <number_small>)*]",
 
-    ## these ones take a long time to compile
+    ## works up to 7 digits
     #rule=f"(<number_small> {alt_scales}+ [and])* <number_small> {alt_scales}*",
+    ## works up to 9 digits
     #rule=f"<number_small> ({alt_scales}+ [and] <number_small>)* {alt_scales}*",
 
     # compromise
-    rule=f"<number_small> [{alt_scales}+ ([and] <number_small> {alt_scales}*)*]",
+    #rule=f"<number_small> [{alt_scales}+ ([and] <number_small> {alt_scales}*)*]",
 
     ## these are very quick, but overly permissive
     #rule=f"([and] <number_small> {alt_scales}*)+",
     #rule=f"(<number_small> | {alt_scales}+ [and])+",
+
+    #rule=f"{alt_number_word}+ (and {alt_number_word}+)*",
 )
 def number_scaled(m):
-    print("!!!!!!!!! " + str(list(m)))
+    # this is a quick and dirty hack
+    print("!!!!!!!!!! " + str(list(m)))
     return fuse_num(fuse_scale(fuse_num(fuse_scale(list(m), 1000))))[0]
 
-
-## TODO
-# def fuse(l):
-#     assert l, "cannot fuse an empty list"
-#     total = 0
-#     multiplier = None
-#     last = None
-#     for item in l:
-#         if isinstance(item, int):
-#             if last is None: last = item
-#             else:
-#                 # fuse adjacent numbers together, eg. 23,44 -> 2344
-#                 last = int(f"{last}{item}")
-#         elif item == "and":
-#            
-#         else:
-#             n = last if last is not None else 1
-#             last = None
 
 # This rule offers more colloquial number speaking when combined with a command
 # like: "go to line <number>"
