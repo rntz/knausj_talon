@@ -34,10 +34,10 @@ run <user.word>: insert('{word} ')
 
 format help: user.formatters_help_toggle()
 format recent: user.formatters_recent_toggle()
-format repeat <number>: 
+format repeat <number_small>:
   result = user.formatters_recent_select(number)
   insert(result)
-format copy <number>:
+format copy <number_small>:
   result = user.formatters_recent_select(number)
   clip.set_text(result)
 scratch that | ^nope that$: user.formatters_clear_last()
