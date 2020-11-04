@@ -1,9 +1,8 @@
 #provide both anchored and unachored commands via 'over' and 'break'
 phrase <user.text>$:
-  result = user.formatted_text(text, "NOOP")
-  insert(result)
+  user.insert_formatted(text, "NOOP")
 phrase <user.text> {user.dictation_end}:
-  insert(user.formatted_text(text + dictation_end, "NOOP"))
+  user.insert_formatted(text + dictation_end, "NOOP")
 
 {user.dictation_begin} <user.dictation>$:
   text = user.dictation_format_stateless(dictation, " ")
