@@ -1,6 +1,5 @@
 #provide both anchored and unachored commands via 'over' and 'break'
-phrase <user.text>$:
-  user.insert_formatted(text, "NOOP")
+phrase <user.text>$: user.insert_formatted(text, "NOOP")
 phrase <user.text> {user.dictation_end}:
   user.insert_formatted(text + dictation_end, "NOOP")
 
@@ -17,6 +16,9 @@ phrase <user.text> {user.dictation_end}:
   user.insert_many(format_text_list)
   insert(dictation_end)
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
+format help: user.formatters_help_toggle()
+^nope that was <user.formatters>$:
+  user.formatters_reformat_last(user.formatters)
 
 # Quick switch to dictation mode.
 dictation mode [<user.dictation>]$:
@@ -25,21 +27,11 @@ dictation mode [<user.dictation>]$:
     mode.enable("dictation")
     insert(user.dictation_format(dictation or ""))
 
-word <user.word>: insert(user.word)
-upper word <user.word>:
-  result = user.formatted_text(word, "CAPITALIZE_FIRST_WORD")
-  insert(result)
-run <user.word>: insert('{word} ')
+word <user.word>: auto_insert(user.word)
+upper word <user.word>: user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
+run <user.word>: auto_insert('{word} ')
 
-format help: user.formatters_help_toggle()
-format recent: user.formatters_recent_toggle()
-format repeat <number_small>:
-  result = user.formatters_recent_select(number)
-  insert(result)
-format copy <number_small>:
-  result = user.formatters_recent_select(number)
-  clip.set_text(result)
-scratch that | ^nope that$: user.formatters_clear_last()
-^nope that was <user.formatters>$:
-  user.formatters_clear_last()
-  insert(user.formatters_reformat_last(user.formatters))
+scratch that | ^nope that$: user.clear_last_phrase()
+recent (show|hide|toggle): user.toggle_phrase_history()
+recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
+recent repeat <number_small>: auto_insert(user.get_recent_phrase(number_small))
