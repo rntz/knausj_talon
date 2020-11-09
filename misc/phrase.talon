@@ -1,3 +1,7 @@
+word <user.word>: insert(user.word)
+upper word <user.word>: user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
+run <user.word>: insert('{word} ')
+
 #provide both anchored and unachored commands via 'over' and 'break'
 phrase <user.text>$: user.insert_formatted(text, "NOOP")
 phrase <user.text> {user.dictation_end}:
@@ -22,16 +26,12 @@ format help: user.formatters_help_toggle()
 
 # Quick switch to dictation mode.
 dictation mode [<user.dictation>]$:
-    mode.disable("sleep")
-    mode.disable("command")
-    mode.enable("dictation")
-    insert(user.dictation_format(dictation or ""))
-
-word <user.word>: auto_insert(user.word)
-upper word <user.word>: user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
-run <user.word>: auto_insert('{word} ')
+  mode.disable("sleep")
+  mode.disable("command")
+  mode.enable("dictation")
+  insert(user.dictation_format(dictation or ""))
 
 scratch that | ^nope that$: user.clear_last_phrase()
-recent (show|hide|toggle): user.toggle_phrase_history()
+recent list: user.toggle_phrase_history()
 recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
 recent repeat <number_small>: auto_insert(user.get_recent_phrase(number_small))

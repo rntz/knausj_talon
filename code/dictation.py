@@ -40,13 +40,14 @@ ctx.lists["user.dictation_map"] = {
     "new line": "new-line",  # "enter": "new-line",
     "new paragraph": "new-paragraph",
     "period": ".",
-    "comma": ",",  # "kama": ",",
+    "comma": ",",  "kama": ",",
     "question mark": "?",
     "exclamation mark": "!",
     "dash": "-",
     "colon": ":",
     "semicolon": ";",
     "semi colon": ";",
+    "forward slash": "/",
 }
 
 mod.list(
