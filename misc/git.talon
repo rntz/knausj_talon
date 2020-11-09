@@ -22,7 +22,7 @@ git commit message$:
   key(left)
 git diff (colour|color) words: "git diff --color-words "
 git diff <user.optional_text>: "git diff {optional_text}"
-git diff cached: "git diff --cached "
+git diff (cached | cashed): "git diff --cached "
 git fetch: "git fetch "
 git fetch <user.word>: "git fetch {word}"
 git fetch prune: "git fetch --prune "
