@@ -220,14 +220,13 @@ simple_keys = [
 # try using ace for space if the new models ever get fast enough.
 alternate_keys = {
     #"head": "home", "tail": "end", #"foot": "end",
-#    "homer": "home", "pliny": "end",
-    "start line": "home", "end line": "end",
+    "homer": "home", "end line": "end",
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
-    "bar": "space",
+    #"bar": "space",
     "break": "space",
-    #'void': 'space',
+    'void': 'space',
     "slap": "enter",
     "shock": "enter",
 }
