@@ -155,6 +155,7 @@ alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
+number_word_leading =  "(" + "|".join(x for x in numbers_map.keys() if x != "oh") + ")"
 
 # TODO: allow things like "double eight" for 88
 @ctx.capture("digit_string", rule=f"({alt_digits} | {alt_teens} | {alt_tens})+")
@@ -165,7 +166,7 @@ def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
 
-@mod.capture(rule=f"{number_word}+ (and {number_word}+)*")
+@mod.capture(rule=f"{number_word_leading} {number_word}* (and {number_word}+)*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
