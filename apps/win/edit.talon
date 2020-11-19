@@ -164,7 +164,7 @@ action(edit.select_all):
 	key(ctrl-a)
 
 action(edit.select_line):
-	key(end shift-home)
+  key(home shift-end shift-right)
 
 #action(edit.select_lines(a: int, b: int)):
 
