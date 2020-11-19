@@ -1,8 +1,11 @@
 search:
     edit.find()
 
-next one:
+next one | later:
     edit.find_next()
+
+last one | former:
+    edit.find_previous()
 
 go word left:
     edit.word_left()
