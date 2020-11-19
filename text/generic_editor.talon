@@ -1,11 +1,14 @@
 search:
     edit.find()
+    user.quick_action_set("edit.find_next")
 
 next one | later:
     edit.find_next()
+    user.quick_action_set("edit.find_next")
 
 last one | former:
     edit.find_previous()
+    user.quick_action_set("edit.find_previous")
 
 go word left:
     edit.word_left()
