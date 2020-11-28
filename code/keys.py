@@ -22,6 +22,7 @@ mod.list("number_key", desc="All number keys")
 mod.list("modifier_key", desc="All modifier keys")
 mod.list("function_key", desc="All function keys")
 mod.list("special_key", desc="All special keys")
+mod.list("punctuation", desc="words for inserting punctuation into text")
 
 
 @mod.capture(rule="{self.modifier_key}+")
@@ -117,24 +118,52 @@ ctx.lists["self.modifier_key"] = {
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
-ctx.lists["self.symbol_key"] = {
+
+# The `punctuation` list is for punctuation words that you want available both
+# in dictation and as key names in command mode. The `symbol_key` list is for
+# key names that should be available in command mode, but not during dictation.
+punctuation_words = {
+    # TODO: I'm not sure why we need these, I think it has something to do with
+    # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
+    "`": "`", ",": ",", # <== these things
     "back tick": "`",
-    "`": "`",
-    "quasi": '`',
     "comma": ",",
-    ",": ",",
+    "period": ".",
+    "semicolon": ";",
+    "colon": ":",
+    "forward slash": "/",
+    "minus sign": "-",
+    "plus sign": "+",
+    "equal sign": "=", "equals sign": "=",
+    "question mark": "?",
+    "exclamation mark": "!",
+    "exclamation point": "!",
+    "dollar sign": "$",
+    "left parenthesis": "(", "right parenthesis": ")",
+    "left bracket": "[", "right bracket": "]",
+    "left brace": "{", "right brace": "}",
+    "less than sign": "<", "greater than sign": ">",
+    "asterisk": "*",
+    "hash sign": "#",
+    "number sign": "#",
+    "percent sign": "%",
+    "at sign": "@",
+    "and sign": "&",
+    "ampersand": "&",
+    "single quote": "'",
+    "double quote": '"',
+}
+symbol_key_words = {
+    "quasi": '`',
     "dot": ".",
     "point": ".",
-    "period": ".",
     "semi": ";",
-    "semicolon": ";",
     "tick": "'", "ticky": "'", #"quote": "'",
     #"L square": "[",
     #"left square": "[",
     #"square": "[",
     #"R square": "]",
     #"close square": "]", #"right square": "]",
-    "forward slash": "/",
     "slash": "/",
     "stroke": "/", # seems to get recognized better at high speeds
     "backslash": "\\",
@@ -144,19 +173,12 @@ ctx.lists["self.symbol_key"] = {
     "equals": "=",
     "plus": "+",
     "question": "?",
-    "question mark": "?",
-    #"questo": "?",
-    #"query": "?",
     "tilde": "~",
     "bang": "!",
-    "exclamation point": "!",
     "dollar": "$",
-    "dollar sign": "$",
-    "down score": "_", "downs score": "_",
-    "under score": "_",
-    "colon": ":",
+    "down score": "_", "downs score": "_", "underscore": "_",
+    "under": "_",
     "deckle": ":",
-    #"round": "(",
     #"L paren": "(",
     #"left paren": "(",
     #"R paren": ")",
@@ -172,32 +194,27 @@ ctx.lists["self.symbol_key"] = {
     #"right angle": ">",
     "greater than": ">", "greater": ">",
     "star": "*",
-    "asterisk": "*",
     "pound": "#",
     "hash": "#",
-    "hash sign": "#",
-    "number sign": "#",
     "octo": "#",
     #"percent": "%",
     "percy": "%",
-    "percent sign": "%",
     "carrot": "^",
-    "at sign": "@", #"atty": "@", "addie": "@",
-    "and sign": "&",
-    "ampersand": "&",
     "amper": "&",
     "pipe": "|",
     "ditto": '"', #"dubquote": '"',
-    "double quote": '"',
-    "open single": "‘", "close single": "’", "apostrophe": "’",
+    "open single": "‘", "close single": "’",
     'open double': '“', 'close double': '”',
+    "apostrophe": "’",
+    "lub": "(", "rub": ")", #"leper": "(", "repper": ")",
     "lace": "{", "race": "}",
     "lack": "[", "rack": "]",
-    "leper": "(", "repper": ")", #"lub": "(", "rub": ")",
     "langle": "<", "wrangle": ">",
 }
+symbol_key_words.update(punctuation_words)
 
-
+ctx.lists["self.punctuation"] = punctuation_words
+ctx.lists["self.symbol_key"] = symbol_key_words
 ctx.lists["self.number_key"] = dict(zip(default_digits, numbers))
 ctx.lists["self.arrow_key"] = {
     "south": "down",
