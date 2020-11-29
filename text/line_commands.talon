@@ -40,18 +40,18 @@ replace <number> until <number>:
     edit.paste()
 (select | cell | sell) line <number>: user.select_range(number, number)
 (select | cell | sell) <number> until <number>: user.select_range(number_1, number_2)
-tab that: edit.indent_more()
-tab line <number>:
+indent that: edit.indent_more()
+indent line <number>:
     edit.jump_line(number)
     edit.indent_more()
-tab <number> until <number>:
+indent <number> until <number>:
     user.select_range(number_1, number_2)
     edit.indent_more()
-retab that: edit.indent_less()
-retab line <number>:
+dedent that: edit.indent_less()
+dedent line <number>:
     user.select_range(number, number)
     edit.indent_less()
-retab <number> until <number>:
+dedent <number> until <number>:
     user.select_range(number_1, number_2)
     edit.indent_less()
 drag line down: edit.line_swap_down()
