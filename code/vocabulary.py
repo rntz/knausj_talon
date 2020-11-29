@@ -33,7 +33,7 @@ def optional_text(m) -> str:
 
 # TODO: unify this formatting code with the dictation formatting code, so that
 # user.prose behaves the same way as dictation mode.
-no_space_before = set(".,-!?;:)]}")
+no_space_before = set(".,/-!?;:)]}")
 no_space_after = set("/-#$([{")
 def format_phrase(m):
     words = capture_to_word_list(m)
