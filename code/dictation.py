@@ -40,7 +40,7 @@ ctx.lists["user.dictation_map"] = {
     "new line": "new-line",  # "enter": "new-line",
     "new paragraph": "new-paragraph",
     "period": ".",
-    "comma": ",",  "kama": ",",
+    "comma": ",",  "kama": ",", "coma": ",",
     "question mark": "?",
     "exclamation mark": "!",
     "dash": "-",

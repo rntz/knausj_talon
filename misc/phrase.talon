@@ -11,7 +11,7 @@ phrase <user.text> {user.dictation_end}:
   user.insert_formatted(dictation_begin + prose, "NOOP")
 {user.dictation_begin} <user.prose> {user.dictation_end}:
   prose = dictation_begin + prose
-  user.insert_formatted(text + dictation_end, "NOOP")
+  user.insert_formatted(prose + dictation_end, "NOOP")
 
 # {user.dictation_begin} <user.dictation>$:
 #   text = user.dictation_format_stateless(dictation, " ")

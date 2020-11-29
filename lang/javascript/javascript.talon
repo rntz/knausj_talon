@@ -36,7 +36,7 @@ action(user.code_state_else):
 
 action(user.code_block): 
   insert("{}") 
-  key(left enter)
+  key(left enter up end enter)
   
 action(user.code_self): "this"
 

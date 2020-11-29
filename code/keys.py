@@ -242,11 +242,11 @@ alternate_keys = {
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
-    #"bar": "space",
+    "bar": "space",
     "break": "space",
-    'void': 'space',
+    #'void': 'space',
     "slap": "enter",
-    "shock": "enter",
+    #"shock": "enter",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)

@@ -6,7 +6,7 @@ next one | later:
     edit.find_next()
     user.quick_action_set("edit.find_next")
 
-last one | former:
+last one | prior:
     edit.find_previous()
     user.quick_action_set("edit.find_previous")
 
