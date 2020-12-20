@@ -162,6 +162,7 @@ formatters_words = {
     # "say": formatters_dict["NOOP"],
     "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
     "slash separated": formatters_dict["SLASH_SEPARATED"],
+    "solid separated": formatters_dict["SLASH_SEPARATED"],
     "pipe separated": formatters_dict["PIPE_SEPARATED"],
     "deckle separated": formatters_dict["COLON_SEPARATED"],
     "comma separated": formatters_dict["COMMA_SEPARATED"],
