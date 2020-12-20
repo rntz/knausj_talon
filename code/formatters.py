@@ -194,6 +194,13 @@ def formatters(m) -> str:
     # insert "dot" - otherwise, they wouldn't be able to insert punctuation
     # words directly.
     rule="<self.formatters> <user.text> (<user.text> | <user.formatter_immune>)*"
+    ## for some reason this makes "type hello world snake hello world" not work
+#    rule="<self.formatters> (<user.text> | <user.formatter_immune>)+"
+    ## TODO: BUT THIS WORKS?! report this!
+#    rule="<self.formatters> (<user.text> | <user.formatter_immune>) (<user.text> | <user.formatter_immune>)*"
+
+    #rule="<self.formatters> (<user.text>)+"
+    #rule="<self.formatters> <user.text> <user.text>*"
 )
 def format_text(m) -> str:
     "Formats the text and returns a string"
