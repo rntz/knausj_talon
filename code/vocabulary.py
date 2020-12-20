@@ -19,18 +19,6 @@ def text(m) -> str: return format_phrase(m)
 @mod.capture(rule="({user.vocabulary} | {user.punctuation} | <phrase>)+")
 def prose(m) -> str: return format_phrase(m)
 
-@mod.capture(rule="[<user.word>]")
-def optional_word(m) -> str:
-    try: return m.word
-    except AttributeError: return ""
-
-@mod.capture(rule="[<user.text>]")
-def optional_text(m) -> str:
-    try:
-        return m.text
-    except AttributeError:
-        return ""
-
 # TODO: unify this formatting code with the dictation formatting code, so that
 # user.prose behaves the same way as dictation mode.
 no_space_before = set(".,/-!?;:)]}")
