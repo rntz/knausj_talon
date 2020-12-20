@@ -15,19 +15,29 @@ def dictation(m) -> str:
     """
     return " ".join(m.dictation_chunk_list)
 
-@mod.capture
+@mod.capture(rule="<user.text> | {user.dictation_map} | cap <user.word>")
 def dictation_chunk(m) -> str:
     "An atomic chunk of dictated text."
+    if m[0] == "cap":
+        return actions.user.formatted_word(m.word, "CAPITALIZE_FIRST_WORD")
+    else:
+        return st
 
-@ctx.capture("self.dictation_chunk", rule="<user.text> | {user.dictation_map}")
-def dictation_chunk_basic(m):
-    return str(m)
+## TODO: remove this junk code ##
+# @mod.capture
+# def dictation_chunk(m) -> str:
+#     "An atomic chunk of dictated text."
 
-# You can add complex actions to <user.dictation> by extending the
-# dictation_chunk capture, like so:
-@ctx.capture("self.dictation_chunk", rule="cap <user.word>")
-def dictation_chunk_capitalize_word(m):
-    return actions.user.formatted_text(m.word, "CAPITALIZE_FIRST_WORD")
+# @ctx.capture("self.dictation_chunk", rule="<user.text> | {user.dictation_map}")
+# def dictation_chunk_basic(m):
+#     return str(m)
+
+# # You can add complex actions to <user.dictation> by extending the
+# # dictation_chunk capture, like so:
+# @ctx.capture("self.dictation_chunk", rule="cap <user.word>")
+# def dictation_chunk_capitalize_word(m):
+#     return actions.user.formatted_text(m.word, "CAPITALIZE_FIRST_WORD")
+## TODO: remove the above junk code ##
 
 # You can add simple commands to <user.dictation> using this list. For more
 # complex commands, you can extend the <user.dictation_chunk> capture; see
