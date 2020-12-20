@@ -246,7 +246,7 @@ alternate_keys = {
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
-    "bar": "space",
+#    "bar": "space",
     "break": "space",
     #'void': 'space',
     "slap": "enter",
