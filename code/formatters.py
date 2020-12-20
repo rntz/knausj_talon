@@ -132,6 +132,7 @@ formatters_dict = {
     "DOT_SNAKE": (NOSEP, lambda i, word, _: "." + word if i == 0 else "_" + word),
     "SLASH_SEPARATED": words_with_joiner("/"),
     "PIPE_SEPARATED": words_with_joiner("|"),
+    "COMMA_SEPARATED": words_with_joiner(","),
     "CAPITALIZE_FIRST_WORD": (SEP, first_vs_rest(lambda w: w.capitalize())),
     "CAPITALIZE_ALL_WORDS": (
         SEP,
@@ -163,6 +164,7 @@ formatters_words = {
     "slash separated": formatters_dict["SLASH_SEPARATED"],
     "pipe separated": formatters_dict["PIPE_SEPARATED"],
     "deckle separated": formatters_dict["COLON_SEPARATED"],
+    "comma separated": formatters_dict["COMMA_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     # "speak": formatters_dict["NOOP"],
