@@ -1,5 +1,5 @@
 word <user.word>: insert(user.word)
-upper word <user.word>: user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
+big word <user.word>: user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
 run <user.word>: insert('{word} ')
 
 #provide both anchored and unachored commands via 'over' and 'break'
@@ -37,7 +37,7 @@ dictation mode [<user.dictation>]$:
   mode.enable("dictation")
   insert(user.dictation_format(dictation or ""))
 
-scratch that | ^nope that$: user.clear_last_phrase()
+scratch that: user.clear_last_phrase()
 recent list: user.toggle_phrase_history()
 recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
 recent repeat <number_small>: auto_insert(user.get_recent_phrase(number_small))

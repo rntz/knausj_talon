@@ -107,14 +107,13 @@ def letters(m) -> str:
 ctx = Context()
 ctx.lists["self.modifier_key"] = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
-    "alt": "alt",  #'alter': 'alt',
+    "alt": "alt", 'alter': 'alt',
     #"command": "cmd",
     "control": "ctrl",  #'troll':   'ctrl',
     #"option": "alt",
     "shift": "shift",  'ship': 'shift',  #'sky': 'shift',
     "super": "super",
     "fly": "alt", "kiss": "ctrl",
-    "alter": "alt", #"alley": "alt",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
@@ -127,11 +126,11 @@ punctuation_words = {
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
     "`": "`", ",": ",", # <== these things
     "back tick": "`",
-    "comma": ",",
+    "comma": ",", "kama": ",", "come a": ",",
     "period": ".",
     "semicolon": ";",
-    "colon": ":",
-    "forward slash": "/",
+    "colon": ":", "deckle": ":",
+    "forward slash": "/", "solidus": "/",
     "minus sign": "-",
     "plus sign": "+",
     "equal sign": "=", "equals sign": "=",
@@ -139,9 +138,9 @@ punctuation_words = {
     "exclamation mark": "!",
     "exclamation point": "!",
     "dollar sign": "$",
-    "left parenthesis": "(", "right parenthesis": ")",
-    "left bracket": "[", "right bracket": "]",
-    "left brace": "{", "right brace": "}",
+    "open parenthesis": "(", "close parenthesis": ")",
+    "open bracket": "[", "close bracket": "]",
+    "open brace": "{", "close brace": "}",
     "less than sign": "<", "greater than sign": ">",
     "asterisk": "*",
     "hash sign": "#",
@@ -152,10 +151,13 @@ punctuation_words = {
     "ampersand": "&",
     "single quote": "'",
     "double quote": '"',
+    "hyphen": "-",
+    "short dash": "–",
+    "long dash": "—",
 }
 symbol_key_words = {
     "quasi": '`',
-    "dot": ".",
+#    "dot": ".",
     "point": ".",
     "semi": ";",
     "tick": "'", "ticky": "'", #"quote": "'",
@@ -164,8 +166,9 @@ symbol_key_words = {
     #"square": "[",
     #"R square": "]",
     #"close square": "]", #"right square": "]",
-    "slash": "/",
-    "stroke": "/", # seems to get recognized better at high speeds
+#    "slash": "/",
+#    "stroke": "/", # seems to get recognized better at high speeds
+    "solid": "/",
     "backslash": "\\",
     "backer": "\\",
     "minus": "-",
@@ -173,7 +176,8 @@ symbol_key_words = {
     "equals": "=",
     "plus": "+",
     "question": "?",
-    "tilde": "~",
+    #"tilde": "~",
+    "squiggle": "~",
     "bang": "!",
     "dollar": "$",
     "down score": "_", "downs score": "_", "underscore": "_",

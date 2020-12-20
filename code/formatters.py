@@ -121,6 +121,7 @@ formatters_dict = {
         NOSEP,
         first_vs_rest(lambda w: " --" + w.lower(), lambda w: "-" + w.lower()),
     ),
+    "COLON_SEPARATED": words_with_joiner(":"),
     "DOUBLE_COLON_SEPARATED": words_with_joiner("::"),
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
     "ALL_LOWERCASE": (SEP, every_word(lambda w: w.lower())),
@@ -149,22 +150,23 @@ formatters_words = {
     "all down": formatters_dict["ALL_LOWERCASE"],
     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
     "pebble": formatters_dict["DOT_SEPARATED"],
-    "stringing": formatters_dict["DOUBLE_QUOTED_STRING"],
+    "stringer": formatters_dict["DOUBLE_QUOTED_STRING"],
     "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
     "hammer": formatters_dict["PUBLIC_CAMEL_CASE"],
     "kebab": formatters_dict["DASH_SEPARATED"],
     "jive": formatters_dict["DASH_SEPARATED"],
     "dashing": formatters_dict["DASH_SEPARATED"],
-    "packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
+    #"packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
     # "say": formatters_dict["NOOP"],
     "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
-    "slashing": formatters_dict["SLASH_SEPARATED"],
-    "piping": formatters_dict["PIPE_SEPARATED"],
+    "slash separated": formatters_dict["SLASH_SEPARATED"],
+    "pipe separated": formatters_dict["PIPE_SEPARATED"],
+    "deckle separated": formatters_dict["COLON_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     # "speak": formatters_dict["NOOP"],
-    "quoting": formatters_dict["SINGLE_QUOTED_STRING"],
+    "quoter": formatters_dict["SINGLE_QUOTED_STRING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "type": formatters_dict["NOOP"],
     # disable a few formatters for now
@@ -215,7 +217,7 @@ class ImmuneString(object):
 @mod.capture(
     # Add anything else into this that you want to be able to speak during a
     # formatter.
-    rule="(<user.symbol_key> | <user.letter> | numb <number>)"
+    rule="(<user.symbol_key> | <user.letter> | <number>)"
 )
 def formatter_immune(m) -> ImmuneString:
     """Text that can be interspersed into a formatter, e.g. characters.
@@ -225,6 +227,8 @@ def formatter_immune(m) -> ImmuneString:
     """
     if hasattr(m, "number"):
         value = m.number
+    # elif hasattr(m, "letter_list"):
+    #     value = "".join(m.letter_list)
     else:
         value = m[0]
     return ImmuneString(str(value))

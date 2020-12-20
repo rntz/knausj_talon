@@ -12,7 +12,7 @@ sleep all:
     user.help_hide()
     user.mouse_sleep()
     speech.disable()
-    user.engine_sleep()
+#    user.engine_sleep()
 talon sleep: speech.disable()
 talon wake: speech.enable()
 # begin: these commands are really for windows & mac with Dragon.
