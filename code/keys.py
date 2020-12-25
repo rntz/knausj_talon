@@ -130,7 +130,7 @@ punctuation_words = {
     "period": ".",
     "semicolon": ";",
     "colon": ":", "deckle": ":",
-    "forward slash": "/", "solidus": "/",
+    "forward slash": "/", #"solidus": "/",
     "minus sign": "-",
     "plus sign": "+",
     "equal sign": "=", "equals sign": "=",
@@ -167,8 +167,8 @@ symbol_key_words = {
     #"R square": "]",
     #"close square": "]", #"right square": "]",
 #    "slash": "/",
-#    "stroke": "/", # seems to get recognized better at high speeds
-    "solid": "/",
+    "stroke": "/", # seems to get recognized better at high speeds
+#    "solid": "/",
     "backslash": "\\",
     "backer": "\\",
     "minus": "-",

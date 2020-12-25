@@ -100,9 +100,9 @@ self taught: "self."
 pie test: "pytest"
 state past: "pass"
 
-^funky <user.text>$: user.code_private_function(text)
+private function <user.text>$: user.code_private_function(text)
 #^pro funky <user.text>$: user.code_protected_function(text)
-^pub funky <user.text>$: user.code_public_function(text)
+function <user.text>$: user.code_public_function(text)
 #^static funky <user.text>$: user.code_private_static_function(text)
 #^pro static funky <user.text>$: user.code_protected_static_function(text)
 #^pub static funky <user.text>$: user.code_public_static_function(text)
