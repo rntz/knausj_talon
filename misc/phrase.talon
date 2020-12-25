@@ -31,11 +31,11 @@ format help: user.formatters_help_toggle()
   user.formatters_reformat_last(user.formatters)
 
 # Quick switch to dictation mode.
-dictation mode [<user.dictation>]$:
+dictation mode [<user.prose>]$:
   mode.disable("sleep")
   mode.disable("command")
   mode.enable("dictation")
-  insert(user.dictation_format(dictation or ""))
+  insert(user.dictation_format(prose or ""))
 
 scratch that: user.clear_last_phrase()
 recent list: user.toggle_phrase_history()

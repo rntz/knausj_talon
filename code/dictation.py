@@ -1,7 +1,7 @@
 # Courtesy of https://github.com/dwiel/talon_community/blob/master/misc/dictation.py
 # Port for Talon's new api + wav2letter
 from talon import Module, Context, ui, actions
-from typing import Optional
+from typing import Optional, Tuple
 
 mod = Module()
 ctx = Context()
@@ -47,8 +47,9 @@ ctx.lists["user.dictation_map"] = {
     ## new line/paragraph produce these commands rather than literal new lines
     ## because dictation formatting splits the string on white space, so it
     ## ignores new lines. This is kind of a hack.
-    "new line": "new-line",  # "enter": "new-line",
-    "new paragraph": "new-paragraph",
+    #"new line": "new-line",  # "enter": "new-line",
+    #"new paragraph": "new-paragraph",
+    "new line": "\n", "new paragraph": "\n\n",
     "period": ".",
     "comma": ",",  "kama": ",", "coma": ",",
     "question mark": "?",
@@ -73,74 +74,104 @@ ctx.lists["user.dictation_end"] = {"over": "", "break": " "}
 
 
 # ---------- DICTATION AUTO FORMATTING ---------- #
-no_space_before = set(",:;-/)")
-no_space_after = set("-/( ")
-# dictionary of sentence ends. No space should appear before these.
-sentence_ends = {
-    ".": ".",
-    "?": "?",
-    "!": "!",
-    "new-paragraph": "\n\n",
-    "new-line": "\n",
-}
+# no_space_before = set(",:;-/)")
+# no_space_after = set("-/( ")
+# # dictionary of sentence ends. No space should appear before these.
+# sentence_ends = {
+#     ".": ".",
+#     "?": "?",
+#     "!": "!",
+#     "new-paragraph": "\n\n",
+#     "new-line": "\n",
+# }
 
+# class DictationFormat:
+#     def __init__(self, before=None):
+#         self.reset(before=before)
+#         self.last_utterance = None
+#         self.paused = False
+
+#     # TODO: explain how the before parameter is used. For example, a before
+#     # value of " " will make caps false, but an empty before value "" will make
+#     # it true. This is slightly counterintuitive.
+#     def reset(self, before=None):
+#         # Default configuration.
+#         self.caps = True
+#         self.space = False
+
+#         # Set configuration from characters before cursor, if any.
+#         if before:
+#             self.space = before[-1] not in no_space_after
+#             before = before.rstrip(" ")
+#             self.caps = any(before.endswith(x) for x in sentence_ends.values())
+
+#     def pause(self, paused):
+#         self.paused = paused
+
+#     def format(self, text):
+#         if self.paused:
+#             self.last_utterance = text
+#             return text
+
+#         result = ""
+#         for word in text.split():
+#             is_sentence_end = False
+
+#             if word in sentence_ends:
+#                 word = sentence_ends[word]
+#                 is_sentence_end = True
+#             elif self.space and word not in no_space_before:
+#                 result += " "
+
+#             if self.caps:
+#                 word = word.capitalize()
+
+#             result += word
+#             self.space = "\n" not in word and word[-1] not in no_space_after
+#             self.caps = is_sentence_end
+#             self.last_utterance = result
+
+#         return result
 
 class DictationFormat:
-    def __init__(self, before=None):
-        self.reset(before=before)
+    def __init__(self):
         self.last_utterance = None
         self.paused = False
-
-    # TODO: explain how the before parameter is used. For example, a before
-    # value of " " will make caps false, but an empty before value "" will make
-    # it true. This is slightly counterintuitive.
-    def reset(self, before=None):
-        # Default configuration.
+        self.before = ""
         self.caps = True
-        self.space = False
 
-        # Set configuration from characters before cursor, if any.
-        if before:
-            self.space = before[-1] not in no_space_after
-            before = before.rstrip(" ")
-            self.caps = any(before.endswith(x) for x in sentence_ends.values())
+    def reset(self, before=None):
+        self.before = before or ""
+        # capitalization defaults to True
+        self.caps = actions.user.auto_capitalize(True, self.before)[0]
 
     def pause(self, paused):
         self.paused = paused
 
     def format(self, text):
         if self.paused:
+            self.before = text or self.before
             self.last_utterance = text
             return text
-
-        result = ""
-        for word in text.split():
-            is_sentence_end = False
-
-            if word in sentence_ends:
-                word = sentence_ends[word]
-                is_sentence_end = True
-            elif self.space and word not in no_space_before:
-                result += " "
-
-            if self.caps:
-                word = word.capitalize()
-
-            result += word
-            self.space = "\n" not in word and word[-1] not in no_space_after
-            self.caps = is_sentence_end
-            self.last_utterance = result
-
-        return result
-
+        text = actions.user.adjust_surrounding_space(text, self.before, None)
+        self.caps, text = actions.user.auto_capitalize(self.caps, text)
+        self.before = text or self.before
+        self.last_utterance = text
+        return text
 
 dictation_formatter = DictationFormat()
 ui.register("app_deactivate", lambda app: dictation_formatter.reset())
 ui.register("win_focus", lambda win: dictation_formatter.reset())
 
-
 @mod.action_class
 class Actions:
+    def dictation_peekaboo():
+        """Sets the dictation state according to the text around point."""
+        # FIXME: what if there is currently a selection?
+        pre, post = actions.user.peekaboo()
+        dictation_formatter.reset(before=pre)
+        # TODO: do something about the spacing after cursor.
+
     def dictation_format(text: str) -> str:
         """Formats dictated text."""
         return dictation_formatter.format(text)
@@ -179,7 +210,6 @@ class Actions:
             for c in dictation_formatter.last_utterance:
                 actions.edit.extend_left()
 
-
 # Use the dictation formatter in dictation mode.
 dictation_ctx = Context()
 dictation_ctx.matches = r"""
@@ -188,5 +218,9 @@ mode: dictation
 
 @dictation_ctx.action_class("main")
 class main_action:
+    def auto_insert(text):
+        actions.user.dictation_peekaboo()
+        actions.next(text)
+
     def auto_format(text):
         return actions.user.dictation_format(text)

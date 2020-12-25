@@ -1,5 +1,6 @@
 from talon import Context, Module, actions, grammar, registry
 from .user_settings import bind_list_to_csv, bind_word_map_to_csv
+from typing import Tuple, Optional
 
 mod = Module()
 ctx = Context()
@@ -21,12 +22,12 @@ def prose(m) -> str:
     # registry.lists["user.punctuation"] returns a priority-ordered list of all
     # definitions of user.punctuation in active contexts; we want the currently
     # active value, so we take the last (highest priority).
-    return format_phrase(m, registry.lists.get("user.punctuation", [{}])[-1])
+    text = format_phrase(m, registry.lists.get("user.punctuation", [{}])[-1])
+    _, text = actions.user.auto_capitalize(False, text)
+    return text
 
 # TODO: unify this formatting code with the dictation formatting code, so that
 # user.prose behaves the same way as dictation mode.
-no_space_before = set(".,/-!?;:)]}")
-no_space_after = set("/-#$([{")
 def format_phrase(m, replacements=None):
     words = capture_to_word_list(m)
     if replacements:
@@ -34,7 +35,7 @@ def format_phrase(m, replacements=None):
         words = replace_word_sequences(replacements, words)
     result = ""
     for i, word in enumerate(words):
-        if i > 0 and word not in no_space_before and words[i - 1][-1] not in no_space_after:
+        if i > 0 and needs_space_between(words[i-1], word):
             result += " "
         result += word
     return result
@@ -68,6 +69,65 @@ def replace_word_sequences(replacements, words):
         i += consumed
         result.extend(emitted)
     return result
+
+no_space_before = set(" .,/-!?;:)]}")
+no_space_after = set("\n /-#$([{")
+def needs_space_between(before: str, after: str) -> bool:
+    return (before != "" and after != ""
+            and before[-1] not in no_space_after
+            and after[0] not in no_space_before)
+
+@mod.action_class
+class FormattingActions:
+    def auto_capitalize(sentence_start: bool, text: str) -> Tuple[bool, str]:
+        """
+        Auto-capitalizes `text`. Pass sentence_start=True iff `text` starts at the
+        beginning of a sentence should be capitalized. Returns
+        (new_sentence_start, capitalized_text). new_sentence_start is True iff
+        the end of text is the beginning of a new sentence.
+        """
+        # Imagine a metaphorical "capitalization charge" travelling through the
+        # string left-to-right.
+        charge = sentence_start
+        output = ""
+        for c in text:
+            # Sentence endings create a charge.
+            if c in ".!?":
+                charge = True
+            # Alphanumeric characters absorb charge & try to capitalize (for
+            # numbers this will do nothing, which is what we want).
+            elif charge and c.isalnum():
+                charge = False
+                c = c.capitalize()
+            # Otherwise the charge passes through (we do nothing).
+            output += c
+        return charge, output
+
+    # TODO: perhaps this should be in dictation.py?
+    def adjust_surrounding_space(text: str,
+                                 pre: Optional[str],
+                                 post: Optional[str]) -> str:
+        """
+        Adjusts the spacing at the beginning and end of `text` as appropriate for
+        its surroundings, given by `pre` and `post`. If the text before/after is
+        not known, pass None for pre/post respectively, and the spacing at
+        beginning/end respectively will not get modified.
+        """
+        if pre is not None:
+            # Avoid space at the beginning of a document or line; avoid more
+            # than one space in a row.
+            if pre == "" or pre[-1] in "\n ":
+                # Only strip spaces; new lines etc should remain unchanged.
+                text = text.lstrip(" ")
+            # Otherwise, insert a space if necessary.
+            elif needs_space_between(pre, text + (post or "")):
+                text = " " + text
+        if post is not None:
+            if post == "" or post[0] in "\n ":
+                text = text.rstrip(" ")
+            elif needs_space_between((pre or "") + text, post):
+                text = text + " "
+        return text
 
 
 # ---------- LISTS (punctuation, additional/replacement words) ----------

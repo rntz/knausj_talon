@@ -4,10 +4,14 @@ mode: dictation
 # auto-capitalize/auto-space.
 #<user.dictation>: auto_insert(dictation)
 
-<user.text>: auto_insert(text)
-{user.punctuation}: auto_insert(punctuation)
-new line: auto_insert("new-line")
-new paragraph: auto_insert("new-paragraph")
+#<user.text>: auto_insert(text)
+#{user.punctuation}: auto_insert(punctuation)
+<user.prose>: auto_insert(prose)
+new line: "\n"
+new paragraph:
+  "\n\n"
+  # a bit of a hack.
+  user.dictation_format_reset()
 cap <user.word>:
   result = user.formatted_text(word, "CAPITALIZE_FIRST_WORD")
   auto_insert(result)
