@@ -21,7 +21,7 @@ def dictation_chunk(m) -> str:
     if m[0] == "cap":
         return actions.user.formatted_word(m.word, "CAPITALIZE_FIRST_WORD")
     else:
-        return st
+        return str(m)
 
 ## TODO: remove this junk code ##
 # @mod.capture
