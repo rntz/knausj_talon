@@ -37,7 +37,8 @@ dictation mode [<user.prose>]$:
   mode.enable("dictation")
   insert(user.dictation_format(prose or ""))
 
-scratch that: user.clear_last_phrase()
+# see editing_universal.talon
+#scratch that: user.clear_last_phrase()
 recent list: user.toggle_phrase_history()
 recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
 recent repeat <number_small>: auto_insert(user.get_recent_phrase(number_small))

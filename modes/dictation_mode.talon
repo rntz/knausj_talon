@@ -71,7 +71,7 @@ formatted <user.format_text>:
     user.formatters_reformat_selection(formatters)
 
 #corrections
-scratch that: user.dictation_clear_last()
+#scratch that: user.dictation_clear_last()
 scratch selection: edit.delete()
 select that: user.dictation_select_last()
 spell that <user.letters>: auto_insert(letters)
