@@ -118,9 +118,9 @@ ctx.lists["self.modifier_key"] = {
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
 
-# The `punctuation` list is for punctuation words that you want available both
-# in dictation and as key names in command mode. The `symbol_key` list is for
-# key names that should be available in command mode, but not during dictation.
+# `punctuation_words` is for words you want available BOTH in dictation and as
+# key names in command mode. `symbol_key_words` is for key names that should be
+# available in command mode, but NOT during dictation.
 punctuation_words = {
     # TODO: I'm not sure why we need these, I think it has something to do with
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
@@ -215,8 +215,9 @@ symbol_key_words = {
     "lack": "[", "rack": "]",
     "langle": "<", "wrangle": ">",
 }
-symbol_key_words.update(punctuation_words)
 
+# make punctuation words also included in {user.symbol_keys}
+symbol_key_words.update(punctuation_words)
 ctx.lists["self.punctuation"] = punctuation_words
 ctx.lists["self.symbol_key"] = symbol_key_words
 ctx.lists["self.number_key"] = dict(zip(default_digits, numbers))

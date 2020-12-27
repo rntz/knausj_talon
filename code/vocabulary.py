@@ -18,21 +18,12 @@ def word(m) -> str:
 def text(m) -> str: return format_phrase(m)
 
 @mod.capture(rule="({user.vocabulary} | {user.punctuation} | <phrase>)+")
-def prose(m) -> str:
-    # registry.lists["user.punctuation"] returns a priority-ordered list of all
-    # definitions of user.punctuation in active contexts; we want the currently
-    # active value, so we take the last (highest priority).
-    text = format_phrase(m, registry.lists.get("user.punctuation", [{}])[-1])
-    _, text = actions.user.auto_capitalize(False, text)
-    return text
+def prose(m) -> str: return format_phrase(m)
 
 # TODO: unify this formatting code with the dictation formatting code, so that
 # user.prose behaves the same way as dictation mode.
-def format_phrase(m, replacements=None):
+def format_phrase(m):
     words = capture_to_word_list(m)
-    if replacements:
-        assert isinstance(replacements, dict)
-        words = replace_word_sequences(replacements, words)
     result = ""
     for i, word in enumerate(words):
         if i > 0 and needs_space_between(words[i-1], word):
@@ -48,27 +39,6 @@ def capture_to_word_list(m):
             if isinstance(item, grammar.vm.Phrase) else
             item.split(" "))
     return words
-
-def replace_word_sequences(replacements, words):
-    # bucket replacements by how many words they contain
-    buckets = {}
-    for pattern, replacement in replacements.items():
-        pattern = tuple(pattern.split())
-        buckets.setdefault(len(pattern), {})[pattern] = replacement
-    # go through `words` position by position, replacing matching sequences
-    result = []
-    i = 0
-    while i < len(words):
-        consumed, emitted = 1, [words[i]]
-        for (n, bucket) in buckets.items():
-            if i + n > len(words): continue
-            fragment = tuple(words[i:i+n])
-            if fragment in bucket:
-                consumed, emitted = n, bucket[fragment].split(" ")
-                break
-        i += consumed
-        result.extend(emitted)
-    return result
 
 no_space_before = set(" .,/-!?;:)]}")
 no_space_after = set("\n /-#$([{")
@@ -132,7 +102,7 @@ class FormattingActions:
 
 # ---------- LISTS (punctuation, additional/replacement words) ----------
 # Default words that will need to be capitalized (particularly under w2l).
-capitalize = [
+_capitalize_defaults = [
     "I",
     "I'm",
     "I've",
@@ -167,12 +137,12 @@ capitalize = [
 ]
 
 # Default words that need to be remapped.
-default_word_map = {
+_word_map_defaults = {
     # E.g:
     # "cash": "cache",
     # "centre": "center",
 }
-default_word_map.update({word.lower(): word for word in capitalize})
+_word_map_defaults.update({word.lower(): word for word in _capitalize_defaults})
 
 # "dictate.word_map" is used by `actions.dictate.replace_words` to rewrite words
 # Talon recognized. Entries in word_map don't change the priority with which
@@ -180,20 +150,20 @@ default_word_map.update({word.lower(): word for word in capitalize})
 bind_word_map_to_csv(
     "words_to_replace.csv",
     csv_headers=("Replacement", "Original"),
-    default_values=default_word_map,
+    default_values=_word_map_defaults,
 )
 
 
 # Default words that should be added to Talon's vocabulary.
-simple_vocabulary = ["admin", "LCD", "VPN", "DNS", "USB", "FAQ", "PhD", "Minecraft"]
+_simple_vocab_default = ["admin", "LCD", "VPN", "DNS", "USB", "FAQ", "PhD", "Minecraft"]
 
 # Defaults for different pronounciations of words that need to be added to
 # Talon's vocabulary.
-default_vocabulary = {
+_default_vocabulary = {
     "N map": "nmap",
     "under documented": "under-documented",
 }
-default_vocabulary.update({word: word for word in simple_vocabulary})
+_default_vocabulary.update({word: word for word in _simple_vocab_default})
 
 # "user.vocabulary" is used to explicitly add words/phrases that Talon doesn't
 # recognize. Words in user.vocabulary (or other lists and captures) are
@@ -202,5 +172,5 @@ bind_list_to_csv(
     "user.vocabulary",
     "additional_words.csv",
     csv_headers=("Word(s)", "Spoken Form (If Different)"),
-    default_values=default_vocabulary,
+    default_values=_default_vocabulary,
 )

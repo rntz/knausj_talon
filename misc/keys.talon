@@ -1,6 +1,4 @@
 <user.arrow_key>: key(arrow_key)
-#disabled due to https://github.com/talonvoice/beta/issues/90
-<user.number_key>: key(number_key)
 <user.letter>: key(letter)
 (shift | ship | uppercase) <user.letters> [(lowercase | sunk | over)]:
     user.insert_formatted(letters, "ALL_CAPS")
