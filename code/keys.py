@@ -250,7 +250,7 @@ alternate_keys = {
 #    "bar": "space",
     "break": "space",
     #'void': 'space',
-    "slap": "enter",
+#    "slap": "enter",
     #"shock": "enter",
 }
 keys = {k: k for k in simple_keys}
