@@ -13,14 +13,6 @@ phrase <user.text> {user.dictation_end}:
   prose = dictation_begin + prose
   user.insert_formatted(prose + dictation_end, "NOOP")
 
-# {user.dictation_begin} <user.dictation>$:
-#   text = user.dictation_format_stateless(dictation, " ")
-#   user.insert_formatted(dictation_begin + text, "NOOP")
-# {user.dictation_begin} <user.dictation> {user.dictation_end}:
-#   text = user.dictation_format_stateless(dictation, " ")
-#   text = text + dictation_end
-#   insert(user.formatted_text(dictation_begin + text, "NOOP"))
-
 <user.format_text>+$: user.insert_many(format_text_list)
 <user.format_text>+ {user.dictation_end}:
   user.insert_many(format_text_list)
@@ -35,10 +27,8 @@ dictation mode [<user.prose>]$:
   mode.disable("sleep")
   mode.disable("command")
   mode.enable("dictation")
-  insert(user.dictation_format(prose or ""))
+  user.dictation_insert(prose or "")
 
-# see editing_universal.talon
-#scratch that: user.clear_last_phrase()
 recent list: user.toggle_phrase_history()
 recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
 recent repeat <number_small>: auto_insert(user.get_recent_phrase(number_small))

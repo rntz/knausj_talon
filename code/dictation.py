@@ -1,10 +1,17 @@
 # Courtesy of https://github.com/dwiel/talon_community/blob/master/misc/dictation.py
 # Port for Talon's new api + wav2letter
-from talon import Module, Context, ui, actions
+from talon import Module, Context, ui, actions, clip, app
 from typing import Optional, Tuple
 
 mod = Module()
 ctx = Context()
+
+setting_dictation_auto_copy = mod.setting(
+    "dictation_auto_copy_surrounding_text",
+    type=bool,
+    default=False,
+    desc="Copy surrounding text via clipboard to improve auto-capitalization/spacing in dictation mode. This may be slow or not work in all applications.",
+)
 
 # ---------- THE DICTATION CAPTURE ----------
 @mod.capture(rule="<self.dictation_chunk>+")
@@ -74,73 +81,14 @@ ctx.lists["user.dictation_end"] = {"over": "", "break": " "}
 
 
 # ---------- DICTATION AUTO FORMATTING ---------- #
-# no_space_before = set(",:;-/)")
-# no_space_after = set("-/( ")
-# # dictionary of sentence ends. No space should appear before these.
-# sentence_ends = {
-#     ".": ".",
-#     "?": "?",
-#     "!": "!",
-#     "new-paragraph": "\n\n",
-#     "new-line": "\n",
-# }
-
-# class DictationFormat:
-#     def __init__(self, before=None):
-#         self.reset(before=before)
-#         self.last_utterance = None
-#         self.paused = False
-
-#     # TODO: explain how the before parameter is used. For example, a before
-#     # value of " " will make caps false, but an empty before value "" will make
-#     # it true. This is slightly counterintuitive.
-#     def reset(self, before=None):
-#         # Default configuration.
-#         self.caps = True
-#         self.space = False
-
-#         # Set configuration from characters before cursor, if any.
-#         if before:
-#             self.space = before[-1] not in no_space_after
-#             before = before.rstrip(" ")
-#             self.caps = any(before.endswith(x) for x in sentence_ends.values())
-
-#     def pause(self, paused):
-#         self.paused = paused
-
-#     def format(self, text):
-#         if self.paused:
-#             self.last_utterance = text
-#             return text
-
-#         result = ""
-#         for word in text.split():
-#             is_sentence_end = False
-
-#             if word in sentence_ends:
-#                 word = sentence_ends[word]
-#                 is_sentence_end = True
-#             elif self.space and word not in no_space_before:
-#                 result += " "
-
-#             if self.caps:
-#                 word = word.capitalize()
-
-#             result += word
-#             self.space = "\n" not in word and word[-1] not in no_space_after
-#             self.caps = is_sentence_end
-#             self.last_utterance = result
-
-#         return result
-
 class DictationFormat:
     def __init__(self):
-        self.last_utterance = None
         self.paused = False
         self.before = ""
         self.caps = True
 
     def reset(self, before=None):
+        self.paused = False
         self.before = before or ""
         # capitalization defaults to True
         self.caps = actions.user.auto_capitalize(True, self.before)[0]
@@ -149,14 +97,11 @@ class DictationFormat:
         self.paused = paused
 
     def format(self, text):
-        if self.paused:
-            self.before = text or self.before
-            self.last_utterance = text
-            return text
-        text = actions.user.adjust_surrounding_space(text, self.before, None)
-        self.caps, text = actions.user.auto_capitalize(self.caps, text)
+        if not self.paused:
+            if actions.user.needs_space_between(self.before, text):
+                text = " " + text
+            self.caps, text = actions.user.auto_capitalize(self.caps, text)
         self.before = text or self.before
-        self.last_utterance = text
         return text
 
 dictation_formatter = DictationFormat()
@@ -165,50 +110,97 @@ ui.register("win_focus", lambda win: dictation_formatter.reset())
 
 @mod.action_class
 class Actions:
-    def dictation_peekaboo():
-        """Sets the dictation state according to the text around point."""
-        # FIXME: what if there is currently a selection?
-        pre, post = actions.user.peekaboo()
-        dictation_formatter.reset(before=pre)
-        # TODO: do something about the spacing after cursor.
-
     def dictation_format(text: str) -> str:
         """Formats dictated text."""
         return dictation_formatter.format(text)
 
-    def dictation_format_stateless(text: str, before: Optional[str] = None) -> str:
-        """
-        Formats text as if it were dictated, but without using or affecting the
-        state of the dictation formatter. `before` is a hint used to determine
-        capitalization and spacing; it should consist of a few characters before
-        the cursor.
-        """
-        formatter = DictationFormat(before=before)
-        return formatter.format(text)
+    def dictation_insert(text: str) -> str:
+        """Inserts dictated text."""
+        if not text: return
+        dictation_formatter.reset(before=actions.user.peek_left(clobber=True))
+        text = actions.user.dictation_format(text)
+        actions.auto_insert(text)
+        actions.user.fix_space_right(text)
 
-    def dictation_format_pause():
-        """Pauses the dictation formatter"""
-        return dictation_formatter.pause(True)
-
-    def dictation_format_resume():
-        """Resumes the dictation formatter"""
-        return dictation_formatter.pause(False)
+    def dictation_insert_raw(text: str):
+        """Inserts text as-is, without invoking the dictation formatter."""
+        dictation_formatter.pause(True)
+        # TODO: should this invoke automagic spacing, though?
+        # also, currently this will trigger peek_left() & fix_space_right(). Hm...
+        auto_insert(text)
+        dictation_formatter.pause(False)
 
     def dictation_format_reset():
         """Resets the dictation formatter"""
         return dictation_formatter.reset()
 
-    def dictation_clear_last():
-        """Deletes the last dictated utterance"""
-        if dictation_formatter.last_utterance:
-            for c in dictation_formatter.last_utterance:
-                actions.edit.delete()
+    def dictation_format_auto():
+        """Tries to update the dictation formatter state according to the text
+        around the cursor."""
+        dictation_formatter.reset(before=actions.user.peek_left(user_request=True))
 
-    def dictation_select_last():
-        """Selects the last dictated utterance"""
-        if dictation_formatter.last_utterance:
-            for c in dictation_formatter.last_utterance:
-                actions.edit.extend_left()
+    def peek_left(user_request: bool = False, clobber: bool = False) -> Optional[str]:
+        """
+        Tries to get some of the text before the cursor, ideally one word, for
+        the purpose of context-sensitive spacing & capitalization. Results are
+        not guaranteed; peek_left() may return None to indicate no information.
+        (Note that returning the empty string "" indicates there is nothing
+        before cursor, ie. we are at the beginning of the document.)
+
+        `user_request` indicates whether this peek_left() was performed
+        automatically or user-requested. If true, peek_left() ignores settings
+        that would otherwise disable it, like setting_dictation_auto_copy.
+
+        If there is currently a selection, peek_left() must leave it unchanged
+        unless `clobber` is true, in which case it may clobber it.
+        """
+        if not user_request and not setting_dictation_auto_copy.get():
+            return None
+        if clobber:
+            # get rid of the selection if it exists.
+            # TODO: test this doesn't affect the clipboard.
+            with clip.revert(): actions.edit.cut()
+        # Otherwise, if there's a selection, fail.
+        elif "" != actions.edit.selected_text():
+            return None
+        actions.edit.extend_word_left()
+        text = actions.edit.selected_text()
+        # if we're at the beginning of the document/text box, we may not have
+        # selected any text, in which case we shouldn't move the cursor.
+        if text:
+            ## Unfortunately, this fails in Slack if our selection ends at
+            ## newline. This can be fixed using ctrl-right, but ugh.
+            actions.edit.right()
+            #actions.key("ctrl-right")
+        return text
+
+    def peek_right() -> Optional[str]:
+        """TODO"""
+        if not setting_dictation_auto_copy.get():
+            return None
+        actions.edit.extend_right()
+        char = actions.edit.selected_text()
+        # ARGH, this doesn't work if we're at the end of a line in firefox/chrome!
+        # selecting down seems to work _more_ often, but not if next line is empty :(
+        if char: actions.edit.left()
+        else:
+            # Workaround for firefox, chrome, other places that refuse to copy a
+            # bare newline to the clipboard.
+            app.notify("!!!!!")
+            actions.edit.right()
+            actions.edit.left()
+        return char
+
+    def fix_space_right(before: str):
+        """TODO"""
+        # Exit early to avoid calling peek_right() if we definitely don't need
+        # to insert a space. "A" is an arbitrary character chosen b/c it
+        # definitely needs space before it.
+        if not actions.user.needs_space_between(before, "A"): return
+        char = actions.user.peek_right()
+        if char is not None and actions.user.needs_space_between(before, char):
+            actions.insert(" ")
+            actions.edit.left()
 
 # Use the dictation formatter in dictation mode.
 dictation_ctx = Context()
@@ -219,8 +211,19 @@ mode: dictation
 @dictation_ctx.action_class("main")
 class main_action:
     def auto_insert(text):
-        actions.user.dictation_peekaboo()
+        if not text: return
+        dictation_formatter.reset(before=actions.user.peek_left(clobber=True))
+        # We format text here rather than in auto_format so that we can pass the
+        # inserted text to fix_space_right. Unfortunately, if someone overrides
+        # auto_format this will no longer be the correct text. Not sure how to
+        # solve that. If auto_insert returned the text inserted we could use
+        # that, but no such luck.
+        text = actions.user.dictation_format(text)
         actions.next(text)
+        actions.user.fix_space_right(text)
 
-    def auto_format(text):
-        return actions.user.dictation_format(text)
+@dictation_ctx.action_class("user")
+class main_action:
+    def clear_last_phrase():
+        # TODO: update dictation state using a history cache
+        actions.next()

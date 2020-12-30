@@ -50,6 +50,8 @@ def needs_space_between(before: str, after: str) -> bool:
 
 @mod.action_class
 class FormattingActions:
+    needs_space_between = needs_space_between
+
     def auto_capitalize(sentence_start: bool, text: str) -> Tuple[bool, str]:
         """
         Auto-capitalizes `text`. Pass sentence_start=True iff `text` starts at the
@@ -73,32 +75,6 @@ class FormattingActions:
             # Otherwise the charge passes through (we do nothing).
             output += c
         return charge, output
-
-    # TODO: perhaps this should be in dictation.py?
-    def adjust_surrounding_space(text: str,
-                                 pre: Optional[str],
-                                 post: Optional[str]) -> str:
-        """
-        Adjusts the spacing at the beginning and end of `text` as appropriate for
-        its surroundings, given by `pre` and `post`. If the text before/after is
-        not known, pass None for pre/post respectively, and the spacing at
-        beginning/end respectively will not get modified.
-        """
-        if pre is not None:
-            # Avoid space at the beginning of a document or line; avoid more
-            # than one space in a row.
-            if pre == "" or pre[-1] in "\n ":
-                # Only strip spaces; new lines etc should remain unchanged.
-                text = text.lstrip(" ")
-            # Otherwise, insert a space if necessary.
-            elif needs_space_between(pre, text + (post or "")):
-                text = " " + text
-        if post is not None:
-            if post == "" or post[0] in "\n ":
-                text = text.rstrip(" ")
-            elif needs_space_between((pre or "") + text, post):
-                text = text + " "
-        return text
 
 
 # ---------- LISTS (punctuation, additional/replacement words) ----------

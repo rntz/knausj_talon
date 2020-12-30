@@ -64,22 +64,16 @@ clear right <number_small> characters:
 
 #formatting 
 formatted <user.format_text>:
-    user.dictation_format_pause()
-    auto_insert(format_text)
-    user.dictation_format_resume()
+    user.dictation_insert_raw(format_Text)
 ^format selection <user.formatters>$:
     user.formatters_reformat_selection(formatters)
 
 #corrections
-#scratch that: user.dictation_clear_last()
 scratch selection: edit.delete()
-select that: user.dictation_select_last()
 spell that <user.letters>: auto_insert(letters)
 spell that <user.formatters> <user.letters>:
     result = user.formatted_text(letters, formatters)
-    user.dictation_format_pause()
-    auto_insert(result)
-    user.dictation_format_resume()
+    user.dictation_insert_raw(result)
 
 #escape, type things that would otherwise be commands
 ^escape <user.text>$:
