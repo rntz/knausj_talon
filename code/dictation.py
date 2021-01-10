@@ -6,11 +6,25 @@ from typing import Optional, Tuple
 mod = Module()
 ctx = Context()
 
-setting_dictation_auto_copy = mod.setting(
-    "dictation_auto_copy_surrounding_text",
+setting_dictation_copy_surrounding_text = mod.setting(
+    "dictation_copy_surrounding_text",
     type=bool,
     default=False,
     desc="Copy surrounding text via clipboard to improve auto-capitalization/spacing in dictation mode. This may be slow or not work in all applications.",
+)
+
+setting_dictation_clobber_behavior = mod.setting(
+    "dictation_clobber_behavior",
+    type=str,
+    default="cut",
+    desc="""When inserting dictated text and using the surrounding text to inform auto-capitalization/spacing, we need to clobber (delete) the selection if it exists before we can look at the surrounding text. We can do this in a few ways:
+
+    - "cut" (the default) means we issue an unconditional edit.cut(), which should delete the selection if it exists and do nothing otherwise. This is a compromise between speed and safety.
+
+    - "test" checks if there is a selection using edit.selected_text(), and if so, uses edit.delete(). This is the slowest but safest option, useful if edit.cut() is not a no-op when the selection does not exist.
+
+    - "noop" does nothing, which is fast, but will do the wrong thing if there is a selection.
+    """
 )
 
 # ---------- THE DICTATION CAPTURE ----------
@@ -139,6 +153,7 @@ class Actions:
         around the cursor."""
         dictation_formatter.reset(before=actions.user.peek_left(user_request=True))
 
+    # TODO: This code is broken in, for example, Google docs.
     def peek_left(user_request: bool = False, clobber: bool = False) -> Optional[str]:
         """
         Tries to get some of the text before the cursor, ideally one word, for
@@ -149,20 +164,36 @@ class Actions:
 
         `user_request` indicates whether this peek_left() was performed
         automatically or user-requested. If true, peek_left() ignores settings
-        that would otherwise disable it, like setting_dictation_auto_copy.
+        that would otherwise disable it, like
+        setting_dictation_copy_surrounding_text.
 
         If there is currently a selection, peek_left() must leave it unchanged
         unless `clobber` is true, in which case it may clobber it.
         """
-        if not user_request and not setting_dictation_auto_copy.get():
+        if not user_request and not setting_dictation_copy_surrounding_text.get():
             return None
+
         if clobber:
             # get rid of the selection if it exists.
-            # TODO: test this doesn't affect the clipboard.
-            with clip.revert(): actions.edit.cut()
+            behavior = setting_dictation_clobber_behavior.get()
+            if behavior == "noop": pass
+            elif behavior == "test":
+                if "" != actions.edit.selected_text():
+                    actions.edit.delete()
+            else:
+                # TODO: test this doesn't affect the clipboard.
+                with clip.revert(): actions.edit.cut()
         # Otherwise, if there's a selection, fail.
         elif "" != actions.edit.selected_text():
             return None
+
+        # In principle the previous word should suffice, but some applications
+        # have a funny concept of what the previous word is (for example, they
+        # may only take the "`" at the end of "`foo`"). To be double sure we
+        # first select a line up then a word left. TODO: perhaps this should be
+        # configurable?
+        #actions.edit.extend_up() # doesn't work in web slack
+        actions.edit.extend_word_left()
         actions.edit.extend_word_left()
         text = actions.edit.selected_text()
         # if we're at the beginning of the document/text box, we may not have
@@ -176,19 +207,13 @@ class Actions:
 
     def peek_right() -> Optional[str]:
         """TODO"""
-        if not setting_dictation_auto_copy.get():
+        if not setting_dictation_copy_surrounding_text.get():
             return None
         actions.edit.extend_right()
         char = actions.edit.selected_text()
         # ARGH, this doesn't work if we're at the end of a line in firefox/chrome!
         # selecting down seems to work _more_ often, but not if next line is empty :(
         if char: actions.edit.left()
-        else:
-            # Workaround for firefox, chrome, other places that refuse to copy a
-            # bare newline to the clipboard.
-            app.notify("!!!!!")
-            actions.edit.right()
-            actions.edit.left()
         return char
 
     def fix_space_right(before: str):

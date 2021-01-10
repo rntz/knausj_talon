@@ -22,7 +22,7 @@ settings():
     #the amount to scroll up/down (equivalent to mouse wheel on Windows by default)
     user.mouse_wheel_down_amount = 5
     # use copying via clipboard to inform auto-capitalization/spacing in dictation mode
-    user.dictation_auto_copy_surrounding_text = 1
+    user.dictation_copy_surrounding_text = 1
 	
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
