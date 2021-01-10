@@ -185,13 +185,13 @@ all_formatters.update(formatters_words)
 
 mod = Module()
 mod.list("formatters", desc="list of formatters")
+mod.list("prose_formatter", desc="words to start dictating prose, and the formatter they apply")
 
 
 @mod.capture(rule="{self.formatters}+")
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m.formatters_list)
-
 
 @mod.capture(
     # Note that if the user speaks something like "snake dot", it will
@@ -295,6 +295,10 @@ class Actions:
 
 
 ctx.lists["self.formatters"] = formatters_words.keys()
+ctx.lists["self.prose_formatter"] = {
+    "say": "NOOP", "speak": "NOOP",
+    "sentence": "CAPITALIZE_FIRST_WORD",
+}
 
 
 @imgui.open(software=app.platform == "linux")
