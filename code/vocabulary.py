@@ -40,8 +40,8 @@ def capture_to_word_list(m):
             item.split(" "))
     return words
 
-no_space_before = set("\n .,!?;:-/%)]}")
-no_space_after = set("\n -/#([{$£€¥₩₽₹")
+no_space_before = set("\n .,!?;:-/%)]}\"")
+no_space_after = set("\n -/#@([{$£€¥₩₽₹\"")
 def needs_space_between(before: str, after: str) -> bool:
     """TODO"""
     return (before != "" and after != ""
