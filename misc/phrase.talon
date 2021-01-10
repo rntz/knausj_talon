@@ -7,11 +7,18 @@ phrase <user.text>$: user.insert_formatted(text, "NOOP")
 phrase <user.text> {user.dictation_end}:
   user.insert_formatted(text + dictation_end, "NOOP")
 
-{user.dictation_begin} <user.prose>$:
-  user.insert_formatted(dictation_begin + prose, "NOOP")
-{user.dictation_begin} <user.prose> {user.dictation_end}:
-  prose = dictation_begin + prose
-  user.insert_formatted(prose + dictation_end, "NOOP")
+# sentence <user.prose>$:
+#   user.insert_formatted(prose, "CAPITALIZE_FIRST_WORD")
+# {user.dictation_begin} <user.prose>$:
+#   user.insert_formatted(dictation_begin + prose, "NOOP")
+# {user.dictation_begin} <user.prose> {user.dictation_end}:
+#   prose = dictation_begin + prose
+#   user.insert_formatted(prose + dictation_end, "NOOP")
+
+say <user.prose>$: user.dictation_insert(prose)
+say <user.prose> over: user.dictation_insert(prose)
+prose <user.prose>$: user.insert_formatted(prose, "NOOP")
+prose <user.prose> over: user.insert_formatted(prose, "NOOP")
 
 <user.format_text>+$: user.insert_many(format_text_list)
 <user.format_text>+ {user.dictation_end}:
