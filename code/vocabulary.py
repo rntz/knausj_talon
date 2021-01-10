@@ -67,9 +67,10 @@ class FormattingActions:
             # Sentence endings create a charge.
             if c in ".!?":
                 charge = True
-            # Alphanumeric characters absorb charge & try to capitalize (for
-            # numbers this will do nothing, which is what we want).
-            elif charge and c.isalnum():
+            # Alphanumeric characters and commas absorb charge & try to
+            # capitalize (for numbers & punctuation this does nothing, which is
+            # what we want).
+            elif charge and (c.isalnum() or c in ","):
                 charge = False
                 c = c.capitalize()
             # Otherwise the charge passes through (we do nothing).
