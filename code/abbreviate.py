@@ -8,6 +8,12 @@ mod.list("abbreviation", desc="Common abbreviation")
 
 ctx = Context()
 ctx.lists["user.abbreviation"] = {
+    "negative": "neg",
+    "statement": "stmt",
+    "subtract": "sub", "divide": "div",
+    "equal": "eq",
+    "constructor": "ctor",
+    "operate": "op", "operation": "op",
     "mister": "Mr", "missus": "Mrs", "miz": "Ms", "miss": "Ms",
     "january": "jan", "february": "feb", "march": "mar", "april": "apr", "june": "jun", "july": "jul", "august": "aug", "september": "sep", "october": "oct", "november": "nov", "december": "dec",
     "address": "addr",

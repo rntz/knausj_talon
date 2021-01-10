@@ -10,32 +10,32 @@ go <number> (end|tail):
 comment line <number>:
     user.select_range(number, number)
     code.toggle_comment()
-comment <number> until <number>:
+comment [line] <number> until <number>:
     user.select_range(number_1, number_2)
     code.toggle_comment()
 clear line <number>:
     edit.jump_line(number)
     user.select_range(number, number)
     edit.delete()
-clear <number> until <number>:
+clear [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.delete()
 copy line <number>:
     user.select_range(number, number)
     edit.copy()
-copy <number> until <number>:
+copy [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.copy()
 cut line <number>:
     user.select_range(number, number)
     edit.cut()
-cut line <number> until <number>:
+cut [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.cut()
-paste <number> until <number>:
+paste [line] <number> until <number>:
   user.select_range(number_1, number_2)
   edit.paste()
-replace <number> until <number>:
+replace [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.paste()
 (select | cell | sell) line <number>: user.select_range(number, number)

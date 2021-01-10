@@ -32,11 +32,16 @@ action(app.window_hide_others):
 	
 #requires easy window switcher or equivalent (built into most Linux)
 action(app.window_next): 
-	key(alt-tab)
+#	key(alt-tab)
+    key(alt-f6)
+#    key(super-`)
+    sleep(5ms)
 
 action(app.window_open):
 	key(ctrl-n)
 
 #requires easy window switcher or equivalent (built into most Linux)
 action(app.window_previous): 
-	key(alt-shift-tab)
+#	key(alt-shift-tab)
+#    key(shift-alt-f6)
+    key(shift-super-`)

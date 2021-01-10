@@ -160,7 +160,8 @@ symbol_key_words = {
 #    "dot": ".",
     "point": ".",
     "semi": ";",
-    "tick": "'", "ticky": "'", #"quote": "'",
+#    "tick": "'", "ticky": "'", #"quote": "'",
+    "trophy": "'",
     #"L square": "[",
     #"left square": "[",
     #"square": "[",
@@ -170,14 +171,15 @@ symbol_key_words = {
     "stroke": "/", # seems to get recognized better at high speeds
 #    "solid": "/",
     "backslash": "\\",
-    "backer": "\\",
+    "slide": "\\", #"swing": "\\", #"backer": "\\",
     "minus": "-",
     "dash": "-",
     "equals": "=",
     "plus": "+",
     "question": "?",
-    #"tilde": "~",
-    "squiggle": "~",
+#    "tilde": "~",
+    "squid": "~",
+    #"squiggle": "~",
     "bang": "!",
     "dollar": "$",
     "down score": "_", "downs score": "_", "underscore": "_",
@@ -240,7 +242,6 @@ simple_keys = [
     "tab",
 ]
 
-# try using ace for space if the new models ever get fast enough.
 alternate_keys = {
     "head": "home", "tail": "end", #"foot": "end",
     #"homer": "home", "end line": "end",
@@ -251,7 +252,8 @@ alternate_keys = {
     "break": "space",
     #'void': 'space',
 #    "slap": "enter",
-    #"shock": "enter",
+    "shock": "enter",
+    "shuck": "enter", "chuck": "enter",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):

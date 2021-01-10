@@ -2,11 +2,11 @@ search:
     edit.find()
     user.quick_action_set("edit.find_next")
 
-next one | later:
+go next | later:
     edit.find_next()
     user.quick_action_set("edit.find_next")
 
-last one | prior:
+go last | prior:
     edit.find_previous()
     user.quick_action_set("edit.find_previous")
 
@@ -137,11 +137,11 @@ clear (to end | way right):
     edit.extend_line_end()
     edit.delete()
 
-clear [to] top:
+clear to top:
     edit.extend_file_start()
     edit.delete()
 
-clear [to] bottom:
+clear to bottom:
     edit.extend_file_end()
     edit.delete()
 
