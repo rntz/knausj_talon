@@ -21,6 +21,13 @@ settings():
     user.mouse_wake_hides_cursor = 0
     #the amount to scroll up/down (equivalent to mouse wheel on Windows by default)
     user.mouse_wheel_down_amount = 5
+
+    # the number of lines of command history to display by default
+    user.command_history_display = 2
+    # the number of lines of command history to keep in total
+    user.command_history_size = 50
+    # "command history more" to display all of them, "command history less" to restore
+
     # use copying via clipboard to inform auto-capitalization/spacing in dictation mode
     user.dictation_copy_surrounding_text = 1
 	
