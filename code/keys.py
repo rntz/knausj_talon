@@ -109,11 +109,12 @@ ctx.lists["self.modifier_key"] = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
     "alt": "alt", 'alter': 'alt',
     #"command": "cmd",
-    "control": "ctrl",  #'troll':   'ctrl',
+    "control": "ctrl",  'troll':   'ctrl',
     #"option": "alt",
     "shift": "shift",  'ship': 'shift',  #'sky': 'shift',
     "super": "super",
-    "fly": "alt", "kiss": "ctrl",
+    "alley": "alt", "fly": "alt",
+    #"kiss": "ctrl",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
@@ -126,11 +127,13 @@ punctuation_words = {
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
     "`": "`", ",": ",", # <== these things
     "back tick": "`",
-    "comma": ",", "kama": ",", "come a": ",",
+    "comma": ",", "kama": ",",
+    #"come a": ",", # collides with 'commit'
     "period": ".",
     "semicolon": ";",
     "colon": ":", "deckle": ":",
-    "forward slash": "/", #"solidus": "/",
+    "forward slash": "/",
+    "backward slash": "\\",
     "minus sign": "-",
     "plus sign": "+",
     "equal sign": "=", "equals sign": "=",
@@ -171,7 +174,8 @@ symbol_key_words = {
     "stroke": "/", # seems to get recognized better at high speeds
 #    "solid": "/",
     "backslash": "\\",
-    "slide": "\\", #"swing": "\\", #"backer": "\\",
+    #"slide": "\\",
+    "swing": "\\", #"backer": "\\",
     "minus": "-",
     "dash": "-",
     "equals": "=",
@@ -183,7 +187,7 @@ symbol_key_words = {
     "bang": "!",
     "dollar": "$",
     "down score": "_", "downs score": "_", "underscore": "_",
-    "under": "_",
+    "score": "_",
     "deckle": ":",
     #"L paren": "(",
     #"left paren": "(",
@@ -253,7 +257,7 @@ alternate_keys = {
     #'void': 'space',
 #    "slap": "enter",
     "shock": "enter",
-    "shuck": "enter", "chuck": "enter",
+    "shuck": "enter",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):
