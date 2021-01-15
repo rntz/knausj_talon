@@ -107,6 +107,12 @@ class DictationFormat:
         # capitalization defaults to True
         self.caps = actions.user.auto_capitalize(True, self.before)[0]
 
+    # TODO: rename
+    def update(self, before):
+        if before is None: return
+        self.before = before
+        self.caps = actions.user.auto_capitalize(self.caps, before)[0]
+
     def pause(self, paused):
         self.paused = paused
 
@@ -131,9 +137,10 @@ class Actions:
     def dictation_insert(text: str) -> str:
         """Inserts dictated text."""
         if not text: return
-        dictation_formatter.reset(before=actions.user.peek_left(clobber=True))
+        dictation_formatter.update(actions.user.peek_left(clobber=True))
         text = actions.user.dictation_format(text)
-        actions.auto_insert(text)
+        actions.user.add_phrase_to_history(text)
+        actions.insert(text)
         actions.user.fix_space_right(text)
 
     def dictation_insert_raw(text: str):
@@ -151,7 +158,7 @@ class Actions:
     def dictation_format_auto():
         """Tries to update the dictation formatter state according to the text
         around the cursor."""
-        dictation_formatter.reset(before=actions.user.peek_left(user_request=True))
+        dictation_formatter.update(actions.user.peek_left(user_request=True))
 
     # TODO: This code is broken in, for example, Google docs.
     def peek_left(user_request: bool = False, clobber: bool = False) -> Optional[str]:
@@ -235,17 +242,7 @@ mode: dictation
 
 @dictation_ctx.action_class("main")
 class main_action:
-    def auto_insert(text):
-        if not text: return
-        dictation_formatter.reset(before=actions.user.peek_left(clobber=True))
-        # We format text here rather than in auto_format so that we can pass the
-        # inserted text to fix_space_right. Unfortunately, if someone overrides
-        # auto_format this will no longer be the correct text. Not sure how to
-        # solve that. If auto_insert returned the text inserted we could use
-        # that, but no such luck.
-        text = actions.user.dictation_format(text)
-        actions.next(text)
-        actions.user.fix_space_right(text)
+    def auto_insert(text): actions.user.dictation_insert(text)
 
 @dictation_ctx.action_class("user")
 class main_action:
