@@ -41,9 +41,6 @@ def gui(gui: imgui.GUI):
 speech_system.register("phrase", on_phrase)
 gui.show()
 
-mod = Module()
-
-
 @mod.action_class
 class Actions:
     def history_toggle():
