@@ -16,9 +16,11 @@ phrase <user.text> {user.dictation_end}:
 #   user.insert_formatted(prose + dictation_end, "NOOP")
 
 say <user.prose>$: user.dictation_insert(prose)
-say <user.prose> over: user.dictation_insert(prose)
+say <user.prose> {user.dictation_end}:
+  user.dictation_insert(prose + dictation_end)
 prose <user.prose>$: user.insert_formatted(prose, "NOOP")
-prose <user.prose> over: user.insert_formatted(prose, "NOOP")
+prose <user.prose> {user.dictation_end}:
+  user.insert_formatted(prose + dictation_end, "NOOP")
 
 <user.format_text>+$: user.insert_many(format_text_list)
 <user.format_text>+ {user.dictation_end}:
