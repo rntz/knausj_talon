@@ -1,16 +1,12 @@
 mode: dictation
 -
-# everything here should call auto_insert to preserve the state to correctly
-# auto-capitalize/auto-space.
-#<user.dictation>: auto_insert(dictation)
-
-#<user.text>: auto_insert(text)
-#{user.punctuation}: auto_insert(punctuation)
 <user.prose>: auto_insert(prose)
 new line: "\n"
 new paragraph:
   "\n\n"
-  # a bit of a hack.
+  # A hack. Currently the formatter ignores new lines, so it will only start
+  # capitalizing if the previous paragraph ended with a period or other sentence
+  # ending. This forces it to capitalize.
   user.dictation_format_reset()
 cap <user.word>:
   result = user.formatted_text(word, "CAPITALIZE_FIRST_WORD")

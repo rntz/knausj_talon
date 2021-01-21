@@ -97,32 +97,29 @@ ctx.lists["user.dictation_end"] = {"over": "", "break": " "}
 # ---------- DICTATION AUTO FORMATTING ---------- #
 class DictationFormat:
     def __init__(self):
-        self.paused = False
-        self.before = ""
-        self.caps = True
+        self.reset()
 
     def reset(self, before=None):
-        self.paused = False
-        self.before = before or ""
+        self.before = ""
         # capitalization defaults to True
-        self.caps = actions.user.auto_capitalize(True, self.before)[0]
+        self.caps = True
 
-    # TODO: rename
-    def update(self, before):
+    def update_context(self, before):
         if before is None: return
         self.before = before
-        self.caps = actions.user.auto_capitalize(self.caps, before)[0]
-
-    def pause(self, paused):
-        self.paused = paused
+        self.caps = actions.user.auto_capitalize(True, before)[0]
 
     def format(self, text):
-        if not self.paused:
-            if actions.user.needs_space_between(self.before, text):
-                text = " " + text
-            self.caps, text = actions.user.auto_capitalize(self.caps, text)
+        if actions.user.needs_space_between(self.before, text):
+            text = " " + text
+        self.caps, text = actions.user.auto_capitalize(self.caps, text)
         self.before = text or self.before
         return text
+
+    def pass_through(self, text):
+        # TODO: should this affect self.caps? I think so, but I'm not sure.
+        self.caps, _ = actions.user.auto_capitalize(self.caps, text)
+        self.before = text or self.before
 
 dictation_formatter = DictationFormat()
 ui.register("app_deactivate", lambda app: dictation_formatter.reset())
@@ -135,9 +132,12 @@ class Actions:
         return dictation_formatter.format(text)
 
     def dictation_insert(text: str) -> str:
-        """Inserts dictated text."""
-        if not text: return
-        dictation_formatter.update(actions.user.peek_left(clobber=True))
+        """Inserts dictated text, formatted appropriately."""
+        # This text.isspace() test is an optimization; whitespace neither
+        # affects nor is affected by formatter state, so examining the context
+        # is unnecessary.
+        if not text.isspace():
+            dictation_formatter.update_context(actions.user.peek_left(clobber=True))
         text = actions.user.dictation_format(text)
         actions.user.add_phrase_to_history(text)
         actions.insert(text)
@@ -145,11 +145,8 @@ class Actions:
 
     def dictation_insert_raw(text: str):
         """Inserts text as-is, without invoking the dictation formatter."""
-        dictation_formatter.pause(True)
-        # TODO: should this invoke automagic spacing, though?
-        # also, currently this will trigger peek_left() & fix_space_right(). Hm...
-        auto_insert(text)
-        dictation_formatter.pause(False)
+        dictation_formatter.pass_through(text)
+        actions.insert(text)
 
     def dictation_format_reset():
         """Resets the dictation formatter"""
@@ -158,9 +155,8 @@ class Actions:
     def dictation_format_auto():
         """Tries to update the dictation formatter state according to the text
         around the cursor."""
-        dictation_formatter.update(actions.user.peek_left(user_request=True))
+        dictation_formatter.update_context(actions.user.peek_left(user_request=True))
 
-    # TODO: This code is broken in, for example, Google docs.
     def peek_left(user_request: bool = False, clobber: bool = False) -> Optional[str]:
         """
         Tries to get some of the text before the cursor, ideally one word, for
