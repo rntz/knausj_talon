@@ -8,6 +8,7 @@ mod.list("abbreviation", desc="Common abbreviation")
 
 ctx = Context()
 ctx.lists["user.abbreviation"] = {
+    "substitute": "subst",
     "square root": "sqrt",
     "negative": "neg",
     "statement": "stmt",

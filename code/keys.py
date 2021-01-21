@@ -113,7 +113,8 @@ ctx.lists["self.modifier_key"] = {
     #"option": "alt",
     "shift": "shift",  'ship': 'shift',  #'sky': 'shift',
     "super": "super",
-    "alley": "alt", "fly": "alt",
+    #"alley": "alt",
+    "fly": "alt",
     #"kiss": "ctrl",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
@@ -187,7 +188,8 @@ symbol_key_words = {
     "bang": "!",
     "dollar": "$",
     "down score": "_", "downs score": "_", "underscore": "_",
-    "score": "_",
+    "sub": "_",
+    #"score": "_",
     "deckle": ":",
     #"L paren": "(",
     #"left paren": "(",
@@ -247,17 +249,16 @@ simple_keys = [
 ]
 
 alternate_keys = {
-    "head": "home", "tail": "end", #"foot": "end",
-    #"homer": "home", "end line": "end",
+    "head": "home", "tail": "end",
     'junk': 'backspace',
     'deli': 'delete',
     'overwrite': 'insert',
-#    "bar": "space",
+    "bar": "space",
     "break": "space",
-    #'void': 'space',
+    "void": "space",
+    "inter": "enter",
 #    "slap": "enter",
-    "shock": "enter",
-    "shuck": "enter",
+#    "shock": "enter", "shuck": "enter",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):
