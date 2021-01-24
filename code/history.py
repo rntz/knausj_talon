@@ -28,7 +28,7 @@ def on_phrase(j):
 
 
 #todo: dynamic rect?
-@imgui.open(x=1000, y=0, software=app.platform == "linux")
+@imgui.open(x=1000, y=0)
 def gui(gui: imgui.GUI):
     global history
     #gui.text("Command History")

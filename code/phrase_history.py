@@ -59,7 +59,7 @@ class Actions:
         if gui.showing: gui.hide()
         else: gui.show()
 
-@imgui.open(software=app.platform == "linux")
+@imgui.open()
 def gui(gui: imgui.GUI):
     gui.text("Recent phrases")
     gui.line()
