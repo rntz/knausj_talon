@@ -23,14 +23,14 @@ settings():
     #the amount to scroll up/down (equivalent to mouse wheel on Windows by default)
     user.mouse_wheel_down_amount = 5
 
-    # the number of lines of command history to display by default
-    user.command_history_display = 2
-    # the number of lines of command history to keep in total
-    user.command_history_size = 50
-    # "command history more" to display all of them, "command history less" to restore
-
     # use copying via clipboard to inform auto-capitalization/spacing in dictation mode
     user.dictation_copy_surrounding_text = 1
+
+    # the number of lines of command history to display by default
+    user.command_history_display = 2
+    # the number of lines of command history to keep in total;
+    # "command history more" to display all of them, "command history less" to restore
+    user.command_history_size = 50
 	
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
