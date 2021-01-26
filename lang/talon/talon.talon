@@ -40,7 +40,7 @@ tag set:
 # commands for dictating key combo
 key <user.modifiers> over: "{modifiers}"
 # TODO: this single line makes DFA compile times about 100ms longer for me -rntz :(
-key <user.keys> over: "{keys}"
+key <user.keys>$: "{keys}"
 
 #funk commands, consistent with other languages
 toggle funk: user.code_toggle_functions()
