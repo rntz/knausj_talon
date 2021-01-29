@@ -38,7 +38,7 @@ tag set:
 	insert("tag(): ")
 
 # commands for dictating key combo
-key <user.modifiers> over: "{modifiers}"
+key <user.modifiers>$: "{modifiers}"
 # TODO: this single line makes DFA compile times about 100ms longer for me -rntz :(
 key <user.keys>$: "{keys}"
 

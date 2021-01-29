@@ -115,7 +115,7 @@ ctx.lists["self.modifier_key"] = {
     "super": "super",
     #"alley": "alt",
     "fly": "alt",
-    #"kiss": "ctrl",
+    "kiss": "ctrl",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
