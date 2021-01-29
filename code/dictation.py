@@ -27,61 +27,6 @@ setting_dictation_clobber_behavior = mod.setting(
     """
 )
 
-# ---------- THE DICTATION CAPTURE ----------
-@mod.capture(rule="<self.dictation_chunk>+")
-def dictation(m) -> str:
-    """
-    A string of dictated text. Needs to be passed through user.dictation_format
-    or similar for formatting.
-    """
-    return " ".join(m.dictation_chunk_list)
-
-@mod.capture(rule="<user.text> | {user.dictation_map} | cap <user.word>")
-def dictation_chunk(m) -> str:
-    "An atomic chunk of dictated text."
-    if m[0] == "cap":
-        return actions.user.formatted_word(m.word, "CAPITALIZE_FIRST_WORD")
-    else:
-        return str(m)
-
-## TODO: remove this junk code ##
-# @mod.capture
-# def dictation_chunk(m) -> str:
-#     "An atomic chunk of dictated text."
-
-# @ctx.capture("self.dictation_chunk", rule="<user.text> | {user.dictation_map}")
-# def dictation_chunk_basic(m):
-#     return str(m)
-
-# # You can add complex actions to <user.dictation> by extending the
-# # dictation_chunk capture, like so:
-# @ctx.capture("self.dictation_chunk", rule="cap <user.word>")
-# def dictation_chunk_capitalize_word(m):
-#     return actions.user.formatted_text(m.word, "CAPITALIZE_FIRST_WORD")
-## TODO: remove the above junk code ##
-
-# You can add simple commands to <user.dictation> using this list. For more
-# complex commands, you can extend the <user.dictation_chunk> capture; see
-# above.
-mod.list("dictation_map", desc="dictation mode text commands, for punctuation etc")
-ctx.lists["user.dictation_map"] = {
-    ## new line/paragraph produce these commands rather than literal new lines
-    ## because dictation formatting splits the string on white space, so it
-    ## ignores new lines. This is kind of a hack.
-    #"new line": "new-line",  # "enter": "new-line",
-    #"new paragraph": "new-paragraph",
-    "new line": "\n", "new paragraph": "\n\n",
-    "period": ".",
-    "comma": ",",  "kama": ",", "coma": ",",
-    "question mark": "?",
-    "exclamation mark": "!",
-    "dash": "-",
-    "colon": ":",
-    "semicolon": ";",
-    "semi colon": ";",
-    "forward slash": "/",
-}
-
 mod.list(
     "dictation_begin",
     "key words for beginning dictation, mapped to whether they add a space",
@@ -92,6 +37,45 @@ mod.list(
 )
 ctx.lists["user.dictation_begin"] = {"say": "", "continue": " "}
 ctx.lists["user.dictation_end"] = {"over": "", "break": " "}
+
+# # ---------- THE DICTATION CAPTURE (DEPRECATED/UNUSED) ----------
+# @mod.capture(rule="<self.dictation_chunk>+")
+# def dictation(m) -> str:
+#     """
+#     A string of dictated text. Needs to be passed through user.dictation_format
+#     or similar for formatting.
+#     """
+#     return " ".join(m.dictation_chunk_list)
+
+# @mod.capture(rule="<user.text> | {user.dictation_map} | cap <user.word>")
+# def dictation_chunk(m) -> str:
+#     "An atomic chunk of dictated text."
+#     if m[0] == "cap":
+#         return actions.user.formatted_word(m.word, "CAPITALIZE_FIRST_WORD")
+#     else:
+#         return str(m)
+
+# # You can add simple commands to <user.dictation> using this list. For more
+# # complex commands, you can extend the <user.dictation_chunk> capture; see
+# # above.
+# mod.list("dictation_map", desc="dictation mode text commands, for punctuation etc")
+# ctx.lists["user.dictation_map"] = {
+#     ## new line/paragraph produce these commands rather than literal new lines
+#     ## because dictation formatting splits the string on white space, so it
+#     ## ignores new lines. This is kind of a hack.
+#     #"new line": "new-line",  # "enter": "new-line",
+#     #"new paragraph": "new-paragraph",
+#     "new line": "\n", "new paragraph": "\n\n",
+#     "period": ".",
+#     "comma": ",",  "kama": ",", "coma": ",",
+#     "question mark": "?",
+#     "exclamation mark": "!",
+#     "dash": "-",
+#     "colon": ":",
+#     "semicolon": ";",
+#     "semi colon": ";",
+#     "forward slash": "/",
+# }
 
 
 # ---------- DICTATION AUTO FORMATTING ---------- #
