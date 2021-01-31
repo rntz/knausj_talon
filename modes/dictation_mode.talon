@@ -1,5 +1,6 @@
 mode: dictation
 -
+^press <user.keys>: key("{keys}")
 <user.prose>: auto_insert(prose)
 new line: "\n"
 new paragraph:
