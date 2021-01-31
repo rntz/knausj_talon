@@ -128,7 +128,7 @@ punctuation_words = {
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
     "`": "`", ",": ",", # <== these things
     "back tick": "`",
-    "comma": ",", "kama": ",",
+    "comma": ",", "kama": ",", "coma": ",",
     #"come a": ",", # collides with 'commit'
     "period": ".",
     "semicolon": ";",
