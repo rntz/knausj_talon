@@ -35,10 +35,7 @@ cut line <number>:
 cut [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.cut()
-paste [line] <number> until <number>:
-  user.select_range(number_1, number_2)
-  edit.paste()
-replace [line] <number> until <number>:
+(paste | replace) [line] <number> until <number>:
     user.select_range(number_1, number_2)
     edit.paste()
 (select | cell | sell) line <number>: user.select_range(number, number)
