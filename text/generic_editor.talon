@@ -57,7 +57,7 @@ go [to] top:
 select line:
     edit.select_line()
 
-select everything:
+select all:
     edit.select_all()
 
 select left:
@@ -145,12 +145,12 @@ clear to bottom:
     edit.extend_file_end()
     edit.delete()
 
-clear everything:
+clear all:
     edit.select_all()
     edit.delete()
 
 #copy commands
-copy everything:
+copy all:
     edit.select_all()
     edit.copy()
 #to do: do we want these variants, seem to conflict
@@ -184,7 +184,7 @@ copy line:
     edit.copy()
 
 #cut commands
-cut everything:
+cut all:
     edit.select_all()
     edit.cut()
 #to do: do we want these variants
