@@ -20,7 +20,7 @@ cut that: edit.cut()
 paste that: edit.paste()
 undo [that]:
   edit.undo()
-  user.quick_action_set("core.repeat_command")
+  user.quick_macro_set("edit.undo")
 redo that: edit.redo()
 paste match: edit.paste_match_style()
 file save: edit.save()

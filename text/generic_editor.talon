@@ -1,14 +1,14 @@
 search:
     edit.find()
-    user.quick_action_set("edit.find_next")
+    user.quick_macro_set("edit.find_next")
 
 go next | later:
     edit.find_next()
-    user.quick_action_set("edit.find_next")
+    user.quick_macro_set("edit.find_next")
 
 go last | prior:
     edit.find_previous()
-    user.quick_action_set("edit.find_previous")
+    user.quick_macro_set("edit.find_previous")
 
 go word left:
     edit.word_left()
