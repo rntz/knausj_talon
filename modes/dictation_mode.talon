@@ -59,9 +59,9 @@ clear right <number_small> (character|characters):
     repeat(number_small - 1)
     edit.delete()
 
-#formatting 
+#formatting
 formatted <user.format_text>:
-    user.dictation_insert_raw(format_Text)
+    user.dictation_insert_raw(format_text)
 ^format selection <user.formatters>$:
     user.formatters_reformat_selection(formatters)
 
