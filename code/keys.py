@@ -155,6 +155,7 @@ punctuation_words = {
     "ampersand": "&",
     "single quote": "'",
     "double quote": '"',
+    "dash": "-",
     "hyphen": "-",
     "short dash": "–",
     "long dash": "—",
@@ -178,7 +179,7 @@ symbol_key_words = {
     #"slide": "\\",
     "swing": "\\", #"backer": "\\",
     "minus": "-",
-    "dash": "-",
+#    "dash": "-",
     "equals": "=",
     "plus": "+",
     "question": "?",
@@ -218,10 +219,15 @@ symbol_key_words = {
     "open single": "‘", "close single": "’",
     'open double': '“', 'close double': '”',
     "apostrophe": "’",
-    "lub": "(", "rub": ")", #"leper": "(", "repper": ")",
+    "lub": "(", "rub": ")",
     "lace": "{", "race": "}",
     "lack": "[", "rack": "]",
     "langle": "<", "wrangle": ">",
+# unfortunately "ross" doesn't work so well
+#    "lab": "(", "rob": ")", "lack": "[", "rock": "]", "lass": "{", "ross": "}",
+    "leper": "(", "repper": ")",
+    "locket": "[", "rocket": "]",
+    "liquor": "{", "liker": "{", "riker": "}", # "lequor": "{", #"lecker": "{",
 }
 
 # make punctuation words also included in {user.symbol_keys}
@@ -251,14 +257,14 @@ simple_keys = [
 alternate_keys = {
     "head": "home", "tail": "end",
     'junk': 'backspace',
-    'deli': 'delete',
+    'deli': 'delete', 'delhi': 'delete',
     'overwrite': 'insert',
     "bar": "space",
     "break": "space",
     "void": "space",
-    "inter": "enter",
-#    "slap": "enter",
-#    "shock": "enter", "shuck": "enter",
+#    "inter": "enter",
+    "slap": "enter", "slab": "enter", "slam": "enter",
+#    "shock": "enter", # "shuck": "enter",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):

@@ -11,6 +11,7 @@ scales = "hundred thousand million billion trillion quadrillion quintillion sext
 
 digits_map = {n: i for i, n in enumerate(digits)}
 digits_map["oh"] = 0
+digits_map["o"] = 0
 teens_map = {n: i + 11 for i, n in enumerate(teens)}
 tens_map = {n: 10 * (i + 1) for i, n in enumerate(tens)}
 scales_map = {n: 10 ** (3 * (i+1)) for i, n in enumerate(scales[1:])}
@@ -155,7 +156,7 @@ alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
-number_word_leading =  "(" + "|".join(x for x in numbers_map.keys() if x != "oh") + ")"
+number_word_leading = "(" + "|".join(x for x in numbers_map.keys() if x not in ["oh","o"]) + ")"
 
 # TODO: allow things like "double eight" for 88
 @ctx.capture("digit_string", rule=f"({alt_digits} | {alt_teens} | {alt_tens})+")

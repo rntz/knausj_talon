@@ -13,6 +13,9 @@ comment line <number>:
 comment [line] <number> until <number>:
     user.select_range(number_1, number_2)
     code.toggle_comment()
+clear line <number>:
+    edit.jump_line(number)
+    edit.delete_line()
 delete line <number>:
     edit.jump_line(number)
     user.select_range(number, number)
@@ -68,4 +71,4 @@ drag down line <number>:
 drag down <number> until <number>:
     user.select_range(number_1, number_2)
     edit.line_swap_down()
-clone line: edit.line_clone()
+duplicate line: edit.line_clone()

@@ -23,6 +23,10 @@ prose <user.prose> {user.dictation_end}:
   user.insert_formatted(prose + dictation_end, "NOOP")
 
 <user.format_text>+$: user.insert_many(format_text_list)
+<user.format_text>+ <user.delimiter_pair>:
+  user.insert_many(format_text_list)
+  insert(user.delimiter_pair)
+  key(left)
 <user.format_text>+ {user.dictation_end}:
   user.insert_many(format_text_list)
   insert(dictation_end)
