@@ -145,6 +145,10 @@ clear to bottom:
     edit.extend_file_end()
     edit.delete()
 
+clear everything:
+    edit.select_all()
+    edit.delete()
+
 #copy commands
 copy everything:
     edit.select_all()
