@@ -31,7 +31,7 @@ settings():
     user.command_history_size = 50
 
     # use copying via clipboard to inform auto-capitalization/spacing in dictation mode
-    user.dictation_copy_surrounding_text = 1
+    user.dictation_context_sensitive = 1
 	
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled

@@ -1,85 +1,16 @@
-from talon import Context, Module, actions, grammar, registry
+from talon import Module
 from .user_settings import bind_list_to_csv, bind_word_map_to_csv
 from typing import Tuple, Optional
 
 mod = Module()
-ctx = Context()
 
 mod.list("vocabulary", desc="additional vocabulary words")
 
-@mod.capture(rule="({user.vocabulary} | <word>)")
-def word(m) -> str:
-    try:
-        return m.vocabulary
-    except AttributeError:
-        return " ".join(actions.dictate.replace_words(actions.dictate.parse_words(m.word)))
-
-@mod.capture(rule="({user.vocabulary} | <phrase>)+")
-def text(m) -> str: return format_phrase(m)
-
-@mod.capture(rule="({user.vocabulary} | {user.punctuation} | <phrase>)+")
-def prose(m) -> str: return format_phrase(m)
-
-# TODO: unify this formatting code with the dictation formatting code, so that
-# user.prose behaves the same way as dictation mode.
-def format_phrase(m):
-    words = capture_to_word_list(m)
-    result = ""
-    for i, word in enumerate(words):
-        if i > 0 and needs_space_between(words[i-1], word):
-            result += " "
-        result += word
-    return result
-
-def capture_to_word_list(m):
-    words = []
-    for item in m:
-        words.extend(
-            actions.dictate.replace_words(actions.dictate.parse_words(item))
-            if isinstance(item, grammar.vm.Phrase) else
-            item.split(" "))
-    return words
-
-no_space_before = set("\n .,!?;:-/%)]}\"")
-no_space_after = set("\n -/#@([{$£€¥₩₽₹\"")
-def needs_space_between(before: str, after: str) -> bool:
-    """TODO"""
-    return (before != "" and after != ""
-            and before[-1] not in no_space_after
-            and after[0] not in no_space_before)
-
-@mod.action_class
-class FormattingActions:
-    needs_space_between = needs_space_between
-
-    def auto_capitalize(sentence_start: bool, text: str) -> Tuple[bool, str]:
-        """
-        Auto-capitalizes `text`. Pass sentence_start=True iff `text` starts at the
-        beginning of a sentence should be capitalized. Returns
-        (new_sentence_start, capitalized_text). new_sentence_start is True iff
-        the end of text is the beginning of a new sentence.
-        """
-        # Imagine a metaphorical "capitalization charge" travelling through the
-        # string left-to-right.
-        charge = sentence_start
-        output = ""
-        for c in text:
-            # Sentence endings create a charge.
-            if c in ".!?":
-                charge = True
-            # Alphanumeric characters and commas absorb charge & try to
-            # capitalize (for numbers & punctuation this does nothing, which is
-            # what we want).
-            elif charge and (c.isalnum() or c in ","):
-                charge = False
-                c = c.capitalize()
-            # Otherwise the charge passes through (we do nothing).
-            output += c
-        return charge, output
-
-
-# ---------- LISTS (punctuation, additional/replacement words) ----------
 # Default words that will need to be capitalized (particularly under w2l).
+# NB. These defaults and those later in this file are ONLY used when
+# auto-creating the corresponding settings/*.csv files. Those csv files
+# determine the contents of user.vocabulary and dictate.word_map. Once they
+# exist, the contents of the lists/dictionaries below are irrelevant.
 _capitalize_defaults = [
     "I",
     "I'm",
