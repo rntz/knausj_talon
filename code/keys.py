@@ -189,6 +189,7 @@ symbol_key_words = {
     "bang": "!",
     "dollar": "$",
     "down score": "_", "downs score": "_", "underscore": "_",
+    "undy": "_",
     "sub": "_",
     #"score": "_",
     "deckle": ":",

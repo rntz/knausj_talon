@@ -18,7 +18,8 @@ scroll [down]: key(pgdown)
 copier | copy that: edit.copy()
 cutter | cut that: edit.cut()
 paster | paste that: edit.paste()
-don't | undo [that]:
+undue: skip()
+(undo | undue) that:
   edit.undo()
   user.quick_macro_set("edit.undo")
 redo that: edit.redo()
